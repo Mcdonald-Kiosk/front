@@ -4,14 +4,14 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 // import LoginPage from '../../pages/LoginPage/LoginPage';
 // import OAuth2LoginPage from '../../pages/OAuth2LoginPage/OAuth2LoginPage';
 // import JoinPage from '../../pages/JoinPage/JoinPage';
-import SelectMenu from '../../pages/SelectMenu/SelectMenu';
-import OrderPage from '../../pages/OrderPage/OrderPage';
-import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
+import SelectMenu from '../../pages/userPages/SelectMenu/SelectMenu';
+import OrderPage from '../../pages/userPages/OrderPage/OrderPage';
+import NotFoundPage from '../../pages/userPages/NotFoundPage/NotFoundPage';
 import { selectedLanguageState } from '../../atoms/selectedLanguage/selectedLanguage';
 import { useRecoilValue } from "recoil";
 
 
-function AuthRoute(props) {
+function UserRoute(props) {
     // const navigate = useNavigate();
 
     // const queryClient = useQueryClient();
@@ -41,4 +41,4 @@ function AuthRoute(props) {
     )
 }
 
-export default AuthRoute;
+export default UserRoute;
