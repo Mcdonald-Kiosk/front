@@ -1,16 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Global } from '@emotion/react'
+import { Global } from "@emotion/react"
 import { global } from "./styles/global"
+import { Route, Routes } from "react-router-dom"
+import AuthRoute from "./routes/AuthRoute/AuthRoute"
+// import MainRoute from "./routes/MainRoute/MainRoute"
+
+
+
 
 function App() {
-    return (
-    <>
-      <Global styles={global}>
-      </Global>
-    </>
-  )
+	
+	
+	return (
+    	<>
+			<Global styles={global} />
+			<Routes>
+				<Route path="/*" element={<AuthRoute />} />
+				{/* <Route path="/auth/*" element={<MainRoute />} /> */}
+			</Routes>
+    	</>
+  	)
 }
 
 export default App
