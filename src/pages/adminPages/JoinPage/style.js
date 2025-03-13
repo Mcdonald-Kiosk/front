@@ -1,101 +1,112 @@
 import { css } from "@emotion/react";
 
-export const layout = css`
+export const container = css`
     display: flex;
+     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
+    height: 100vh;
 `;
 
-export const groupBox = css`
-    box-sizing: border-box;
-    padding: 0.6rem 0;
-    width: 32.6rem;
-`;
-
-export const title1 = css`
-    margin: 0.5rem 0;
-    font-size: 2rem;
-    cursor: default;
-`;
-
-export const title2 = css`
-    margin: 0.5rem 0;
-    font-size: 2rem;
-    color: #bbbbbb;
-    cursor: default;    
-`;
-
-export const accountMessage = css`
-    font-size: 1.2rem;
-    color: #777777;
-    cursor: default;
-`;
-
-export const accountButton = css`
-    box-sizing: border-box;
-    border: none;
-    border-radius: 0.5rem;
-    width: 100%;
-    height: 4rem;
-    font-size: 1.4rem;
-    letter-spacing: 0.1rem;
-    color: #ffffff;
-    background-color: #2383e2;
-    cursor: pointer;
-    &:active {
-        background-color: #1b65af;
-    }
-`;
-
-export const oauth2Group = css`
-    box-sizing: border-box;
-    margin-bottom: 1rem;
-    border-bottom: 0.1rem solid #dbdbdb;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-`;
-
-export const oauth2Button = css`
-    position: relative;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    border: 0.1rem solid #dbdbdb;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    height: 3.6rem;
-    background-color: transparent;
-    cursor: pointer;
-    
-    &:active {
-        background-color: #fafafa;
-    }
-`;
-
-export const oauth2Icon = css`
+export const logoContainer = css`
     position: absolute;
+    top: 20px;
+    left: 20px;
+
+    & img {
+        width: 20rem;
+    }
+`;
+
+export const formWrapper = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+`;
+
+export const title = css`
+    font-size: 5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+`;
+
+export const formContainer = css`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+`;
+
+export const inputBox = css`
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+`;
+
+export const rightContainer = css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-left: 30px;
+`;
+
+export const socialLoginTitle = css`
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+`;
+
+export const socialLoginBox = css`
+    display: flex;
+    gap: 10px;
+    
+    & > img {
+        width: 80px;
+        height: 80px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+`;
+
+export const buttonContainer = css`
     display: flex;
     justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;  /* OAuth2 버튼과 간격 확보 */
+`;
+
+export const button = css`
+    display: flex;
     align-items: center;
-    width: 2.4rem;
-    height: 2.4rem;
-`;
-
-export const oauth2Text = css`
-    flex-grow: 1;
-    font-weight: 600;
-`;
-
-export const footerAgreement = css`
-    display: inline-flex;
     justify-content: center;
-    box-sizing: border-box;
-    padding: 0.6rem 0;
-    width: 32.6rem;
-    font-size: 1.2rem;
+    width: 10rem;
+    height: 4rem;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
     text-align: center;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    text-decoration-line: none;
+
+
+
+    &:hover {
+        background-color: #0056b3;
+    }
 `;
