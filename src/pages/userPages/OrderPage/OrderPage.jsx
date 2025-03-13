@@ -9,6 +9,7 @@ import * as s from './style';
 import React, { useState } from 'react';
 import CoffeeMenu from './menu/CoffeeMenu';
 import CallManagerModal from '../../../components/Modal/CallManagerModal/CallManagerModal';
+import MenuDetailModal from '../../../components/Modal/MenuDetailModal/MenuDetailModal';
 
 
 
@@ -37,7 +38,7 @@ function OrderPage(props) {
         setSelectedMenu(menu); // 메뉴 클릭 시 모달에 정보를 전달
     }
 
-    const handleCloseModal = () => {
+    const handleCloseMenuDetailModal = () => {
         setSelectedMenu(null); // 모달 닫기
     }
 
@@ -64,6 +65,9 @@ function OrderPage(props) {
                     <div onClick={() => handleMenuCategoryOnClick("사이드")}>🍗 사이드</div>
                     <div onClick={() => handleMenuCategoryOnClick("음료")}>🥤 음료</div>
                     <div onClick={() => handleMenuCategoryOnClick("커피")}>☕ 커피</div>
+                    <div>테스트 1</div>
+                    <div>테스트 2</div>
+                    <div>테스트 3</div>
                 </div>
                 <div css={s.menu}>
                     {/* 선택된 카테고리에 따라 메뉴를 렌더링하고, 각 메뉴 항목 클릭 시 handleMenuItemClick 호출 */}
@@ -82,7 +86,7 @@ function OrderPage(props) {
             </footer>
 
             {/* 선택된 메뉴가 있을 경우 모달을 띄운다 */}
-            {selectedMenu && <MenuModal menu={selectedMenu} onClose={handleCloseModal} />}
+            {selectedMenu && <MenuDetailModal menu={selectedMenu} onClose={handleCloseMenuDetailModal} />}
         </div>
     );
 }
