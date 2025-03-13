@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { selectedLanguageState } from '../../atoms/selectedLanguage/selectedLanguage';
 import { useRecoilValue } from "recoil";
-import SelectAdminMenu from '../../pages/adminPages/SelectAdminMenu/SelectAdminMenu';
-import OrderPage from '../../pages/userPages/OrderPage/OrderPage';
-import NotFoundPage from '../../pages/userPages/NotFoundPage/NotFoundPage';
+import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import LoginPage from '../../pages/adminPages/LoginPage/LoginPage';
 import JoinPage from '../../pages/adminPages/JoinPage/JoinPage';
 
@@ -31,8 +29,6 @@ function AdminRoute(props) {
             <Route path='/login/oauth2' element={<OAuth2LoginPage />} />
             <Route path="/join" element={<JoinPage />} /> */}
 
-            <Route path="/menu/*" element={<SelectAdminMenu />} />
-            <Route path="/order/*" element={<OrderPage />} />
             <Route path="/join/*" element={<JoinPage />} />
             <Route path="/login/*" element={<LoginPage />} />
             

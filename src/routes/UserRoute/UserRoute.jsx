@@ -6,7 +6,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 // import JoinPage from '../../pages/JoinPage/JoinPage';
 import SelectMenu from '../../pages/userPages/SelectMenu/SelectMenu';
 import OrderPage from '../../pages/userPages/OrderPage/OrderPage';
-import NotFoundPage from '../../pages/userPages/NotFoundPage/NotFoundPage';
+import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import { selectedLanguageState } from '../../atoms/selectedLanguage/selectedLanguage';
 import { useRecoilValue } from "recoil";
 
