@@ -1,7 +1,7 @@
 import { Global } from "@emotion/react"
 import { global } from "./styles/global"
 import { Route, Routes } from "react-router-dom"
-import AuthRoute from "./routes/AuthRoute/AuthRoute"
+import UserRoute from "./routes/UserRoute/UserRoute"
 // import MainRoute from "./routes/MainRoute/MainRoute"
 
 
@@ -14,7 +14,7 @@ function App() {
     	<>
 			<Global styles={global} />
 			<Routes>
-				<Route path="/*" element={<AuthRoute />} />
+				<Route path="/*" element={<UserRoute />} />
 				{/* <Route path="/auth/*" element={<MainRoute />} /> */}
 			</Routes>
     	</>

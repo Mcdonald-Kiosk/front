@@ -3,7 +3,7 @@ import { BiError } from 'react-icons/bi';
 import * as s from './style';
 import React from 'react';
 
-function NotFoundPage(props) {
+function NotFoundPage() {
     return (
         <div css={s.layout}>
             <BiError />
