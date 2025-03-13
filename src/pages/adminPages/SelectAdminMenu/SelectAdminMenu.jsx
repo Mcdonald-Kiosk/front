@@ -2,11 +2,11 @@
 import * as s from './style';
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { selectedLanguageState } from '../../atoms/selectedLanguage/selectedLanguage';
 import { useNavigate } from 'react-router-dom';
+import { selectedLanguageState } from '../../../atoms/selectedLanguage/selectedLanguage';
 
 
-function SelectMenu(props) {
+function SelectAdminMenu(props) {
     const navi = useNavigate();
 
     const images = [
@@ -102,4 +102,4 @@ function SelectMenu(props) {
     );
 }
 
-export default SelectMenu;
+export default SelectAdminMenu;

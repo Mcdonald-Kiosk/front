@@ -1,25 +1,44 @@
-// import React, { useEffect } from 'react';
-// import { Route, Routes, useNavigate } from 'react-router-dom';
-// import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
-// import { useQueryClient } from '@tanstack/react-query';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { selectedLanguageState } from '../../atoms/selectedLanguage/selectedLanguage';
+import { useRecoilValue } from "recoil";
+import SelectAdminMenu from '../../pages/adminPages/SelectAdminMenu/SelectAdminMenu';
+import OrderPage from '../../pages/userPages/OrderPage/OrderPage';
+import NotFoundPage from '../../pages/userPages/NotFoundPage/NotFoundPage';
+import LoginPage from '../../pages/adminPages/LoginPage/LoginPage';
+import JoinPage from '../../pages/adminPages/JoinPage/JoinPage';
 
-// function MainRoute(props) {
-//     const navigate = useNavigate();
-//     const queryClient = useQueryClient();
-//     const queryState = queryClient.getQueryState(["userMeQuery"]);
 
-//     useEffect(() => {
-//         if(queryState.status === "error") {
-//             navigate("/auth/login");
-//         }
-//     }, [queryState]);
+function AdminRoute(props) {
+    // const navigate = useNavigate();
 
-//     return queryState.status === "success" &&
-//         <>
-//             <Routes>
-//                 <Route path="/*" element={<NotFoundPage />} />
-//             </Routes>
-//         </>
-// }
+    // const queryClient = useQueryClient();
+    // const queryState = queryClient.getQueryState(["userMeQuery"]);
 
-// export default MainRoute;
+    // useEffect(() => {
+    //     if(queryState.status === "success") {
+    //         navigate("/");
+    //     }
+    // }, [queryState]);
+
+    // return queryState.status === "error" &&       일단은 밑에걸로 임시
+
+    const selectedLanguage = useRecoilValue(selectedLanguageState); // 전역 상태 가져오기
+
+    return (
+        <Routes>
+            {/* <Route path="/login" element={<LoginPage />} />
+            <Route path='/login/oauth2' element={<OAuth2LoginPage />} />
+            <Route path="/join" element={<JoinPage />} /> */}
+
+            <Route path="/menu/*" element={<SelectAdminMenu />} />
+            <Route path="/order/*" element={<OrderPage />} />
+            <Route path="/join/*" element={<JoinPage />} />
+            <Route path="/login/*" element={<LoginPage />} />
+            
+            <Route path="/*" element={<NotFoundPage />} />
+        </Routes>
+    )
+}
+
+export default AdminRoute;
