@@ -1,50 +1,95 @@
-import React from 'react';
-import { css } from '@emotion/react';
 /**@jsxImportSource @emotion/react */
 import * as s from './style';
+import React, { useState } from 'react';
 
-
-/*
-이거 아님 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-밑에 코드는 임시로 짜놓은 것
-*/
 const MenuDetailModal = ({ menu, onClose }) => {
+    const [step, setStep] = useState(1);
+    const [isSet, setIsSet] = useState(false);
+    const [side, setSide] = useState("");
+    const [drink, setDrink] = useState("");
+
+    const sideOptions = ["감자튀김", "치즈스틱", "콘샐러드"];
+    const drinkOptions = ["콜라", "사이다", "환타"];
+
+    const handleNext = () => {
+        setStep((prev) => prev + 1);
+    };
+
+    const handleIsSetOnClick = (boolean) => {
+        setIsSet(boolean);
+        console.log("handleIsSetOnClick~~");
+    }
+
+    const handleAddToCart = () => {
+        const orderDetails = {
+            menu: menu.name,
+            side: isSet ? side : null,
+            drink: isSet ? drink : null,
+            price: isSet ? menu.price + 2000 : menu.price
+        };
+        console.log("장바구니에 담을 아이템 :", orderDetails);
+        // addToCart(orderDetails); // 장바구니에 추가하는 함수 호출,아직 미개발
+        onClose(); // 모달 닫기
+    };
+
     return (
-        <div css={modalOverlay}>
-            <div css={modalContent}>
-                <h2>{menu.name}</h2>
-                <img src={menu.img} alt={menu.name} css={modalImage} />
-                <p>{menu.description}</p>
-                <p>{menu.price}원</p>
-                <button onClick={onClose}>닫기</button>
+        <div css={s.modalOverlay}>
+            <div css={s.modalContent}>
+
+                {step === 1 && (
+                    <div>
+                        <h3 css={s.modalBasich3}>세트 여부 선택</h3>
+                        <div css={s.temp}>
+                            <div css={s.modalBuguerSetImage}>
+                                <div onClick={() => handleIsSetOnClick(false)} > 단품 ( +0원 )
+                                    <img src={menu.img} alt={menu.name}  />
+                                </div>
+                            </div>
+                            <div css={s.modalBuguerSetImage}>
+                                <div onClick={() => handleIsSetOnClick(true)} > 세트 ( +2000원 ) 
+                                    <img src={menu.img2} alt={menu.name} />
+                                </div>
+                            </div>
+                        </div>
+                        <div css={s.nextAndClose}>
+                            <span onClick={handleNext}>다 음</span>
+                            <span onClick={onClose}>닫 기</span>
+                        </div>
+                    </div>
+                )}
+
+                {/* 여기부터 시작@@@@@@@@@@@@@ */}
+                {step === 2 && (
+                    <div>
+                        <h3 css={s.modalBasich3}>사이드 선택</h3>
+                        <select onChange={(e) => setSide(e.target.value)} value={side}>
+                            <option value="">선택 안함</option>
+                            {sideOptions.map((s) => (
+                                <option key={s} value={s}>{s}</option>
+                            ))}
+                        </select>
+                        <div css={s.nextAndClose}>
+                            <span onClick={handleNext}>다 음</span>
+                            <span onClick={onClose}>닫 기</span>
+                        </div>
+                    </div>
+                )}
+
+                {step === 3 && (
+                    <div>
+                        <h3>음료 선택</h3>
+                        <select onChange={(e) => setDrink(e.target.value)} value={drink}>
+                            <option value="">선택 안함</option>
+                            {drinkOptions.map((d) => (
+                                <option key={d} value={d}>{d}</option>
+                            ))}
+                        </select>
+                        <button onClick={handleAddToCart}>장바구니에 담기</button>
+                    </div>
+                )}
             </div>
         </div>
     );
-}
-
-const modalOverlay = css`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const modalContent = css`
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-`;
-
-const modalImage = css`
-    width: 100%;
-    max-width: 300px;
-    margin: 20px 0;
-`;
+};
 
 export default MenuDetailModal;

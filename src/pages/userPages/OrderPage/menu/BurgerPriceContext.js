@@ -1,5 +1,7 @@
 import { createContext } from 'react';
 
+// 가격정보는 현재 임의로 넣은 값, 나중에 백엔드에서 가져와야 한다.
+// 가격 말고도 영양정보, 원산지 등등?
 export const BurgerPriceContext = createContext({
     prices: {
         "맥스파이시® 상하이 투움바": 5900,
@@ -23,6 +25,5 @@ export const BurgerPriceContext = createContext({
         "치즈버거": 2900,
         "더블 치즈버거": 3900,
         "트리플 치즈버거": 4900,
-        "햄버거": 2500
     }
 });
