@@ -31,8 +31,6 @@ function AdminRoute(props) {
             <Route path='/login/oauth2' element={<OAuth2LoginPage />} />
             <Route path="/join" element={<JoinPage />} /> */}
 
-            <Route path="/menu/*" element={<SelectAdminMenu />} />
-            <Route path="/order/*" element={<OrderPage />} />
             <Route path="/join/*" element={<JoinPage />} />
             <Route path="/login/*" element={<LoginPage />} />
             
