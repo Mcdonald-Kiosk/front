@@ -156,7 +156,7 @@ function JoinPage(props) {
             
                         <div css={s.buttonContainer}>
                             <div >
-                            <Link css={s.button} to={"/login"}> 로그인</Link>               
+                            <Link css={s.button} to={"/admin/login"}> 로그인</Link>               
                             </div>
                             <div>
                                 <button css={s.button} onClick={handleJoinOnClick}>
