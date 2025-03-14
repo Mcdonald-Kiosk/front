@@ -90,7 +90,9 @@ function JoinPage(props) {
         }
     };
 
-    
+    const handleOAuth2LoginOnClick = (provider) => {
+        window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;
+    }
 
     return (
         <div css={s.container}>
@@ -148,10 +150,10 @@ function JoinPage(props) {
             <div css={s.rightContainer}>
                 <h3 css={s.socialLoginTitle}>간편 회원가입</h3>
                 <div css={s.socialLoginBox}>
-                    <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5rH/image/aFrEyVpANu07FvoBZQbIB4aF_uc" alt="Google" />
-                    <img src="https://i.namu.wiki/i/p_1IEyQ8rYenO9YgAFp_LHIAW46kn6DXT0VKmZ_jKNijvYth9DieYZuJX_E_H_4GkCER_sVKhMqSyQYoW94JKA.svg" alt="Naver" />
+                        <img onClick={() => handleOAuth2LoginOnClick("google")} src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5rH/image/aFrEyVpANu07FvoBZQbIB4aF_uc"  alt="Google" />
+                    <img onClick={() => handleOAuth2LoginOnClick("naver")}src="https://i.namu.wiki/i/p_1IEyQ8rYenO9YgAFp_LHIAW46kn6DXT0VKmZ_jKNijvYth9DieYZuJX_E_H_4GkCER_sVKhMqSyQYoW94JKA.svg" alt="Naver" />
                     <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg" alt="Kakao" />
-            </div>
+                </div>
             </div>
             
                         <div css={s.buttonContainer}>
