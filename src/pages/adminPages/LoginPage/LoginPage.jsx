@@ -36,7 +36,7 @@ function LoginPage(props) {
                 position:"center",
                 showConfirmButton: false,
             });
-            navigate("/menu");
+            navigate("/admin/main/");
             await queryClient.invalidateQueries({queryKey: ["userMeQuery"]});
         } catch(error) {
             // if(error.response.status === 401) {
@@ -92,7 +92,7 @@ function LoginPage(props) {
                         </div>
                         <div css={s.footerbox}>
                         <p css={s.accountMessage}>
-                            <Link to={"/join"}>회원가입</Link>
+                            <Link to={"/admin/join"}>회원가입</Link>
                         </p>
                             <button css={s.accountButton} onClick={handleLoginOnClick}>로그인</button>
                         </div>
