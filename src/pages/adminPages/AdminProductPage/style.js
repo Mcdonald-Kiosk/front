@@ -27,8 +27,8 @@ export const conBox = css`
 
     & > div:nth-of-type(1) {
         position: absolute;
-        top: -20rem;
-        left: 0rem;
+        top: -25rem;
+        left: -10rem;
         width: 15rem;
         height: 8rem;
         border: 0.1rem solid #000;
@@ -45,25 +45,34 @@ export const mainCon = css`
 
     & > div {
         margin-top: 5rem;
-        width: 25rem;
-        height: 25rem;
+        width: 33rem;
+        height: 33rem;
         background-color: #47a8af;
         border-radius: 3rem;
         cursor: pointer;
         font-size: 5rem;
+        text-align: center;
         
-        & > svg {
-            margin-top: 7rem;
+        &:hover {
+            text-decoration: underline;
         }
 
-        & > h6 {
+        & > svg {
+            margin-top: 10rem;
+            
+            & > path {
+                font-size: 3rem;
+            }
+        }
+
+        & > h5 {
             margin-top: 0;
         }
     }
     
     & > div:nth-of-type(2) {
-        margin-right: 10rem;
-        margin-left: 10rem;
+        margin-right: 15rem;
+        margin-left: 15rem;
         background-color: #a837aa;
     }
 
