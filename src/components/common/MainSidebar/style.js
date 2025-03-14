@@ -45,7 +45,7 @@ export const buttonstyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem 0 2rem 0;
+    margin: 1rem 0 1.5rem 0;
     border-radius: 0.5rem;
     border: 0.2rem solid #9cb163;
 
