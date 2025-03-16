@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 export const container = css`
     display: flex;
-     flex-direction: column;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -16,6 +16,11 @@ export const logoContainer = css`
     & img {
         width: 20rem;
     }
+`;
+
+export const test1 = css`
+    display: flex;
+
 `;
 
 export const formWrapper = css`
@@ -36,8 +41,10 @@ export const title = css`
 export const formContainer = css`
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
     width: 100%;
+    
 `;
 
 export const inputBox = css`
@@ -51,26 +58,27 @@ export const inputBox = css`
 `;
 
 export const rightContainer = css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-left: 30px;
+    width: 25rem;
+    height: 20rem;
+    margin-top: 34.5rem;
 `;
 
 export const socialLoginTitle = css`
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     font-weight: bold;
     text-align: center;
-`;
+    `;
 
 export const socialLoginBox = css`
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
     
     & > img {
-        width: 80px;
-        height: 80px;
+        margin-right: 0.8rem;
+        width: 8rem;
+        height: 8rem;
         cursor: pointer;
         transition: transform 0.2s ease-in-out;
 
@@ -82,29 +90,30 @@ export const socialLoginBox = css`
 
 export const buttonContainer = css`
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    margin-top: 20px;  /* OAuth2 버튼과 간격 확보 */
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 8rem;
+    height: 8rem;
+    margin-top: 2rem;  /* OAuth2 버튼과 간격 확보 */
+    margin-right: 1rem;
 `;
 
 export const button = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 10rem;
-    height: 4rem;
-    font-size: 2rem;
-    font-weight: bold;
+    width: 8rem;
+    height: 3.8rem;
+    font-size: 1.5rem;
+    font-weight: 600;
     cursor: pointer;
     text-align: center;
     color: white;
     background-color: #007bff;
     border: none;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     text-decoration-line: none;
-
-
 
     &:hover {
         background-color: #0056b3;
