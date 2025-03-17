@@ -1,4 +1,5 @@
 /**@jsxImportSource @emotion/react */
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import ValidInput from '../../../components/ValidInput/ValidInput';
 import * as s from './style';
 import { useState, useEffect } from "react";
@@ -16,6 +17,8 @@ function App() {
         price: "",
         description: "",
     });
+    const queryClient = useQueryClient();
+    const productImgData = queryClient.getQueryData(["userMeQuery"]);
 
     useEffect(() => {
         fetchMenus();
@@ -31,8 +34,8 @@ function App() {
         }
     };
 
-    const handleMenuSelect = (event) => {
-        const selectedId = event.target.value;
+    const handleMenuSelect = (e) => {
+        const selectedId = e.target.value;
         const menu = menus.find((m) => m.id.toString() === selectedId);
         setSelectedMenu(menu);
         if (menu) {
@@ -42,6 +45,8 @@ function App() {
             setDescription(menu.description);
         }
     };
+
+
 
     const handleInputProductInfoOnChange = (e) => {
         const {name, value} = e.target;
@@ -119,7 +124,9 @@ function App() {
             {/* 상품 정보 */}
             <div css={s.productContainer}>
                 {/* 이미지 */}
-                <div css={s.imageBox}>이미지</div>
+                <div css={s.imageBox}>
+                    <img src={`http://localhost:8080/image/user/profile/${productImgData?.data.profileImg}`} alt="" />
+                </div>
 
                 {/* 입력 */}
                 <div css={s.inputGroup}>
