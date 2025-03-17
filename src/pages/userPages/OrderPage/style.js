@@ -126,5 +126,6 @@ export const pay = css`
     display: flex;
     width: 100%;
     height: 20%;
-    border-top: 0.1rem solid black;
+    border-top: 0.2rem solid black;
+    background-color: #ffd154;
 `;
