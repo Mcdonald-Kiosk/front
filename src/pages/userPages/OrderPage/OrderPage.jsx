@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BurgerMenu from './menu/BurgerMenu';
 import DrinkMenu from './menu/DrinkMenu';
 // import HappySnackMenu from './menu/HappySnackMenu';
-import RecommendMenu from './menu/RecommendMenu';
+// import RecommendMenu from './menu/RecommendMenu';
 import SideMenu from './menu/SideMenu';
 import * as s from './style';
 import React, { useState, useEffect } from 'react';
@@ -19,10 +19,10 @@ function OrderPage(props) {
     const navi = useNavigate();
 
     // 선택된 카테고리 상태 추가
-    const [selectedCategory, setSelectedCategory] = useState("추천메뉴");
+    const [selectedCategory, setSelectedCategory] = useState("버거");
 
     // 장바구니
-    const [addedCartState] = useRecoilState(addedCart);
+    const [addedCartState, setAddedCartState] = useRecoilState(addedCart);
 
     const handleMenuCategoryOnClick = (category) => {
         if (selectedCategory !== category) {
@@ -45,7 +45,41 @@ function OrderPage(props) {
         setSelectedMenu(null); // 모달 닫기
     }
 
+    // 삭제할 아이템의 index로 .filter()를 사용하여 해당 index가 아닌 요소만 남김
+    const handleRemoveFromCart = (index) => {
+        setAddedCartState(prevCart => {
+            const updatedCart = prevCart.filter((_, i) => i !== index);
+            console.log("Updated Cart after Removal:", updatedCart);
+            return updatedCart;
+        });
+    };
 
+    // quantity 를 1씩 증가
+    const handleUpFromCart = (index) => {
+        setAddedCartState(prevCart => {
+            const updatedCart = prevCart.map((item, i) =>
+                i === index ? { ...item, quantity: item.quantity + 1 } : item
+            );
+            console.log("Updated Cart after Increment:", updatedCart[0]);
+            return updatedCart;
+        });
+    };
+
+    // quantity 를 1씩 감소 (최소값 1 유지)
+    const handleDownFromCart = (index) => {
+        setAddedCartState(prevCart => {
+            const updatedCart = prevCart.map((item, i) =>
+                i === index && item.quantity > 1
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+            );
+            console.log("Updated Cart after Decrement:", updatedCart[0]);
+            return updatedCart;
+        });
+    };
+
+    // menu_id -> 갯수만 있으면 백엔드에서 계산해서 db에 넣는다
+    // 장바구니 결제전에 이 2가지로 계싼
 
 
 
@@ -65,7 +99,7 @@ function OrderPage(props) {
 
             <main css={s.body}>
                 <div css={s.category}>
-                    <div onClick={() => handleMenuCategoryOnClick("추천메뉴")}>🔥 추천메뉴</div>
+                    {/* <div onClick={() => handleMenuCategoryOnClick("추천메뉴")}>🔥 추천메뉴</div> */}
                     <div onClick={() => handleMenuCategoryOnClick("버거")}>🍔 버거</div>
                     {/* <div onClick={() => handleMenuCategoryOnClick("해피스낵")}>🍟 해피스낵</div> */}
                     <div onClick={() => handleMenuCategoryOnClick("사이드")}>🍗 사이드</div>
@@ -77,7 +111,7 @@ function OrderPage(props) {
                 </div>
                 <div css={s.menu}>
                     {/* 선택된 카테고리에 따라 메뉴를 렌더링하고, 각 메뉴 항목 클릭 시 handleMenuItemClick 호출 */}
-                    {selectedCategory === "추천메뉴" && <RecommendMenu onMenuItemClick={handleMenuItemClick} />}
+                    {/* {selectedCategory === "추천메뉴" && <RecommendMenu onMenuItemClick={handleMenuItemClick} />} */}
                     {selectedCategory === "버거" && <BurgerMenu onMenuItemClick={handleMenuItemClick} />}
                     {/* {selectedCategory === "해피스낵" && <HappySnackMenu onMenuItemClick={handleMenuItemClick} />} */}
                     {selectedCategory === "사이드" && <SideMenu onMenuItemClick={handleMenuItemClick} />}
@@ -88,23 +122,26 @@ function OrderPage(props) {
             </main>
 
             <footer css={s.pay}>
+                <img src="https://cdn-icons-png.flaticon.com/512/8467/8467963.png" alt="" />
                 <div>
-                    <h2>장바구니</h2>
-                    <div>
-                        {addedCartState.length > 0 ? (
-                            <ul>
-                                {addedCartState.map((item, index) => (
-                                    <li key={index}>{item.menu} - {item.price}원</li> // 아이템 이름과 가격 표시
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>장바구니에 아무것도 없습니다.</p>
-                        )}
-                    </div>
+                    {addedCartState.length > 0 ? (
+                        <ul>
+                            {addedCartState.map((item, index) => (
+                                <li key={index}>{item.detailMenu} - {item.detailPrice}원
+                                    <button onClick={() => handleRemoveFromCart(index)}>❌</button>
+                                    <button onClick={() => handleUpFromCart(index)}>up</button>
+                                    <button onClick={() => handleDownFromCart(index)}>down</button>
+                                </li> // 아이템 이름과 가격 표시                           
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>장바구니에 아무것도 없습니다.</p>
+                    )}
                 </div>
-                <div>
-                    
-                </div>
+                <span>
+                    <p>주문하기</p>
+                    <p>쿠폰</p>
+                </span>
             </footer>
 
             {/* 선택된 메뉴가 있을 경우 모달을 띄운다 */}

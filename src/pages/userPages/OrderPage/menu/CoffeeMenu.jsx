@@ -7,7 +7,7 @@ function CoffeeMenu({ onMenuItemClick }) {
 
     useEffect(() => {
         if (menuData) {
-            console.log("Fetched Menu Data:", menuData);  // 메뉴 데이터 콘솔에 출력
+            console.log("Fetched Menu Data:", menuData);
         }
     }, [menuData]);
 
@@ -27,17 +27,21 @@ function CoffeeMenu({ onMenuItemClick }) {
                 .map((coffee) => (
                     <div 
                         key={coffee.menuId} 
-                        onClick={() => onMenuItemClick({ 
+                        onClick={() => onMenuItemClick({ // 선택한 메뉴의 name, img, img2, price 등을 전달
                             name: coffee.menuName, 
+                            category: coffee.menuCategory,
+                            seq: coffee.menuSequence,
                             img: coffee.singleImg, 
                             img2: coffee.setImg,
-                            price: coffee.menuPrice.menuPrice || 0 
+                            size: coffee.size,
+                            price1: coffee.menuPrice[0].menuPrice || 0,
+                            price2: coffee.menuPrice.length > 0 ? coffee.menuPrice[1].menuPrice : 0,
                         })}
                         style={{ cursor: 'pointer' }} // 클릭 가능하도록 스타일 추가
                     >
                         <img src={coffee.singleImg} alt={coffee.menuName} />
                         <p>{coffee.menuName}</p>
-                        <p>{coffee.menuPrice.menuPrice ? `${coffee.menuPrice.menuPrice}원` : "가격 없음"}</p>
+                        <p>{coffee.menuPrice && coffee.menuPrice[0]?.menuPrice ? `${coffee.menuPrice[0].menuPrice}원` : "가격 없음"}</p>
                     </div>
                 ))}
         </div>

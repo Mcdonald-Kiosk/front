@@ -8,37 +8,31 @@ export const fetchMenuData = async () => {
 
 /*
 [
-  {
-    "menuId": 1,
-    "menuName": "버거",
-    "menuCategory": "세트",
-    "menuSequence": 1,
-    "singleImg": "burger.jpg",
-    "setImg": "burger_set.jpg",
-    "menuPrice": {
-      "menuPriceId": 1,
-      "menuId": 1,
-      "menuPrice": 5000,
-      "menuSetPrice": 7000,
-      "menuSetLunchPrice": 6500,
-      "menuLargePrice": 8000
+333Item 24: {
+  "menuId": 24,
+  "menuName": "베이컨 토마토 에그 머핀",
+  "menuCategory": "맥모닝",
+  "menuSequence": 5,
+  "singleImg": "https://www.mcdonalds.co.kr/upload/product/pcList/1646207398160.png",
+  "setImg": "https://www.mcdonalds.co.kr/upload/product/pcList/1677677491958.png",
+  "isExposure": 1,
+  "menuPrice": [
+    {
+      "menuPriceId": 0,
+      "menuId": 24,
+      "size": "L",
+      "menuPrice": 5700,
+      "discountPrice": 0
+    },
+    {
+      "menuPriceId": 0,
+      "menuId": 24,
+      "size": "M",
+      "menuPrice": 3700,
+      "discountPrice": 0
     }
-  },
-  {
-    "menuId": 2,
-    "menuName": "치킨",
-    "menuCategory": "단품",
-    "menuSequence": 2,
-    "singleImg": "chicken.jpg",
-    "setImg": null,
-    "menuPrice": {
-      "menuPriceId": 2,
-      "menuId": 2,
-      "menuPrice": 7000,
-      "menuSetPrice": null,
-      "menuSetLunchPrice": null,
-      "menuLargePrice": null
-    }
-  }
+  ]
+}
+  ...
 ]
 */
