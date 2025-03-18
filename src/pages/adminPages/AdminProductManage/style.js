@@ -43,9 +43,10 @@ export const imageBox = css`
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 
     & > img {
-        display: block;
+        width: 100%;
     }
 `;
 
@@ -91,6 +92,7 @@ export const textArea = css`
     border: 1px solid #ccc;
     border-radius: 6px;
     box-sizing: border-box;
+    resize: none;
 `;
 
 // 버튼 그룹
