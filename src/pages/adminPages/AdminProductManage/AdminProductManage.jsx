@@ -3,22 +3,23 @@ import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import ValidInput from '../../../components/ValidInput/ValidInput';
 import * as s from './style';
 import { useState, useEffect } from "react";
+import { Checkbox } from '@mui/material';
 
 function App() {
     const [menus, setMenus] = useState([]);
-    const [productName, setProductName] = useState("");
+    const [menuName, setMenuName] = useState("");
     const [category, setCategory] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [selectedMenu, setSelectedMenu] = useState(null);
     const [inputValue, setInputValidInput] = useState({
-        productName: "",
+        menuName: "",
         category: "",
         price: "",
         description: "",
     });
     const queryClient = useQueryClient();
-    const productImgData = queryClient.getQueryData(["userMeQuery"]);
+    const menuImgData = queryClient.getQueryData(["userMeQuery"]);
 
     useEffect(() => {
         fetchMenus();
@@ -39,7 +40,7 @@ function App() {
         const menu = menus.find((m) => m.id.toString() === selectedId);
         setSelectedMenu(menu);
         if (menu) {
-            setProductName(menu.productName);
+            setMenuName(menu.menuName);
             setCategory(menu.category);
             setPrice(menu.price);
             setDescription(menu.description);
@@ -60,7 +61,7 @@ function App() {
     }
 
     const addMenu = async () => {
-        const newMenu = { productName, category, price: Number(price), description };
+        const newMenu = { menuName, category, price: Number(price), description };
         try {
             await fetch("http://localhost:8080/api/menus", {
                 method: "POST",
@@ -75,7 +76,7 @@ function App() {
 
     const updateMenu = async () => {
         if (!selectedMenu) return alert("수정할 메뉴를 선택하세요.");
-        const updatedMenu = { id: selectedMenu.id, productName, category, price: Number(price), description };
+        const updatedMenu = { id: selectedMenu.id, menuName, category, price: Number(price), description };
         try {
             await fetch(`http://localhost:8080/api/menus/${selectedMenu.id}`, {
                 method: "PUT",
@@ -93,7 +94,7 @@ function App() {
         try {
             await fetch(`http://localhost:8080/api/menus/${selectedMenu.id}`, { method: "DELETE" });
             setSelectedMenu(null);
-            setProductName("");
+            setMenuName("");
             setCategory("");
             setPrice("");
             setDescription("");
@@ -112,7 +113,7 @@ function App() {
                     {menus.length > 0 ? (
                         menus.map((menu) => (
                             <option key={menu.id} value={menu.id}>
-                                {menu.productName}
+                                {menu.menuName}
                             </option>
                         ))
                     ) : (
@@ -124,18 +125,24 @@ function App() {
             {/* 상품 정보 */}
             <div css={s.productContainer}>
                 {/* 이미지 */}
-                <div css={s.imageBox}>
-                    <img src={`http://localhost:8080/image/user/profile/${productImgData?.data.profileImg}`} alt="" />
+                <div css={s.imageCon}>
+                    <div css={s.imageBox}>
+                        <img src={`http://localhost:8080/image/menu/${menuImgData?.data.profileImg}`} alt="" />
+                    </div>
+                        <h6>단품 또는 M사이즈</h6>
+                    <div css={s.imageBox}>
+                        <img src={`http://localhost:8080/image/menu/${menuImgData?.data.profileImg}`} alt="" />
+                    </div>
+                        <h6>세트 또는 L사이즈</h6>
                 </div>
-
                 {/* 입력 */}
                 <div css={s.inputGroup}>
                     <div>
                         <label css={s.label}>상품명</label>
                         <input type="text" 
                             css={s.input} 
-                            name={"productName"}
-                            value={inputValue.productName} 
+                            name={"menuName"}
+                            value={inputValue.menuName} 
                             onChange={handleInputProductInfoOnChange} 
                         />
                         
@@ -168,14 +175,33 @@ function App() {
                         />
                     </div>
                     {/* DB보고 메뉴 테이블 추가 */}
-                </div>
-            </div>
+                    <div>
+                        {/* <label css={s.label}>메뉴 우선 순위</label>
+                        <input type="number" 
+                            css={s.input} 
+                            name={""}
+                            value={inputValue.} 
+                            onChange={handleInputProductInfoOnChange} 
+                        /> */}
+                    </div>
+                    <div>
+                        <label css={s.label}>노출 여부</label>
+                        <Checkbox
+                            // onChange={handle}
+                            defaultChecked
+                            size='medium'
+                            color='success'
 
-            {/* 버튼 그룹 */}
-            <div css={s.buttonGroup}>
-                <button onClick={addMenu} css={s.button("#e5e7eb")}>추가</button>
-                <button onClick={updateMenu} css={s.button("#e5e7eb")}>수정</button>
-                <button onClick={deleteMenu} css={s.button("#e5e7eb")}>삭제</button>
+                        />
+                    </div>
+
+                    {/* 버튼 그룹 */}
+                    <div css={s.buttonGroup}>
+                        <button onClick={addMenu} css={s.button}>추가</button>
+                        <button onClick={updateMenu} css={s.button}>수정</button>
+                        <button onClick={deleteMenu} css={s.button}>삭제</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

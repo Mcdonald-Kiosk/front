@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 
 // 전체 컨테이너
 export const container = css`
-    /* width: 90%; */
     margin: 2rem auto;
     background: #d1d5db;
     padding: 1.5rem;
@@ -28,14 +27,26 @@ export const productContainer = css`
 `;
 
 // 이미지 영역
+export const imageCon = css`
+    display: flex;
+    flex-direction: column;
+    & h6 {
+        text-align: center;
+    }
+`;
+
 export const imageBox = css`
-    width: 40rem;
-    height: 40rem;
+    width: 30rem;
+    height: 30rem;
     background: white;
     border: 1px solid #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    & > img {
+        display: block;
+    }
 `;
 
 // 입력 필드 그룹
@@ -44,9 +55,11 @@ export const inputGroup = css`
     flex-direction: column;
     justify-content: center;
     gap: 3rem;
-    flex-grow: 1;
     width: 80rem;
     background-color: lightblue;
+    & > div:nth-last-child() {
+        display: block;
+    }
 
     & > div {
         width: 70rem;
@@ -84,17 +97,19 @@ export const textArea = css`
 export const buttonGroup = css`
     margin-top: 1rem;
     display: flex;
-    gap: 1rem;
+    justify-content: flex-end;
 `;
 
-export const button = (bgColor) => css`
+export const button = css`
     padding: 0.5rem 1rem;
-    background: ${bgColor};
+    margin-left: 2rem;
     color: black;
     border: 1px solid #000;
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    flex-grow: 1;
+
     &:hover {
     background: #e5e7eb;
 }
