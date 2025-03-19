@@ -127,5 +127,69 @@ export const pay = css`
     width: 100%;
     height: 20%;
     border-top: 0.2rem solid black;
-    background-color: #ffd154;
+    background-color:rgb(248, 210, 106);
+    
+
+    & > div {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        font-size: 1.1rem;
+        overflow-y: auto;
+
+    
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+    
+    & > span {
+        display: flex;
+        flex-direction: column;
+        width: 10rem;
+        justify-content: space-between;
+        margin-right: 1rem;
+        
+        & > p {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(219, 68, 85);
+            border-radius: 1rem;
+            color: white;
+        }
+    }
+`;
+
+export const xUpDown = css`
+    display: flex;
+    justify-content: space-between; /* 좌우 정렬 */
+    align-items: center;
+    width: 25rem;
+    padding: 0.2rem;
+    font-size: 1rem;
+    font-weight: 550;
+
+    & > div {
+        display: flex;
+        align-items: center;
+        gap: 0.1rem;
+    }
+
+    & > div > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+
+    & button {
+        font-size: 0.8rem;
+        font-weight: 550;
+        justify-content: center;
+        align-items: center;
+        margin-right: 1px;
+    }
 `;
