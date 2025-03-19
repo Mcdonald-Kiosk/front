@@ -27,17 +27,21 @@ function DrinkMenu({ onMenuItemClick }) {
                 .map((drink) => (
                     <div 
                         key={drink.menuId} 
-                        onClick={() => onMenuItemClick({ 
+                        onClick={() => onMenuItemClick({ // 선택한 메뉴의 name, img, img2, price 등을 전달
                             name: drink.menuName, 
+                            category: drink.menuCategory,
+                            seq: drink.menuSequence,
                             img: drink.singleImg, 
                             img2: drink.setImg,
-                            price: drink.menuPrice.menuPrice || 0 
+                            size: drink.size,
+                            price1: drink.menuPrice[0].menuPrice || 0,
+                            price2: drink.menuPrice.length > 1 ? drink.menuPrice[1].menuPrice : 0,
                         })}
                         style={{ cursor: 'pointer' }} // 클릭 가능하도록 스타일 추가
                     >
                         <img src={drink.singleImg} alt={drink.menuName} />
                         <p>{drink.menuName}</p>
-                        <p>{drink.menuPrice.menuPrice ? `${drink.menuPrice.menuPrice}원` : "가격 없음"}</p>
+                        <p>{drink.menuPrice && drink.menuPrice[0]?.menuPrice ? `${drink.menuPrice[0].menuPrice}원` : "가격 없음"}</p>
                     </div>
                 ))}
         </div>
