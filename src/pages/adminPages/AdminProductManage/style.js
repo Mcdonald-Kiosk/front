@@ -30,9 +30,6 @@ export const productContainer = css`
 export const imageCon = css`
     display: flex;
     flex-direction: column;
-    & h6 {
-        text-align: center;
-    }
 `;
 
 export const imageBox = css`
@@ -44,6 +41,7 @@ export const imageBox = css`
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    cursor: pointer;
 
     & > img {
         width: 100%;
@@ -58,7 +56,7 @@ export const inputGroup = css`
     gap: 3rem;
     width: 80rem;
     background-color: lightblue;
-    & > div:nth-last-child() {
+    & > div:nth-last-of-type() {
         display: block;
     }
 

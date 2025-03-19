@@ -32,7 +32,7 @@ function AdminMainRoute(props) {
             <MainContainer>
                 <Routes>
                     <Route path='/menu' element={<AdminMenuPage />} /> 
-                    <Route path='/product' element={<AdminProductPage />} />
+                    <Route path='/product' element={<AdminProductPage />} /> 
                     <Route path='/product/manage' element={<AdminProductManage />} /> 
                     <Route path='/option' element={<AdminOptionPage />} /> 
                     <Route path='/sales' element={<AdminSalesPage />} /> 
