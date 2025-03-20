@@ -16,16 +16,22 @@ export const fetchMenuData = async () => {
     return sortedData;
 };
 
-
-// 특정 메뉴 가져오기
-export const fetchMenuDetail = async (menuId) => {
-  const response = await api.get(`/user/menu/${menuId}`);
+// 메뉴 목록 가져오기 (GET)
+export const adminFetchMenuData = async () => {
+  const response = await api.get("/api/admin/menus");
   return response.data;
 };
 
-// 메뉴 추가
+// 특정 메뉴 가져오기 (GET)
+export const fetchMenuDetail = async (menuId) => {
+  const response = await api.get(`/api/admin/menus/${menuId}/prices`);
+  return response.data;
+};
+
+// 메뉴 추가 (POST)
 export const addMenuData = async (formData) => {
-  const token = localStorage.getItem("accessToken"); // JWT 토큰 가져오기
+  const token = localStorage.getItem("accessToken");
+  if (!token) throw new Error("인증 정보가 없습니다. 다시 로그인해주세요.");
 
   const data = new FormData();
   data.append("menuName", formData.menuName);
@@ -37,22 +43,32 @@ export const addMenuData = async (formData) => {
   if (formData.singleImg) data.append("singleImg", formData.singleImg);
   if (formData.setImg) data.append("setImg", formData.setImg);
 
-  // 🚀 JWT 토큰을 헤더에 추가
-  const response = await api.post("/admin/menu", data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`, // ✅ JWT 토큰 추가
-    },
+  const response = await api.post("/api/admin/menus", data, {
+      headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+      },
   });
 
   return response.data;
 };
 
-// 메뉴 삭제
+// 메뉴 삭제 (DELETE)
 export const deleteMenuData = async (menuId) => {
-  const response = await api.delete(`/admin/menu/${menuId}`);
+  const token = localStorage.getItem("accessToken");
+  if (!token) throw new Error("인증 정보가 없습니다. 다시 로그인해주세요.");
+
+  const response = await api.delete(`/api/admin/menus/${menuId}`, {
+      headers: {
+          Authorization: `Bearer ${token}`,
+      },
+  });
+
   return response.data;
 };
+
+
+
 
 
 /*
