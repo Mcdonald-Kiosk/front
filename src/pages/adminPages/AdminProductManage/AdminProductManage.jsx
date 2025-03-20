@@ -4,10 +4,15 @@ import * as s from "./style";
 import { Checkbox } from "@mui/material";
 import { useAddMenuMutation, useDeleteMenuMutation } from "../../../mutations/menuMutation";
 import useMenuData, { useMenuDetail } from "../../../hooks/menu/getMenuHooks";
+import ImageModal from "../AdminMenuImagine/AdminMenuImagine";
 
 function App() {
     const [selectedMenu, setSelectedMenu] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [imageList, setImageList] = useState([]);  // ✅ DB에서 불러온 이미지 리스트
+    const [selectedImageType, setSelectedImageType] = useState(""); // ✅ "single" 또는 "set" 저장
+
     const [formData, setFormData] = useState({
         menuName: "",
         menuCategory: "",
@@ -27,38 +32,57 @@ function App() {
     const addMenuMutation = useAddMenuMutation();
     const deleteMenuMutation = useDeleteMenuMutation();
 
-    // ✅ 메뉴 선택 시 input에 자동 입력 + 비활성화
+    // ✅ 첫 번째 메뉴를 자동으로 선택 (초기 selectedMenu가 null일 경우)
     useEffect(() => {
-        if (menus && menus.length > 0 && !selectedMenu) {
+        if (!selectedMenu && menus?.length > 0) {
             setSelectedMenu(menus[0].menuId);
         }
-    }, [menus]);
+    }, [menus]);    
+    
 
-    // ✅ 메뉴 선택 시 input에 자동 입력 + 비활성화
+    // ✅ menuDetail이 정상적으로 존재할 경우에만 formData 업데이트
     useEffect(() => {
-        if (!menuDetail || !Array.isArray(menuDetail) || menuDetail.length === 0) {
-            console.error("❌ [useEffect] 메뉴 데이터가 유효하지 않음: ", menuDetail);
+        if (!menuDetail || typeof menuDetail !== "object") {
+            console.warn("⚠️ [useEffect] 메뉴 데이터가 올바르지 않습니다.", menuDetail);
             return;
         }
     
-        console.log("🔥 [useEffect] 불러온 메뉴 정보: ", menuDetail[0]);
+        console.log("🔥 [useEffect] 불러온 메뉴 정보: ", menuDetail);
     
         setFormData({
-            menuName: menuDetail[0]?.menuName || "",
-            menuCategory: menuDetail[0]?.menuCategory || "",
-            menuSequence: menuDetail[0]?.menuSequence || 0,
-            isExposure: menuDetail[0]?.isExposure || 1,
-            singleImg: menuDetail[0]?.singleImg || null,
-            setImg: menuDetail[0]?.setImg || null,
-            prices: menuDetail[0]?.menuPrices
-                ? menuDetail[0].menuPrices.map(price => ({
+            menuName: menuDetail?.menuName || "",
+            menuCategory: menuDetail?.menuCategory || "",
+            menuSequence: menuDetail?.menuSequence || 0,
+            isExposure: menuDetail?.isExposure ?? 1,
+            singleImg: menuDetail?.singleImg || null,
+            setImg: menuDetail?.setImg || null,
+            prices: Array.isArray(menuDetail?.menuPrices)
+                ? menuDetail.menuPrices.map(price => ({
                     size: price.size,
                     price: price.menuPrice || "",
                     discountPrice: price.discountPrice || ""
                 }))
                 : [],
         });
-    }, [menuDetail]);
+    
+    }, [menuDetail]);    
+
+    // ✅ 이미지 클릭 시 모달 오픈
+    const handleOpenModal = (type) => {
+        setSelectedImageType(type);
+        setModalOpen(true);
+    };
+
+    // ✅ 사용자가 이미지를 선택하면 반영
+    const handleSelectImage = (imgUrl) => {
+        setFormData(prev => ({
+            ...prev,
+            [selectedImageType === "single" ? "singleImg" : "setImg"]: imgUrl
+        }));
+        setModalOpen(false);
+    };
+
+
 
     // ✅ input 변경 핸들러
     const handleInputValueOnChange = (e) => {
@@ -80,15 +104,6 @@ function App() {
 
             return { ...prev, [name]: value };
         });
-    };
-
-    // ✅ 이미지 업로드
-    const handleImageUpload = (e, type) => {
-        const file = e.target.files[0];
-        setFormData(prev => ({
-            ...prev,
-            [type === "single" ? "singleImg" : "setImg"]: file
-        }));
     };
 
     // ✅ 메뉴 추가
@@ -137,32 +152,26 @@ function App() {
             <div css={s.productContainer}>
                 {/* ✅ 이미지 업로드 */}
                 <div css={s.imageCon}>
-                    <label css={s.imageBox}>
-                        <input type="file" onChange={(e) => handleImageUpload(e, "single")} hidden />
+                     {/* ✅ 이미지 선택 */}
+                <div css={s.imageCon}>
+                    <label css={s.imageBox} onClick={() => handleOpenModal("single")}>
                         {formData.singleImg ? (
-                            typeof formData.singleImg === "string" ? (
-                                <img src={formData.singleImg} alt="Single" />
-                            ) : (
-                                <img src={URL.createObjectURL(formData.singleImg)} alt="Single" />
-                            )
+                            <img src={formData.singleImg} alt="Single" />
                         ) : (
                             <span>단품 또는 M사이즈</span>
                         )}
                     </label>
-                    <label css={s.imageBox}>
-                        <input type="file" onChange={(e) => handleImageUpload(e, "set")} hidden />
+                    <label css={s.imageBox} onClick={() => handleOpenModal("set")}>
                         {formData.setImg ? (
-                            typeof formData.setImg === "string" ? (
-                                <img src={formData.setImg} alt="Set" />
-                            ) : (
-                                <img src={URL.createObjectURL(formData.setImg)} alt="Set" />
-                            )
+                            <img src={formData.setImg} alt="Set" />
                         ) : (
                             <span>세트 또는 L사이즈</span>
                         )}
                     </label>
                 </div>
-
+            </div>
+            {/* ✅ 모달 추가 */}
+            <ImageModal isOpen={modalOpen} onClose={() => setModalOpen(false)} images={imageList} onSelect={handleSelectImage} />
                 {/* ✅ 입력 필드 */}
                 <div css={s.inputGroup}>
                     <div>
