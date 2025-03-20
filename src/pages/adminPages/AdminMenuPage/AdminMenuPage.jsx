@@ -5,82 +5,57 @@ import React, { useEffect, useState } from 'react';
 import { MenuItem, Select } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import { useAllMenuList, useGetCategories } from '../../../queries/AdminQuery/AdminMenuBoardQuery';
+import { useUpdateIsPosureMutation } from '../../../mutations/adminMutaion';
 
 function AdminMenuPage(props) {
     const [ searchParams, setSearchParams ] = useSearchParams();
+    
     const page = parseInt(searchParams.get("page") || "1"); //현재 페이지번호 상태
+    const [ totalPages, setTotalPages ] = useState(1); //총페이지 수
     const category = searchParams.get("category") || "전체"; //카테고리 상태
     const [ pageNumbers, setPageNumbers ] = useState([]); //페이지 번호 목록 상태
 
-    const { data: searchMenuList } = useAllMenuList(); //모든 메뉴 불러오기
+    const allMenuList = useAllMenuList(); //모든 메뉴 불러오기
+    const { data: searchMenuList } = allMenuList; //모든 메뉴 배열에 담기
+    let filteredMenuList = searchMenuList?.data || []; //목록 갯수
 
-    const totalPages = Math.floor((searchMenuList?.data.length || 0) / 10);
-    const pageStartIndex = Math.floor((page - 1) / 5) * 5 + 1;
-    const pageEndIndex = pageStartIndex + 4 > totalPages ? totalPages :pageStartIndex + 4;
+    const updateIsExposureMutation = useUpdateIsPosureMutation(); //노출여부 뮤태이션
 
+    //노출여부 변경 및 목록 다시 불러오기
+    const handleChangeIsExposureOnClick = async (menuId, isExposure) => {
+        await updateIsExposureMutation.mutateAsync({ "menuId": menuId, "isExposure": isExposure });
+        allMenuList.refetch();
+    }
 
-    //카테고리 배열
+    //카테고리 설정
     const basicCategories = [
         {label: "전체", value: "전체"},
     ];
-    //카테고리 백에서 불러오기
-    const { data: getCategory } = useGetCategories();
-    //백에서 불러온거랑 전체와 합치기
-    const selectCategories = [
+    const { data: getCategory } = useGetCategories();//카테고리 백에서 불러오기
+    const selectCategories = [ //백에서 불러온거랑 합치기
         ...basicCategories,
         ...(getCategory?.data.map((categories) => ({
             label: categories,
             value: categories
         })) || [])
     ];
-
-
-    //카테고리, 페이지 변동시 재로딩
-    useEffect(() => {
-        //console.log(searchMenuList?.data);
-    }, [searchParams, searchMenuList]);
      
     //셀렉트에서 선택된 카테고리 저장
     const handleSelectCategoryOnChange = (option) => {
         searchParams.set("category", option.target.value);
+        searchParams.set("page", 1);
         setSearchParams(searchParams);
     }
 
-    //클릭된 페이지 번호 저장
+    //클릭된 페이지 번호 상태에 적용
     const handlePageNumbersOnClick = (pageNumber) => {
         searchParams.set("page", pageNumber);
         setSearchParams(searchParams);
     }
 
-
-
-    //페이지 메커니즘 및 페이지 관련 상태 변화 시 재로딩
-    useEffect(() => {
-        if(!searchMenuList?.data.isLoading) {
-
-            let filteredMenuList = searchMenuList?.data || [];
-
-            if (category !== "전체") {
-                filteredMenuList = filteredMenuList
-                .filter((menu) => menu.menuCategory === category);
-            }
-
-            let newPageNumbers = [];
-            for(let i = pageStartIndex; i <= pageEndIndex; i++ ) {
-                newPageNumbers = [...newPageNumbers, i];
-            }
-            setPageNumbers(newPageNumbers);
-        }
-        
-    }, [page]);
     
-    
-    
-
-    //목록 불러오기
+    //필요한 목록 불러오기
     const renderMenuList = () => {
-
-        let filteredMenuList = searchMenuList?.data || [];
         //카테고리와 일치하는 목록 담기, 일치하는게 없으면 전체로 취급
         if (category !== "전체") {
             filteredMenuList = filteredMenuList
@@ -91,17 +66,111 @@ function AdminMenuPage(props) {
         const endIndex = startIndex + 10;
         const churnkededMenuList = filteredMenuList.slice(startIndex, endIndex);
 
-        console.log(churnkededMenuList)
-        //카테고리가 '전체'인 경우, 모든 메뉴 출력
+        //메뉴 출력
         return churnkededMenuList.map((menu) => (
             <li key={menu.menuId}>
-                <div>{menu.menuId}</div>
-                <div>{menu.menuName}</div>
-                <div>{menu.menuPrice[0].menuPrice}</div>
-                <div>{menu.isExposure}</div>
+                <div css={s.numBox}>{menu.menuId}</div>
+                <div css={s.nameBox}>{menu.menuName}</div>
+                <div css={s.priceBox}>{menu.menuPrice[0].menuPrice}</div>
+                <div css={s.exBox}>
+                    <input 
+                        type='checkbox' 
+                        checked={menu.isExposure}
+                        onChange={() => {
+                            const newCheckedState = menu.isExposure === 1 ? 0 : 1;
+                            handleChangeIsExposureOnClick(menu.menuId, newCheckedState);
+                        }}
+                    />
+                </div>
             </li>
         ));
     };
+
+    //페이지 메커니즘.
+    useEffect(() => {
+        if(!allMenuList?.isLoading) {
+            const totalPage = Math.ceil((filteredMenuList.length || 0) / 10); //총페이지 수
+            setTotalPages(totalPage);
+            const pageStartIndex = Math.floor((page - 1) / 5) * 5 + 1; //시작 페이지번호
+            const pageEndIndex = pageStartIndex + 4 > totalPages ? totalPages : pageStartIndex + 4; //끝 페이지번호
+
+            let newPageNumbers = []; //페이지 번호 목록
+            for(let i = pageStartIndex; i <= pageEndIndex; i++ ) {
+                newPageNumbers = [...newPageNumbers, i];
+            }
+            setPageNumbers(newPageNumbers);
+        }
+    }, [searchParams, category, totalPages, allMenuList?.isLoading]);
+
+
+    console.log(searchMenuList);
+    
+    return (
+        <div css={s.container}>
+            <div css={s.header}>
+                <span>메뉴관리</span>
+                <div>
+                    <Select 
+                        options={selectCategories}
+                        style={{ //선택된값 스타일
+                            width: '12rem',
+                            minHeight: '4rem',
+                            fontSize: '1.4rem',
+                            fontWeight: '600',
+                          }}
+                        value={category}
+                        onChange={handleSelectCategoryOnChange}
+                    >
+                        {selectCategories.map((categoryOption) => (
+                        <MenuItem 
+                            key={categoryOption.value} 
+                            value={categoryOption.value}
+                            style={{ //목록 스타일
+                                width: '12rem',
+                                minHeight: '3rem',
+                                fontSize: '1.4rem', 
+                              }}
+                        >
+                            {categoryOption.label}
+                        </MenuItem>
+                    ))}
+                    </Select>
+                </div>
+            </div>
+
+            <div>
+                <div css={s.title}>{category !== '전체' ? `${category} 리스트` : "전체 리스트"}</div>
+                <ul css={s.menuListContainer}>
+                    <li>
+                        <div css={s.numBox}>NO.</div>
+                        <div css={s.nameBox}>Name</div>
+                        <div css={s.priceBox}>Price</div>
+                        <div css={s.exBox}>On/Off</div>
+                    </li>
+                    { renderMenuList() }
+                </ul>
+            </div>
+
+            <div css={s.footer}>
+                <button disabled={page === 1} onClick={() => handlePageNumbersOnClick(page - 1)}>
+                    <GoChevronLeft/>
+                </button>
+                {
+                    pageNumbers.map(number =>
+                        <button key={number} css={s.pageNum(page === number)} onClick={() => handlePageNumbersOnClick(number)}>
+                            <span>{number}</span>
+                        </button>
+                    )
+                }
+                <button disabled={page === totalPages} onClick={() => handlePageNumbersOnClick(page + 1)}>
+                    <GoChevronRight />
+                </button>
+            </div>
+        </div>
+    );
+}
+
+export default AdminMenuPage;
 
         // //목록 불러오기
         // const renderMenuList = () => {
@@ -129,68 +198,7 @@ function AdminMenuPage(props) {
         //     ));
         // };
 
-    
-    return (
-        <div css={s.container}>
-            <div css={s.header}>
-                <span>메뉴관리</span>
-                <div>
-                    <Select 
-                        options={selectCategories}
-                        styles={{
-                            control: (style) => ({
-                                ...style,
-                                width: "11rem",
-                                minHeight: "3rem",
-                            }),
-                            dropdownIndicator: (style) => ({
-                                ...style,
-                                padding: "0.3rem",
-                            })
-                        }}
-                        value={category}
-                        onChange={handleSelectCategoryOnChange}
-                        fullWidth
-                    >
-                        {selectCategories.map((categoryOption) => (
-                        <MenuItem key={categoryOption.value} value={categoryOption.value}>
-                            {categoryOption.label}
-                        </MenuItem>
-                    ))}
-                    </Select>
-                </div>
-            </div>
 
-            <div>
-                <h3>{category !== '전체' ? `${category} 리스트` : "전체 리스트"}</h3>
-                <ul css={s.menuListContainer}>
-                    <li>
-                        <div>NO.</div>
-                        <div>Name</div>
-                        <div>Price</div>
-                        <div>On/Off</div>
-                    </li>
-                    { renderMenuList() }
-                </ul>
-            </div>
-
-            <div css={s.footer}>
-                <button disabled={page === 1} onClick={() => handlePageNumbersOnClick(page - 1)}>
-                    <GoChevronLeft/>
-                </button>
-                {
-                    pageNumbers.map(number => //css={s.pageNum(page === number)}
-                        <button key={number} onClick={() => handlePageNumbersOnClick(number)}>
-                            <span>{number}</span>
-                        </button>
-                    )
-                }
-                <button disabled={page === totalPages} onClick={() => handlePageNumbersOnClick(page + 1)}>
-                    <GoChevronRight />
-                </button>
-            </div>
-        </div>
-    );
     //     <button disabled={searchMenuList?.data?.data.firstPage} onClick={() => handlePageNumbersOnClick(page - 1)}>
     //     <GoChevronLeft />
     // </button>
@@ -204,10 +212,6 @@ function AdminMenuPage(props) {
     // <button disabled={searchMenuList?.data?.data.lastPage} onClick={() => handlePageNumbersOnClick(page + 1)}>
     //     <GoChevronRight />
     // </button>
-}
-
-export default AdminMenuPage;
-
 
 
     //한 페이지당 담길 리스트
