@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import * as s from "./style";
 import { Checkbox } from "@mui/material";
 import { useAddMenuMutation, useDeleteMenuMutation } from "../../../mutations/menuMutation";
-import useMenuData, { useMenuDetail } from "../../../hooks/menu/getMenuHooks";
 import ImageModal from "../AdminMenuImagine/AdminMenuImagine";
+import { useMenuDetail } from "../../../hooks/menu/menuManageHooks";
+import useMenuData from "../../../hooks/menu/menuManageHooks";
 
 function App() {
     const [selectedMenu, setSelectedMenu] = useState(null);
@@ -34,10 +35,10 @@ function App() {
 
     // ✅ 첫 번째 메뉴를 자동으로 선택 (초기 selectedMenu가 null일 경우)
     useEffect(() => {
-        if (!selectedMenu && menus?.length > 0) {
+        if (!selectedMenu && menus && menus.length > 0) {
             setSelectedMenu(menus[0].menuId);
         }
-    }, [menus]);    
+    }, [menus]); 
     
 
     // ✅ menuDetail이 정상적으로 존재할 경우에만 formData 업데이트
@@ -50,22 +51,21 @@ function App() {
         console.log("🔥 [useEffect] 불러온 메뉴 정보: ", menuDetail);
     
         setFormData({
-            menuName: menuDetail?.menuName || "",
-            menuCategory: menuDetail?.menuCategory || "",
-            menuSequence: menuDetail?.menuSequence || 0,
-            isExposure: menuDetail?.isExposure ?? 1,
-            singleImg: menuDetail?.singleImg || null,
-            setImg: menuDetail?.setImg || null,
-            prices: Array.isArray(menuDetail?.menuPrices)
-                ? menuDetail.menuPrices.map(price => ({
+            menuName: menuDetail.menuName || "",
+            menuCategory: menuDetail.menuCategory || "",
+            menuSequence: menuDetail.menuSequence || 0,
+            isExposure: menuDetail.isExposure ?? 1,
+            singleImg: menuDetail.singleImg || null,
+            setImg: menuDetail.setImg || null,
+            prices: Array.isArray(menuDetail.menuPrice)  // ✅ 여기!
+                ? menuDetail.menuPrice.map(price => ({
                     size: price.size,
                     price: price.menuPrice || "",
                     discountPrice: price.discountPrice || ""
                 }))
                 : [],
         });
-    
-    }, [menuDetail]);    
+    }, [menuDetail]);
 
     // ✅ 이미지 클릭 시 모달 오픈
     const handleOpenModal = (type) => {
@@ -87,23 +87,32 @@ function App() {
     // ✅ input 변경 핸들러
     const handleInputValueOnChange = (e) => {
         const { name, value, type, checked } = e.target;
-
-        setFormData((prev) => {
-            if (type === "checkbox") {
-                return { ...prev, [name]: checked ? 1 : 0 };
-            }
-
-            if (name === "singlePrice" || name === "setPrice") {
-                return {
-                    ...prev,
-                    prices: prev.prices.map((p) =>
-                        p.size === (name === "singlePrice" ? "M" : "L") ? { ...p, price: value } : p
-                    ),
-                };
-            }
-
-            return { ...prev, [name]: value };
-        });
+    
+        // 노출 여부 (checkbox)
+        if (type === "checkbox") {
+            setFormData((prev) => ({
+                ...prev,
+                [name]: checked ? 1 : 0,
+            }));
+            return;
+        }
+    
+        // 가격 (M / L)
+        if (name === "M" || name === "L") {
+            setFormData((prev) => ({
+                ...prev,
+                prices: prev.prices.map((p) =>
+                    p.size === name ? { ...p, price: value } : p
+                ),
+            }));
+            return;
+        }
+    
+        // 일반 텍스트
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
     // ✅ 메뉴 추가
@@ -134,7 +143,7 @@ function App() {
         <div css={s.container}>
             {/* ✅ 메뉴 선택 드롭다운 */}
             <div css={s.dropdownContainer}>
-                <select onChange={(e) => setSelectedMenu(e.target.value)} css={s.dropdown}>
+                <select onChange={(e) => setSelectedMenu(Number(e.target.value))} css={s.dropdown}>
                     <option value="">메뉴를 선택해주세요</option>
                     {!isLoading && menus?.length > 0 ? (
                         menus.map((menu) => (
@@ -220,7 +229,7 @@ function App() {
                         <label css={s.label}>단품/M 사이즈 가격</label>
                         <input 
                             type="number" 
-                            name="singlePrice" 
+                            name="M" 
                             value={formData.prices.find(p => p.size === "M")?.price || ""} 
                             onChange={handleInputValueOnChange} 
                             css={s.input} 
@@ -232,7 +241,7 @@ function App() {
                         <input 
                             type="number" 
                             css={s.input} 
-                            name="setPrice" 
+                            name="L" 
                             value={formData.prices.find(p => p.size === "L")?.price || ""} 
                             onChange={handleInputValueOnChange} 
                             disabled={selectedMenu !== null}  // ✅ 메뉴 선택 시 input 비활성화

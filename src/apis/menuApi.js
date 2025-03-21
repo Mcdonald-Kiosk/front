@@ -16,22 +16,39 @@ export const fetchMenuData = async () => {
     return sortedData;
 };
 
-// 메뉴 목록 가져오기 (GET)
-export const adminFetchMenuData = async () => {
-  const response = await api.get("/api/admin/menus");
-  return response.data;
+// ✅ 메뉴 목록 가져오기 (GET)
+export const adminFetchMenuApi = async () => {
+  try {
+      const response = await api.get("/api/admin/menus");
+      console.log("🔥 [adminFetchMenuData] 전체 메뉴 응답:", response.data);
+      return response.data;
+  } catch (error) {
+      console.error("❌ [adminFetchMenuData] API 요청 실패:", error);
+      throw error;
+  }
 };
 
-// 특정 메뉴 가져오기 (GET)
-export const fetchMenuDetail = async (menuId) => {
-  const response = await api.get(`/api/admin/menus/${menuId}/prices`);
-  return response.data;
+// ✅ 특정 메뉴 가져오기 (GET)
+export const fetchMenuDetailApi = async (menuId) => {
+  if (!menuId) {
+      console.warn("⚠️ [fetchMenuDetail] menuId가 없습니다. 요청을 보내지 않습니다.");
+      return null;
+  }
+
+  try {
+      const response = await api.get(`/api/admin/menus/${menuId}`);
+      console.log(`🔥 [fetchMenuDetail] 선택한 메뉴(${menuId}) 응답:`, response.data);
+      return response.data;
+  } catch (error) {
+      console.error("❌ [fetchMenuDetail] API 요청 실패:", error);
+      throw error;
+  }
 };
 
-// 메뉴 추가 (POST)
-export const addMenuData = async (formData) => {
-  const token = localStorage.getItem("accessToken");
-  if (!token) throw new Error("인증 정보가 없습니다. 다시 로그인해주세요.");
+// ✅ 메뉴 추가 (POST)
+export const addMenuApi = async (formData) => {
+  const token = localStorage.getItem("AccessToken");
+  if (!token) throw new Error("❌ 인증 정보 없음! 다시 로그인해주세요.");
 
   const data = new FormData();
   data.append("menuName", formData.menuName);
@@ -43,28 +60,36 @@ export const addMenuData = async (formData) => {
   if (formData.singleImg) data.append("singleImg", formData.singleImg);
   if (formData.setImg) data.append("setImg", formData.setImg);
 
-  const response = await api.post("/api/admin/menus", data, {
-      headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-      },
-  });
-
-  return response.data;
+  try {
+      const response = await api.post("/api/admin/menus", data, {
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+          },
+      });
+      console.log("✅ [addMenuData] 메뉴 추가 성공:", response.data);
+      return response.data;
+  } catch (error) {
+      console.error("❌ [addMenuData] API 요청 실패:", error);
+      throw error;
+  }
 };
 
-// 메뉴 삭제 (DELETE)
-export const deleteMenuData = async (menuId) => {
-  const token = localStorage.getItem("accessToken");
-  if (!token) throw new Error("인증 정보가 없습니다. 다시 로그인해주세요.");
+// ✅ 메뉴 삭제 (DELETE)
+export const deleteMenuApi = async (menuId) => {
+  const token = localStorage.getItem("AccessToken");
+  if (!token) throw new Error("❌ 인증 정보 없음! 다시 로그인해주세요.");
 
-  const response = await api.delete(`/api/admin/menus/${menuId}`, {
-      headers: {
-          Authorization: `Bearer ${token}`,
-      },
-  });
-
-  return response.data;
+  try {
+      const response = await api.delete(`/api/admin/menus/${menuId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(`✅ [deleteMenuData] 메뉴(${menuId}) 삭제 성공:`, response.data);
+      return response.data;
+  } catch (error) {
+      console.error("❌ [deleteMenuData] API 요청 실패:", error);
+      throw error;
+  }
 };
 
 
