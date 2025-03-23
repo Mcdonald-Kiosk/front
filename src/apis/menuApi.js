@@ -16,22 +16,22 @@ export const fetchMenuData = async () => {
     return sortedData;
 };
 
-// ✅ 메뉴 목록 가져오기 (GET)
+// ✅ 관리자용 전체 메뉴 목록 가져오기
 export const adminFetchMenuApi = async () => {
   try {
       const response = await api.get("/api/admin/menus");
-      console.log("🔥 [adminFetchMenuData] 전체 메뉴 응답:", response.data);
+      console.log("🔥 [adminFetchMenuApi] 전체 메뉴 응답:", response.data);
       return response.data;
   } catch (error) {
-      console.error("❌ [adminFetchMenuData] API 요청 실패:", error);
+      console.error("❌ [adminFetchMenuApi] API 요청 실패:", error);
       throw error;
   }
 };
 
-// ✅ 특정 메뉴 가져오기 (GET)
+// ✅ 특정 메뉴 상세 정보 가져오기
 export const fetchMenuDetailApi = async (menuId) => {
   if (!menuId) {
-      console.warn("⚠️ [fetchMenuDetail] menuId가 없습니다. 요청을 보내지 않습니다.");
+      console.warn("⚠️ [fetchMenuDetail] menuId가 없습니다.");
       return null;
   }
 
@@ -45,7 +45,7 @@ export const fetchMenuDetailApi = async (menuId) => {
   }
 };
 
-// ✅ 메뉴 추가 (POST)
+// ✅ 메뉴 추가 (FormData 사용)
 export const addMenuApi = async (formData) => {
   const token = localStorage.getItem("AccessToken");
   if (!token) throw new Error("❌ 인증 정보 없음! 다시 로그인해주세요.");
@@ -55,7 +55,7 @@ export const addMenuApi = async (formData) => {
   data.append("menuCategory", formData.menuCategory);
   data.append("menuSequence", formData.menuSequence);
   data.append("isExposure", formData.isExposure);
-  data.append("prices", JSON.stringify(formData.prices));
+  data.append("prices", JSON.stringify(formData.prices)); // JSON 문자열로 가격 리스트 전송
 
   if (formData.singleImg) data.append("singleImg", formData.singleImg);
   if (formData.setImg) data.append("setImg", formData.setImg);
@@ -63,31 +63,33 @@ export const addMenuApi = async (formData) => {
   try {
       const response = await api.post("/api/admin/menus", data, {
           headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
+              // Content-Type 생략: axios가 FormData일 때 자동으로 multipart/form-data 설정함
           },
       });
-      console.log("✅ [addMenuData] 메뉴 추가 성공:", response.data);
+      console.log("✅ [addMenuApi] 메뉴 추가 성공:", response.data);
       return response.data;
   } catch (error) {
-      console.error("❌ [addMenuData] API 요청 실패:", error);
+      console.error("❌ [addMenuApi] 메뉴 추가 실패:", error);
       throw error;
   }
 };
 
-// ✅ 메뉴 삭제 (DELETE)
+// ✅ 메뉴 삭제
 export const deleteMenuApi = async (menuId) => {
   const token = localStorage.getItem("AccessToken");
   if (!token) throw new Error("❌ 인증 정보 없음! 다시 로그인해주세요.");
 
   try {
       const response = await api.delete(`/api/admin/menus/${menuId}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
       });
-      console.log(`✅ [deleteMenuData] 메뉴(${menuId}) 삭제 성공:`, response.data);
+      console.log(`✅ [deleteMenuApi] 메뉴(${menuId}) 삭제 성공:`, response.data);
       return response.data;
   } catch (error) {
-      console.error("❌ [deleteMenuData] API 요청 실패:", error);
+      console.error("❌ [deleteMenuApi] 메뉴 삭제 실패:", error);
       throw error;
   }
 };
