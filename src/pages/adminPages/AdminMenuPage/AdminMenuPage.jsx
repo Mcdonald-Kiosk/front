@@ -161,7 +161,7 @@ function AdminMenuPage(props) {
                 {/* <ReactModal 
                     isOpen={infoModalOpen} 
                     onRequestClose={() => setInfoModalOpen(false)} //모달 밖을 누르면 닫힘
-                    children={<AdminMenuInfoModal menu={infoModalDate} />}
+                    children={<AdminMenuInfoModal setOpen={setInfoModalOpen} />} //menu={infoModalDate}
                 /> */}
             </div>
 
