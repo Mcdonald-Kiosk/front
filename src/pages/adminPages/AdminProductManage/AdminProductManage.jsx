@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import * as s from "./style";
 import { Checkbox } from "@mui/material";
 import { useAddMenuMutation, useDeleteMenuMutation } from "../../../mutations/menuMutation";
-import ImageModal from "../AdminMenuImagine/AdminMenuImagine";
-import { useMenuDetail } from "../../../hooks/menu/menuManageHooks";
-import useMenuData from "../../../hooks/menu/menuManageHooks";
+import useMenuData, { useMenuDetail } from "../../../hooks/menu/getMenuHooks";
+// import ImageModal from "../AdminMenuImagine/AdminMenuImagine";
+
 
 function AdminProductManage() {
     const [selectedMenu, setSelectedMenu] = useState(null);
@@ -127,6 +127,7 @@ function AdminProductManage() {
   
     return (
         <div css={s.container}>
+
             {/* 메뉴 선택 드롭다운 */}
             <div css={s.dropdownContainer}>
                 <select
@@ -147,6 +148,7 @@ function AdminProductManage() {
                 </select>
             </div>
   
+
         {/* 상품 정보 입력 */}
             <div css={s.productContainer}>
             <div css={s.imageCon}>
@@ -166,12 +168,12 @@ function AdminProductManage() {
                 </label>
             </div>
     
-            <ImageModal
+            {/* <ImageModal
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}
                 images={imageList}
                 onSelect={handleSelectImage}
-            />
+            /> */}
     
             <div css={s.inputGroup}>
                 <div>
@@ -265,4 +267,4 @@ function AdminProductManage() {
 }
 
 export default AdminProductManage;
-  
+

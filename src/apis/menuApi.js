@@ -16,6 +16,7 @@ export const fetchMenuData = async () => {
     return sortedData;
 };
 
+
 // 관리자용 전체 메뉴 목록 가져오기
 export const adminFetchMenuApi = async () => {
   try {
@@ -27,6 +28,7 @@ export const adminFetchMenuApi = async () => {
       throw error;
   }
 };
+
 
 // 특정 메뉴 상세 정보 가져오기
 export const fetchMenuDetailApi = async (menuId) => {
@@ -74,6 +76,7 @@ export const addMenuApi = async (formData) => {
       throw error;
   }
 };
+
 
 // 메뉴 삭제
 export const deleteMenuApi = async (menuId) => {
