@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as s from './style';
 import React, { useEffect, useState } from 'react';  // useState를 추가합니다.
 import { BiLogOut } from 'react-icons/bi';
@@ -51,8 +51,10 @@ function MainSidebar(props) {
 
     return (
         <div css={s.container}>
-            <div css={s.header}>
+            <div css={s.header} >
+                <Link to="/admin/main" css={s.headerLink} onClick={() => setActiveButton('')}>
                 <p>관리자 모드</p>
+                </Link>
             </div>
             <div css={s.body}>
                 <div css={s.buttonstyle}>
