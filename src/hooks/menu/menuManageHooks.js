@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { adminFetchMenuApi, fetchMenuDetailApi } from '../../apis/menuApi';
 
-// ✅ 메뉴 목록 가져오는 Hook
+// 메뉴 목록 가져오는 Hook
 const useMenuData = () => {
     const { data, error, isLoading } = useQuery({
         queryKey: ['menuData'],
@@ -23,7 +23,7 @@ const useMenuData = () => {
     return { data, error, isLoading };
 };
 
-// ✅ 특정 메뉴 가져오는 Hook
+// 특정 메뉴 가져오는 Hook
 export const useMenuDetail = (menuId) => {
     const { data, error } = useQuery({
         queryKey: ['menuDetail', menuId],

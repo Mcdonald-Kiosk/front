@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addMenuApi, deleteMenuApi } from '../apis/menuApi';
 
-// ✅ 메뉴 추가 (POST) → useMutation 사용
+// 메뉴 추가 (POST) → useMutation 사용
 export const useAddMenuMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -16,7 +16,7 @@ export const useAddMenuMutation = () => {
     });
 };
 
-// ✅ 메뉴 삭제 (DELETE) → useMutation 사용
+// 메뉴 삭제 (DELETE) → useMutation 사용
 export const useDeleteMenuMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({

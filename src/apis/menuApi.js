@@ -16,7 +16,7 @@ export const fetchMenuData = async () => {
     return sortedData;
 };
 
-// ✅ 관리자용 전체 메뉴 목록 가져오기
+// 관리자용 전체 메뉴 목록 가져오기
 export const adminFetchMenuApi = async () => {
   try {
       const response = await api.get("/api/admin/menus");
@@ -28,7 +28,7 @@ export const adminFetchMenuApi = async () => {
   }
 };
 
-// ✅ 특정 메뉴 상세 정보 가져오기
+// 특정 메뉴 상세 정보 가져오기
 export const fetchMenuDetailApi = async (menuId) => {
   if (!menuId) {
       console.warn("⚠️ [fetchMenuDetail] menuId가 없습니다.");
@@ -45,7 +45,7 @@ export const fetchMenuDetailApi = async (menuId) => {
   }
 };
 
-// ✅ 메뉴 추가 (FormData 사용)
+// 메뉴 추가 (FormData 사용)
 export const addMenuApi = async (formData) => {
   const token = localStorage.getItem("AccessToken");
   if (!token) throw new Error("❌ 인증 정보 없음! 다시 로그인해주세요.");
@@ -75,7 +75,7 @@ export const addMenuApi = async (formData) => {
   }
 };
 
-// ✅ 메뉴 삭제
+// 메뉴 삭제
 export const deleteMenuApi = async (menuId) => {
   const token = localStorage.getItem("AccessToken");
   if (!token) throw new Error("❌ 인증 정보 없음! 다시 로그인해주세요.");
