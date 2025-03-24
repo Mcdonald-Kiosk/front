@@ -54,6 +54,11 @@ export const deleteMenuData = async (menuId) => {
   return response.data;
 };
 
+//카테고리ID로 메뉴찾아오기
+export const getMenuRequest = async (categoryId) => {
+  return await instance.get(`/menus?categoryId=${categoryId}`);
+};
+
 
 /*
 [
