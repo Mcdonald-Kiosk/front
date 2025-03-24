@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useAllMenuList, useGetCategories } from '../../../queries/AdminQuery/AdminMenuBoardQuery';
 import { useUpdateIsPosureMutation } from '../../../mutations/adminMutaion';
 import ReactModal from 'react-modal';
-//import AdminMenuInfoModal from `../../../components/Modal/AdminMenuInfoModal/AdminMenuInfoModal`;
+import AdminMenuInfoModal from '../../../components/Modal/AdminMenuInfoModal/AdminMenuInfoModal';
 
 function AdminMenuPage(props) {
     const [ searchParams, setSearchParams ] = useSearchParams();
@@ -23,18 +23,13 @@ function AdminMenuPage(props) {
     const updateIsExposureMutation = useUpdateIsPosureMutation(); //노출여부 뮤태이션
 
     const [ infoModalOpen, setInfoModalOpen ] = useState(false); //모달 열림 상태
-    const [ infoModalDate, setInfoModalDate ] = useState(null); //모달에 전달할 메뉴데이터
+    const [ infoModalDate, setInfoModalDate ] = useState(1); //모달에 전달할 메뉴데이터
 
-    //메뉴 클릭 시 오달 작동
-    const handleInfoModalOnClick = (menu) => {
-        setInfoModalDate(menu); //모달에 데이터 전달
-        setInfoModalOpen(true); //모달 열기
-    }
 
     //카테고리에 맞는 메뉴 목록 불러오기
-    const filteredMenuList = searchMenuList?.data.filter(menu =>
+    const filteredMenuList = (searchMenuList?.data || []).filter(menu =>
         category === "전체" || menu.menuCategory === category
-    ) || [];
+    );
 
     //필요한 목록 불러오기
     const renderMenuList = () => {
@@ -46,7 +41,7 @@ function AdminMenuPage(props) {
 
         //메뉴 출력
         return churnkededMenuList.map((menu) => (
-            <li key={menu.menuId} onClick={() => handleInfoModalOnClick(menu)}>
+            <li key={menu.menuId} onClick={() => handleInfoModalOnClick(menu.menuId)}>
                 <div css={s.numBox}>{menu.menuId}</div>
                 <div css={s.nameBox}>{menu.menuName}</div>
                 <div css={s.priceBox}>{menu.menuPrice[0].menuPrice}</div>
@@ -63,6 +58,12 @@ function AdminMenuPage(props) {
             </li>
         ));
     };
+
+        //메뉴 클릭 시 모달 작동
+        const handleInfoModalOnClick = (menuId) => {
+            setInfoModalDate(menuId); //모달에 데이터 전달
+            setInfoModalOpen(true); //모달 열기
+        }
 
     //노출여부 변경 및 목록 다시 불러오기
     const handleChangeIsExposureOnClick = async (menuId, isExposure) => {
@@ -112,7 +113,7 @@ function AdminMenuPage(props) {
     }, [searchParams, category, totalPages, isMenuLoading]);
 
 
-    console.log(searchMenuList);
+    //console.log(searchMenuList);
     
     return (
         <div css={s.container}>
@@ -158,11 +159,27 @@ function AdminMenuPage(props) {
                     </li>
                     { renderMenuList() }
                 </ul>
-                {/* <ReactModal 
+                <ReactModal 
                     isOpen={infoModalOpen} 
                     onRequestClose={() => setInfoModalOpen(false)} //모달 밖을 누르면 닫힘
-                    children={<AdminMenuInfoModal setOpen={setInfoModalOpen} />} //menu={infoModalDate}
-                /> */}
+                    style={{
+                        overlay: {
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "#00000044"
+                        },
+                        content: {
+                            position: "static",
+                            boxSizing: "border-box",
+                            borderRadius: "1.5rem",
+                            height: "100rem",
+                            width: "100rem",
+                        }
+                    }}
+                >
+                    <AdminMenuInfoModal setOpen={setInfoModalOpen} menuId={infoModalDate} />
+                </ReactModal>
             </div>
 
             <div css={s.footer}>
@@ -185,108 +202,3 @@ function AdminMenuPage(props) {
 }
 
 export default AdminMenuPage;
-
-        // //목록 불러오기
-        // const renderMenuList = () => {
-        //     //카테고리가 해당하는 메뉴 불러오기.
-        //     if (category !== "전체") {
-        //         return searchMenuListByCategory?.data?.data.menuList
-        //         .filter((menu) => menu.menuCategory === category) 
-        //         .map((menu) => (
-        //             <li key={menu.menuId}>
-        //                 <div>{menu.menuId}</div>
-        //                 <div>{menu.menuName}</div>
-        //                 <div>{menu.menuPrice[0].menuPrice}</div>
-        //                 <div>{menu.isExposure}</div>
-        //             </li>
-        //         ));
-        //     }
-        //     // 카테고리가 '전체'인 경우, 모든 메뉴 출력
-        //     return searchMenuListByCategory?.data?.data.menuList.map((menu) => (
-        //         <li key={menu.menuId}>
-        //             <div>{menu.menuId}</div>
-        //             <div>{menu.menuName}</div>
-        //             <div>{menu.menuPrice[0].menuPrice}</div>
-        //             <div>{menu.isExposure}</div>
-        //         </li>
-        //     ));
-        // };
-
-
-    //     <button disabled={searchMenuList?.data?.data.firstPage} onClick={() => handlePageNumbersOnClick(page - 1)}>
-    //     <GoChevronLeft />
-    // </button>
-    // {
-    //     pageNumbers.map(number => //css={s.pageNum(page === number)}
-    //         <button key={number}  onClick={() => handlePageNumbersOnClick(number)}>
-    //             <span>{number}</span>
-    //         </button>
-    //     )
-    // }
-    // <button disabled={searchMenuList?.data?.data.lastPage} onClick={() => handlePageNumbersOnClick(page + 1)}>
-    //     <GoChevronRight />
-    // </button>
-
-
-    //한 페이지당 담길 리스트
-    // const renderMenuList = () => {
-    //     const startIndex = (page - 1) * 5;
-    //     const endIndex = startIndex + 5;
-
-    //     let filteredContents = [];
-
-    //     if (category === "all") { // "all"일 때 모든 카테고리 항목을 출력
-    //         Object.keys(categoryLists).forEach((key) => {
-    //             filteredContents = [...filteredContents, ...categoryLists[key]];
-    //         });
-    //     } else { // "all"이 아닐 경우, 선택된 카테고리만 출력
-    //         filteredContents = categoryLists[category];
-    //     }
-
-    //     setTotalPages(Math.ceil(filteredContents.length / 5));
-
-    //     if (filteredContents.length === 0) {
-    //         return <p>메뉴가 없습니다.</p>;
-    //     }
-
-    //     return filteredContents.slice(startIndex, endIndex).map((item, index) => (
-    //             <li key={index}>
-    //                 {item.name} - {item.price}
-    //             </li>
-    //     ));
-    // }
-
-
-    //리스트 페이지 번호 설정
-    // useEffect(() => {
-    //     if (!isLoding) {
-    //         const totalPages = Math.ceil(Object.values(categoryLists).flat().length / 5); 
-    //         const currentPage = page;
-
-    //         const startIndex = Math.floor((currentPage - 1) / 5) * 5 + 1;
-    //         const endIndex = startIndex + 4 > totalPages ? totalPages : startIndex + 4;
-
-    //         let newPageNumbers = [];
-    //         for (let i = startIndex; i <= endIndex; i++) {
-    //             newPageNumbers.push(i);
-    //         }
-
-    //         // pageNumbers 상태가 변경된 값과 다를 때만 업데이트
-    //         if (JSON.stringify(newPageNumbers) !== JSON.stringify(pageNumbers)) {
-    //             setPageNumbers(newPageNumbers);
-    //         }
-    //     }
-    // }, [category, page, pageNumbers]);
-
-    // //페이지 이동 시 페이지 번호 상태 업데이트
-    // const handlePageNumberOnClick = (pageNumber) => {
-    //     // searchParams.set("page", pageNumber);
-    //     // setSearchParams(searchParams);
-    //     setSearchParams({ page: pageNumber }); 
-    // }
-
-
-    //  // 카테고리 선택시 상태 업데이트
-    //  const handleCategoryChange = (event) => {
-    //     setCategory(event.target.value);
-    // };
