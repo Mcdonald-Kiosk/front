@@ -26,7 +26,7 @@ const useMenuData = () => {
     return { data, error, isLoading };
 };
 
-// ✅ 특정 메뉴 가져오는 Hook
+// 특정 메뉴 가져오는 Hook
 export const useMenuDetail = (menuId) => {
     const { data, error } = useQuery({
         queryKey: ['menuDetail', menuId],
