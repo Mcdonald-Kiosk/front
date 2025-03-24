@@ -6,6 +6,7 @@ import { useAddMenuMutation, useDeleteMenuMutation } from "../../../mutations/me
 import useMenuData, { useMenuDetail } from "../../../hooks/menu/getMenuHooks";
 // import ImageModal from "../AdminMenuImagine/AdminMenuImagine";
 
+
 function AdminProductManage() {
     const [selectedMenu, setSelectedMenu] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -126,7 +127,8 @@ function AdminProductManage() {
   
     return (
         <div css={s.container}>
-            {/* ✅ 메뉴 선택 드롭다운 */}
+
+            {/* 메뉴 선택 드롭다운 */}
             <div css={s.dropdownContainer}>
                 <select
                 onChange={(e) => setSelectedMenu(Number(e.target.value))}
@@ -146,7 +148,8 @@ function AdminProductManage() {
                 </select>
             </div>
   
-        {/* ✅ 상품 정보 입력 */}
+
+        {/* 상품 정보 입력 */}
             <div css={s.productContainer}>
             <div css={s.imageCon}>
                 <label css={s.imageBox} onClick={() => handleOpenModal("single")}>
@@ -264,3 +267,4 @@ function AdminProductManage() {
 }
 
 export default AdminProductManage;
+

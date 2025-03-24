@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import LoginPage from '../../pages/adminPages/LoginPage/LoginPage';
 import JoinPage from '../../pages/adminPages/JoinPage/JoinPage';
+import OAuth2LoginPage from '../../pages/adminPages/OAuth2LoginPage/OAuth2LoginPage';
 
 
 function AdminRoute(props) {
@@ -31,7 +32,7 @@ function AdminRoute(props) {
 
             <Route path="/join/*" element={<JoinPage />} />
             <Route path="/login/*" element={<LoginPage />} />
-            
+            <Route path='/login/oauth2' element={<OAuth2LoginPage />} />
             <Route path="/*" element={<NotFoundPage />} />
         </Routes>
     )
