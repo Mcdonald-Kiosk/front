@@ -1,7 +1,7 @@
 /**@jsxImportSource @emotion/react */
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import AdminSalesChart from '../../../components/AdminSales/AdminSalesChart/AdminSalesChart';
-import { getSalesRequest } from '/team-project/3-21/front/src/apis/AdminApi/AdminSalesApi'
+import { getSalesRequest } from '../../../apis/AdminApi/AdminSalesApi';
 import * as s from './style';
 import AdminSaleByMenu from '../../../components/AdminSales/AdminSaleByMenu/AdminSaleByMenu';
 import MenuButton from '../../../components/MenuButton/MenuButton';

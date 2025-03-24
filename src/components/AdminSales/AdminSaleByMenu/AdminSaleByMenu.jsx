@@ -4,7 +4,7 @@ import * as s from './style';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
-import { searchSalesByMenuRequest } from '/team-project/3-21/front/src/apis/AdminApi/AdminSalesApi';
+import { searchSalesByMenuRequest } from '../../../apis/AdminApi/AdminSalesApi';
 import PageModal from '../../Modal/PageModal/PageModal';
 import { Select } from '@mui/material';
 import ToggleSwitch from '../../ToggleSwitch/ToggleSwitch';
