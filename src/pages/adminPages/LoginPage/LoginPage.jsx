@@ -36,7 +36,7 @@ function LoginPage(props) {
                 position:"center",
                 showConfirmButton: false,
             });
-            navigate("/admin/main/menu");
+            navigate("/admin/main");
             await queryClient.invalidateQueries({queryKey: ["userMeQuery"]});
         } catch(error) {
             // if(error.response.status === 401) {
