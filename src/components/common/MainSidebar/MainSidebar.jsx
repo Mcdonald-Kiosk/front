@@ -18,6 +18,15 @@ function MainSidebar(props) {
         navigate("/auth/login");
     }
 
+    //메뉴관리페이지로 이동
+    const handleMainMenuButtonOnClick = () => {
+        navigate("/admin/main/menu");
+    }
+
+    const handleOrdersButtonOnClick = () => {
+        navigate("/admin/main/orders");
+    }
+
     return (
         <div css={s.container}>
             <div css={s.header}>
@@ -25,7 +34,7 @@ function MainSidebar(props) {
             </div>
             <div css={s.body}>
                 <div css={s.buttonstyle}>
-                    <button css={s.emptybutton}>메뉴 관리</button>
+                    <button css={s.emptybutton} onClick={handleMainMenuButtonOnClick}>메뉴 관리</button>
                 </div>
                 <div css={s.buttonstyle}>
                     <button css={s.emptybutton}>제품 관리</button>
@@ -34,10 +43,10 @@ function MainSidebar(props) {
                     <button css={s.emptybutton}>옵션 관리</button>
                 </div>
                 <div css={s.buttonstyle}>
-                    <button css={s.emptybutton}>매출 관리</button>
+                    <button css={s.emptybutton}>매출 집계</button>
                 </div>
                 <div css={s.buttonstyle}>
-                    <button css={s.emptybutton}>주문 관리</button>
+                    <button css={s.emptybutton} onClick={handleOrdersButtonOnClick}>주문 내역</button>
                 </div>
                 <div css={s.buttonstyle}>
                     <button css={s.emptybutton}>내 정보</button>
