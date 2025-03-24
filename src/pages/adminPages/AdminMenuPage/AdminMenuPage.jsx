@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useAllMenuList, useGetCategories } from '../../../queries/AdminQuery/AdminMenuBoardQuery';
 import { useUpdateIsPosureMutation } from '../../../mutations/adminMutaion';
 import ReactModal from 'react-modal';
-// import AdminMenuInfoModal from `../../../components/Modal/AdminMenuInfoModal/AdminMenuInfoModal`;
+import AdminMenuInfoModal from '../../../components/Modal/AdminMenuInfoModal/AdminMenuInfoModal';
 
 function AdminMenuPage(props) {
     const [ searchParams, setSearchParams ] = useSearchParams();
@@ -23,18 +23,13 @@ function AdminMenuPage(props) {
     const updateIsExposureMutation = useUpdateIsPosureMutation(); //노출여부 뮤태이션
 
     const [ infoModalOpen, setInfoModalOpen ] = useState(false); //모달 열림 상태
-    const [ infoModalDate, setInfoModalDate ] = useState(null); //모달에 전달할 메뉴데이터
+    const [ infoModalDate, setInfoModalDate ] = useState(1); //모달에 전달할 메뉴데이터
 
-    //메뉴 클릭 시 오달 작동
-    const handleInfoModalOnClick = (menuId) => {
-        setInfoModalDate(menuId); //모달에 데이터 전달
-        setInfoModalOpen(true); //모달 열기
-    }
 
     //카테고리에 맞는 메뉴 목록 불러오기
-    const filteredMenuList = searchMenuList?.data.filter(menu =>
+    const filteredMenuList = (searchMenuList?.data || []).filter(menu =>
         category === "전체" || menu.menuCategory === category
-    ) || [];
+    );
 
     //필요한 목록 불러오기
     const renderMenuList = () => {
@@ -63,6 +58,12 @@ function AdminMenuPage(props) {
             </li>
         ));
     };
+
+        //메뉴 클릭 시 모달 작동
+        const handleInfoModalOnClick = (menuId) => {
+            setInfoModalDate(menuId); //모달에 데이터 전달
+            setInfoModalOpen(true); //모달 열기
+        }
 
     //노출여부 변경 및 목록 다시 불러오기
     const handleChangeIsExposureOnClick = async (menuId, isExposure) => {
@@ -112,7 +113,7 @@ function AdminMenuPage(props) {
     }, [searchParams, category, totalPages, isMenuLoading]);
 
 
-    console.log(searchMenuList);
+    //console.log(searchMenuList);
     
     return (
         <div css={s.container}>
@@ -158,11 +159,27 @@ function AdminMenuPage(props) {
                     </li>
                     { renderMenuList() }
                 </ul>
-                {/* <ReactModal 
+                <ReactModal 
                     isOpen={infoModalOpen} 
                     onRequestClose={() => setInfoModalOpen(false)} //모달 밖을 누르면 닫힘
-                    children={<AdminMenuInfoModal setOpen={setInfoModalOpen} menuId={infoModalDate} />}
-                /> */}
+                    style={{
+                        overlay: {
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "#00000044"
+                        },
+                        content: {
+                            position: "static",
+                            boxSizing: "border-box",
+                            borderRadius: "1.5rem",
+                            height: "100rem",
+                            width: "100rem",
+                        }
+                    }}
+                >
+                    <AdminMenuInfoModal setOpen={setInfoModalOpen} menuId={infoModalDate} />
+                </ReactModal>
             </div>
 
             <div css={s.footer}>
