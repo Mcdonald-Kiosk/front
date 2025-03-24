@@ -62,11 +62,18 @@ function AdminProductManage() {
         : [],});
     }, [menuDetail]);
 
-    const handleOpenModal = (type) => {
+    // 이미지 모달 열기
+    const handleOpenModalOnClick = (type) => {
         setSelectedImageType(type);
+        const selectedImages =
+            type === "single"
+            ? menus.map((menu) => menu.singleImg).filter(Boolean)
+            : menus.map((menu) => menu.setImg).filter(Boolean);
+        setImageList(selectedImages);
         setModalOpen(true);
-    };
+        };
 
+    // 이미지 선택 시 formData에 반영
     const handleSelectImage = (imgUrl) => {
         setFormData((prev) => ({
             ...prev,
@@ -148,14 +155,14 @@ function AdminProductManage() {
             {/* 상품 정보 입력 */}
             <div css={s.productContainer}>
                 <div css={s.imageCon}>
-                    <label css={s.imageBox} onClick={() => handleOpenModal("single")}>
+                    <label css={s.imageBox} onClick={() => handleOpenModalOnClick("single")}>
                     {formData.singleImg ? (
                         <img src={formData.singleImg} alt="Single" />
                     ) : (
                         <span>단품 또는 M사이즈</span>
                     )}
                     </label>
-                    <label css={s.imageBox} onClick={() => handleOpenModal("set")}>
+                    <label css={s.imageBox} onClick={() => handleOpenModalOnClick("set")}>
                     {formData.setImg ? (
                         <img src={formData.setImg} alt="Set" />
                     ) : (
@@ -263,4 +270,3 @@ function AdminProductManage() {
 }
 
 export default AdminProductManage;
-
