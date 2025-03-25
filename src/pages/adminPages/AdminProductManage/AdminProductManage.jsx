@@ -5,9 +5,12 @@ import { Checkbox } from "@mui/material";
 import { useAddMenuMutation, useDeleteMenuMutation } from "../../../mutations/menuMutation";
 import useMenuData, { useMenuDetail } from "../../../hooks/menu/getMenuHooks";
 import ImageModal from "../AdminMenuImagine/AdminMenuImagine";
+import { useSearchParams } from "react-router-dom";
+
 
 function AdminProductManage() {
-    const [selectedMenu, setSelectedMenu] = useState(null);
+    const [ searchParams, setSearchParams ] = useSearchParams();
+    const [selectedMenu, setSelectedMenu] = useState(!!searchParams.get("menuId") ? parseInt(searchParams.get("menuId")) : 1);
     const [isEditing, setIsEditing] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedImageType, setSelectedImageType] = useState("");
@@ -137,9 +140,9 @@ function AdminProductManage() {
         <div css={s.container}>
             <div css={s.dropdownContainer}>
                 <select
-                    onChange={(e) => setSelectedMenu(Number(e.target.value))}
-                    css={s.dropdown}
-                    value={selectedMenu || ""}
+                onChange={(e) => setSelectedMenu(Number(e.target.value))}
+                css={s.dropdown}
+                value={selectedMenu}
                 >
                     <option value="">메뉴를 선택해주세요</option>
                     {!isLoading && menus.length > 0 ? (
