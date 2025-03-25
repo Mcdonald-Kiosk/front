@@ -1,25 +1,17 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { addedCart } from "../../../atoms/addedCart/addedCart";
-import useMenuData from "../../../hooks/menu/getMenuHooks";
 /**@jsxImportSource @emotion/react */
 import * as s from './style';
+import menuForUser from "../../../hooks/menu/menuForUser";
 
-// 수정하면 같은 이름의 버거는 다 같이 수정되버림. 어떻게 하지? 인덱스? 고유 ID?
-// 수정하면 같은 이름의 버거는 다 같이 수정되버림. 어떻게 하지? 인덱스? 고유 ID?
-// 수정하면 같은 이름의 버거는 다 같이 수정되버림. 어떻게 하지? 인덱스? 고유 ID?
-// 수정하면 같은 이름의 버거는 다 같이 수정되버림. 어떻게 하지? 인덱스? 고유 ID?
-// 수정하면 같은 이름의 버거는 다 같이 수정되버림. 어떻게 하지? 인덱스? 고유 ID?
-// 수정하면 같은 이름의 버거는 다 같이 수정되버림. 어떻게 하지? 인덱스? 고유 ID?
-// 수정하면 같은 이름의 버거는 다 같이 수정되버림. 어떻게 하지? 인덱스? 고유 ID?
-// 수정하면 같은 이름의 버거는 다 같이 수정되버림. 어떻게 하지? 인덱스? 고유 ID?
 
 const MenuModifyModal = ({ menu, onClose }) => {
     const [step, setStep] = useState(2);
     const [side, setSide] = useState(null);
     const [drink, setDrink] = useState(null);
     const [addedCartState, setAddedCartState] = useRecoilState(addedCart);
-    const { data: menuData, error, isLoading } = useMenuData();
+    const { data: menuData, error, isLoading } = menuForUser();
 
     // 필터링된 사이드와 음료
     const filteredSides = menuData?.filter(item => item.menuCategory === "사이드");
@@ -53,13 +45,19 @@ const MenuModifyModal = ({ menu, onClose }) => {
 
     const handleAddToCart = () => {
         // 기본 사이드나 음료의 가격을 `discountPrice`로 설정
-        const sidePrice = side !== defaultSide 
-            ? filteredSides?.find(temp1 => temp1.menuName === side)?.menuPrice[0].discountPrice 
-            : filteredSides?.find(temp1 => temp1.menuName === defaultSide)?.menuPrice[0].discountPrice || 0;
-    
-        const drinkPrice = drink !== defaultDrink 
-            ? filteredDrinks?.find(temp2 => temp2.menuName === drink)?.menuPrice[0].discountPrice 
-            : filteredDrinks?.find(temp2 => temp2.menuName === defaultDrink)?.menuPrice[0].discountPrice || 0;
+        const sidePrice = Math.max(
+            (side !== defaultSide 
+                ? filteredSides?.find(temp1 => temp1.menuName === side)?.menuPrice[0].discountPrice 
+                : filteredSides?.find(temp1 => temp1.menuName === defaultSide)?.menuPrice[0].discountPrice) || 0, 
+            0
+        );
+        
+        const drinkPrice = Math.max(
+            (drink !== defaultDrink 
+                ? filteredDrinks?.find(temp2 => temp2.menuName === drink)?.menuPrice[0].discountPrice 
+                : filteredDrinks?.find(temp2 => temp2.menuName === defaultDrink)?.menuPrice[0].discountPrice) || 0, 
+            0
+        );
     
         // 메뉴의 가격을 menuData에서 동적으로 가져옴
         const basePrice = filteredBurgers?.find(item => item.menuName === selectBurger)?.menuPrice[0].menuPrice || 0;
@@ -73,7 +71,11 @@ const MenuModifyModal = ({ menu, onClose }) => {
         console.log("basePrice:", basePrice);
     
         const updatedCart = addedCartState.map(item => {
-            if (item.detailMenu === menu.detailMenu) {
+            if (item.orderId === menu.orderId && item.detailMenu === menu.detailMenu) {
+                console.log("item :", item.orderId);
+                console.log("item :", item.detailMenu);
+                console.log("menu :", menu.orderId);
+                console.log("menu :", menu.detailMenu);
                 const updatedPrice = basePrice + sidePrice + drinkPrice;
                 console.log("Updated Price for", menu.detailMenu, ":", updatedPrice);
                 return {
@@ -130,7 +132,11 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                             <img src={side.singleImg} alt={side.menuName} />
                                             <div>
                                                 <p>{side.menuName}</p>
-                                                <p>{side.menuName === defaultSide ? "+0원" : `+${side.menuPrice[0].discountPrice - filteredSides.find(side => side.menuName === defaultSide)?.menuPrice[0].discountPrice}원`}</p>
+                                                <p>
+                                                {side.menuName === defaultSide 
+                                                    ? "+0원" 
+                                                    : `+${Math.max(side.menuPrice[0].discountPrice - filteredSides?.find(side => side.menuName === defaultSide)?.menuPrice[0]?.discountPrice, 0)}원`}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +162,11 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                             <img src={drink.singleImg} alt={drink.menuName} />
                                             <div>
                                                 <p>{drink.menuName}</p>
-                                                <p>{drink.menuName === defaultDrink ? "+0원" : `+${drink.menuPrice[0].discountPrice - filteredDrinks.find(drink => drink.menuName === defaultDrink)?.menuPrice[0].discountPrice}원`}</p>
+                                                <p>
+                                                    {drink.menuName === defaultDrink
+                                                        ? "+0원" 
+                                                        : `+${Math.max(drink.menuPrice[0].discountPrice - filteredDrinks?.find(drink => drink.menuName === defaultDrink)?.menuPrice[0]?.discountPrice, 0)}원`}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
