@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import Payment from '../../pages/userPages/Payment/Payment';
 import PrePayment from '../../pages/userPages/PrePayment/PrePayment';
 import KaKaoPay from '../../pages/userPages/KaKaoPay/KaKaoPay';
+import SavePoint from '../../pages/userPages/SavePoint/SavePoint';
 
 
 function UserRoute(props) {
@@ -16,6 +17,7 @@ function UserRoute(props) {
 
     return (
         <Routes>
+          <Route path="/savePoint/*" element={<SavePoint />} />
           <Route path="/kakaoPay/*" element={<KaKaoPay />} />
           <Route path="/prePayment/*" element={<PrePayment />} />
           <Route path="/payment/*" element={<Payment />} />
