@@ -65,16 +65,23 @@ function AdminProductManage() {
     // 이미지 모달 열기
     const handleOpenModalOnClick = (type) => {
         setSelectedImageType(type);
-        const selectedImages =
-            type === "single"
-            ? menus.map((menu) => menu.singleImg).filter(Boolean)
-            : menus.map((menu) => menu.setImg).filter(Boolean);
-        setImageList(selectedImages);
-        setModalOpen(true);
-        };
+        
+        const imageType = type === "single" ? "singleImg" : "setImg";
+        
+        // 메뉴 리스트에서 이미지 URL + 이름 추출
+        const images = menus
+            .filter(menu => menu[imageType]) // 이미지 있는 것만
+            .map(menu => ({
+                url: menu[imageType],
+                name: menu.menuName,
+            }));
+    
+        setImageList(images);     // 모달에 넘겨줄 이미지 목록 설정
+        setModalOpen(true);       // 모달 열기
+    };
 
     // 이미지 선택 시 formData에 반영
-    const handleSelectImage = (imgUrl) => {
+    const handleSelectImageOnSelect = (imgUrl) => {
         setFormData((prev) => ({
             ...prev,
             [selectedImageType === "single" ? "singleImg" : "setImg"]: imgUrl,
@@ -174,8 +181,9 @@ function AdminProductManage() {
                 <ImageModal
                     isOpen={modalOpen}
                     onClose={() => setModalOpen(false)}
-                    images={imageList}
-                    onSelect={handleSelectImage}
+                    menus={menus}
+                    imageType={selectedImageType}
+                    onSelect={handleSelectImageOnSelect}
                 />
     
                 <div css={s.inputGroup}>

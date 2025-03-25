@@ -16,9 +16,9 @@ export const modalOverlay = css`
 
 export const modalContent = css`
     background: #fff;
-    padding: 20px;
+    padding: 2rem;
     border-radius: 12px;
-    max-width: 1200px;
+    max-width: 120rem;
     width: 90%;
     max-height: 90vh;
     overflow-y: auto;
@@ -28,14 +28,14 @@ export const modalContent = css`
 
 export const closeButton = css`
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 1rem;
+    right: 1rem;
     background: #e74c3c;
     color: white;
     border: none;
     border-radius: 50%;
-    width: 28px;
-    height: 28px;
+    width: 2.8rem;
+    height: 2.8rem;
     cursor: pointer;
     font-weight: bold;
     &:hover {
@@ -46,8 +46,9 @@ export const closeButton = css`
 export const imageGrid = css`
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 5개씩 */
-    gap: 16px;
-    margin-top: 20px;
+	grid-template-rows: repeat(4, auto);   /* 세로 4칸 */
+    gap: 1.6rem;
+    margin-top: 2rem;
 `;
 
 export const imageBox = css`
@@ -57,8 +58,8 @@ export const imageBox = css`
 `;
 
 export const modalImage = css`
-    width: 120px;
-    height: 120px;
+    width: 12rem;
+    height: 12rem;
     object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
@@ -76,9 +77,9 @@ export const selectedImage = css`
 `; 
 
 export const imageLabel = css`
-    margin-top: 6px;
-    font-size: 14px;
-    color: #555;
+    margin-top: 0.6rem;
+    font-size: 1.4rem;
+    color: #555555;
     text-align: center;
 `;
 
@@ -86,11 +87,11 @@ export const pagination = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 24px;
-    gap: 12px;
+    margin-top: 2.4rem;
+    gap: 1.2rem;
 
     button {
-        padding: 6px 14px;
+        padding: 0.6rem 1.4rem;
         border: none;
         background-color: #3498db;
         color: white;
@@ -111,6 +112,6 @@ export const pagination = css`
     
     span {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 1.6rem;
     }
 `;
