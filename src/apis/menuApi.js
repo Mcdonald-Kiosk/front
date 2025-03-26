@@ -97,11 +97,6 @@ export const deleteMenuApi = async (menuId) => {
   }
 };
 
-//카테고리ID로 메뉴찾아오기
-export const getMenuRequest = async (categoryId) => {
-  return await instance.get(`/menus?categoryId=${categoryId}`);
-};
-
 // 페이지네이션용 이미지 + 메뉴명 가지고오기
 export const fetchAllMenuImages = async () => {
   const response = await api.get("/api/admin/menus/images");
