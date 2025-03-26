@@ -108,7 +108,25 @@ export const fetchAllMenuImages = async () => {
   return response.data;
 };
 
+// 메뉴 수정
+export const updateMenuApi = async ({ menuId, ...data }) => {
+  const token = localStorage.getItem("AccessToken");
+  if (!token) throw new Error("❌ 인증 정보 없음! 다시 로그인해주세요.");
 
+  try {
+    const response = await api.put(`/api/admin/menus/${menuId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("✅ [updateMenuApi] 메뉴 수정 성공:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("❌ [updateMenuApi] 메뉴 수정 실패:", error);
+    throw error;
+  }
+};
 
 
 /*

@@ -250,11 +250,35 @@ function AdminProductManage() {
             </div>
 
             <div css={s.buttonGroup}>
-                <button onClick={handleSubmitMenuOnClick} css={s.button} disabled={!isEditing}>추가</button>
-                <button onClick={() => setIsEditing(true)} css={s.button}>편집</button>
-                <button onClick={handleUpdateMenuOnClick} css={s.button} disabled={!isEditing}>수정</button>
-                <button onClick={handleDeleteMenuOnClick} css={s.button}>삭제</button>
-            </div>
+                <button
+                    onClick={handleSubmitMenuOnClick}
+                    css={s.button}
+                    disabled={isEditing} // 편집 중엔 추가 비활성화
+                    >
+                    추가
+                </button>
+
+                <button
+                    onClick={() => {
+                    if (isEditing) {
+                        handleUpdateMenuOnClick(); // 확인 눌렀을 때 수정
+                    } else {
+                        setIsEditing(true); // 편집 시작
+                    }
+                    }}
+                    css={s.button}
+                >
+                    {isEditing ? "확인" : "편집"}
+                </button>
+
+                <button
+                    onClick={handleDeleteMenuOnClick}
+                    css={s.button}
+                    disabled={isEditing} // 편집 중엔 삭제 비활성화
+                >
+                    삭제
+                </button>
+                </div>
         </div>
     );
 }

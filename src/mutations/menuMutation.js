@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addMenuApi, deleteMenuApi } from '../apis/menuApi';
+import { addMenuApi, deleteMenuApi, updateMenuApi } from '../apis/menuApi';
+import axios from "axios";
 
 // 메뉴 추가 (POST) → useMutation 사용
 export const useAddMenuMutation = () => {
@@ -35,11 +36,7 @@ export const useUpdateMenuMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (updatedMenu) => {
-            const { menuId, ...data } = updatedMenu;
-            const response = await axios.put(`/api/admin/menus/${menuId}`, data);
-            return response.data;
-        },
+        mutationFn: updateMenuApi,
         onSuccess: () => {
             queryClient.invalidateQueries(["menuData"]);
             alert("메뉴가 성공적으로 수정되었습니다.");
