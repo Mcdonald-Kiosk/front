@@ -30,3 +30,23 @@ export const useDeleteMenuMutation = () => {
         },
     });
 };
+
+export const useUpdateMenuMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (updatedMenu) => {
+            const { menuId, ...data } = updatedMenu;
+            const response = await axios.put(`/api/admin/menus/${menuId}`, data);
+            return response.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["menuData"]);
+            alert("메뉴가 성공적으로 수정되었습니다.");
+        },
+        onError: (error) => {
+            console.error("메뉴 수정 실패:", error);
+            alert("메뉴 수정 중 오류가 발생했습니다.");
+        },
+    });
+};

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import * as s from "./style";
 import { Checkbox } from "@mui/material";
-import { useAddMenuMutation, useDeleteMenuMutation } from "../../../mutations/menuMutation";
+import { useAddMenuMutation, useDeleteMenuMutation, useUpdateMenuMutation } from "../../../mutations/menuMutation";
 import useMenuData, { useMenuDetail } from "../../../hooks/menu/getMenuHooks";
 import ImageModal from "../AdminMenuImagine/AdminMenuImagine";
 import { useSearchParams } from "react-router-dom";
@@ -32,6 +32,8 @@ function AdminProductManage() {
     const { data: menuDetail } = useMenuDetail(selectedMenu);
     const addMenuMutation = useAddMenuMutation();
     const deleteMenuMutation = useDeleteMenuMutation();
+    const updateMenuMutation = useUpdateMenuMutation();
+
 
     useEffect(() => {
         if (!selectedMenu && menus.length > 0 && menus[0]?.menuId) {
@@ -121,18 +123,11 @@ function AdminProductManage() {
 
 
     const handleUpdateMenuOnClick = async () => {
-        if (!selectedMenu) return alert("수정할 메뉴를 선택하세요.");
-
         try {
-        await addMenuMutation.mutateAsync({
-            ...formData,
-            menuId: selectedMenu, 
-        });
-            alert("메뉴가 수정되었습니다.");
-            setIsEditing(false); // 다시 비활성화
+            await updateMenuMutation.mutateAsync({ ...formData, menuId: selectedMenu });
+            setIsEditing(false);
         } catch (error) {
-            console.error("메뉴 수정 중 오류:", error);
-            alert("메뉴 수정 중 오류 발생!");
+            console.error("수정 실패:", error);
         }
     };
 
@@ -255,14 +250,9 @@ function AdminProductManage() {
             </div>
 
             <div css={s.buttonGroup}>
-                {!isEditing ? (
-                    <button onClick={() => setIsEditing(true)} css={s.button}>편집</button>
-                ) : (
-                    <button onClick={handleUpdateMenuOnClick} css={s.button}>수정</button>
-                )}
-                <button onClick={handleSubmitMenuOnClick} css={s.button} disabled={isEditing}>
-                    추가
-                </button>
+                <button onClick={handleSubmitMenuOnClick} css={s.button} disabled={!isEditing}>추가</button>
+                <button onClick={() => setIsEditing(true)} css={s.button}>편집</button>
+                <button onClick={handleUpdateMenuOnClick} css={s.button} disabled={!isEditing}>수정</button>
                 <button onClick={handleDeleteMenuOnClick} css={s.button}>삭제</button>
             </div>
         </div>
