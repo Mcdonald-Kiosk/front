@@ -21,7 +21,6 @@ export const fetchMenuData = async () => {
 export const adminFetchMenuApi = async () => {
     try {
         const response = await api.get("/api/admin/menus");
-        console.log("🔥 [adminFetchMenuApi] 전체 메뉴 응답:", response.data);
         return response.data;
     } catch (error) {
         console.error("❌ [adminFetchMenuApi] API 요청 실패:", error);
@@ -39,7 +38,6 @@ export const fetchMenuDetailApi = async (menuId) => {
 
     try {
         const response = await api.get(`/api/admin/menus/${menuId}`);
-        console.log(`🔥 [fetchMenuDetail] 선택한 메뉴(${menuId}) 응답:`, response.data);
         return response.data;
     } catch (error) {
         console.error("❌ [fetchMenuDetail] API 요청 실패:", error);
@@ -67,7 +65,7 @@ export const addMenuApi = async (formData) => {
         isExposure: formData.isExposure,
         prices: formData.prices.map((p) => ({
             size: p.size,
-            price: Number(p.price),
+            menuPrice: Number(p.price),
             discountPrice: p.discountPrice ? Number(p.discountPrice) : 0,
         })),
     };
@@ -79,7 +77,6 @@ export const addMenuApi = async (formData) => {
                 "Content-Type": "application/json",
             },
         });
-        console.log("✅ [addMenuApi] 메뉴 추가 성공:", response.data);
         return response.data;
     } catch (error) {
         console.error("❌ [addMenuApi] 메뉴 추가 실패:", error);
@@ -101,7 +98,7 @@ export const updateMenuApi = async (menuId, formData) => {
         isExposure: formData.isExposure,
         prices: formData.prices.map((p) => ({
             size: p.size,
-            price: Number(p.price),
+            menuPrice: Number(p.price),
             discountPrice: p.discountPrice ? Number(p.discountPrice) : 0,
         })),
     };
@@ -112,7 +109,6 @@ export const updateMenuApi = async (menuId, formData) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },});
-        console.log("✅ [updateMenuApi] 메뉴 수정 성공:", response.data);
         return response.data;
     } catch (error) {
         console.error("❌ [updateMenuApi] 메뉴 수정 실패:", error);
@@ -129,6 +125,5 @@ export const deleteMenuApi = async (menuId) => {
         headers: { Authorization: `Bearer ${token}` },
     });
 
-    console.log(`✅ [deleteMenuApi] 메뉴(${menuId}) 삭제 성공:`, response.data);
     return response.data;
 };

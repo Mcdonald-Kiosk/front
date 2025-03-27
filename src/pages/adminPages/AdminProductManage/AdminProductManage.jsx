@@ -125,33 +125,25 @@ function AdminProductManage() {
 	// 수정 버튼
 	const handleUpdateMenuOnClick = async () => {
 		try {
-			await updateMenuMutation.mutateAsync({ ...formData, menuId: selectedMenu });
+			await updateMenuMutation.mutateAsync({
+				menuId: selectedMenu,
+				formData: formData,
+			});
+			alert("✅ 메뉴가 성공적으로 수정되었습니다.");
 			setIsEditing(false);
 		} catch (error) {
-			console.error("수정 실패:", error);
+			alert("❌ 메뉴 수정 중 오류 발생!");
 		}
 	};
 
 	// 삭제 버튼
 	const handleDeleteMenuOnClick = async () => {
-		if (!selectedMenu) {
-			alert("삭제할 메뉴를 선택하세요.");
-			return;
-		}
-
-		const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
-		if (!confirmDelete) return;
-
+		if (!selectedMenu) return alert("삭제할 메뉴를 선택하세요.");
 		try {
 			await deleteMenuMutation.mutateAsync(selectedMenu);
 			alert("메뉴가 삭제되었습니다.");
-
-			// 초기화
 			setSelectedMenu(null);
-			setFormData(INITIAL_FORM_DATA);
-			setIsEditing(false);
 		} catch (error) {
-			console.error("❌ 삭제 실패:", error);
 			alert("메뉴 삭제 중 오류 발생!");
 		}
 	};
