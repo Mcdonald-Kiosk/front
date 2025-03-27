@@ -55,39 +55,52 @@ export const fetchAllMenuImages = async () => {
 export const addMenuApi = async (formData) => {
     const token = localStorage.getItem("AccessToken");
     if (!token) throw new Error("❌ 인증 정보 없음! 다시 로그인해주세요.");
-
-    const payload = {
+  
+    const validPrices = formData.prices
+        .filter((p) => p.price && Number(p.price) > 0)
+        .map((p) => ({
+            size: p.size,
+            price: Number(p.price),
+            discountPrice: p.discountPrice ? Number(p.discountPrice) : 0,
+        }));
+    
+        const payload = {
         menuName: formData.menuName,
         menuCategory: formData.menuCategory,
         menuSequence: formData.menuSequence,
         singleImg: formData.singleImg,
         setImg: formData.setImg,
         isExposure: formData.isExposure,
-        prices: formData.prices.map((p) => ({
-            size: p.size,
-            menuPrice: Number(p.price),
-            discountPrice: p.discountPrice ? Number(p.discountPrice) : 0,
-        })),
-    };
-
-    try {
+        prices: validPrices,
+        };
+    
+        try {
         const response = await api.post("/api/admin/menus", payload, {
             headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
             },
         });
+        console.log("✅ [addMenuApi] 메뉴 추가 성공:", response.data);
         return response.data;
-    } catch (error) {
+        } catch (error) {
         console.error("❌ [addMenuApi] 메뉴 추가 실패:", error);
-            throw error;
-    }
+        throw error;
+        }
 };
 
 // 메뉴 수정
 export const updateMenuApi = async (menuId, formData) => {
     const token = localStorage.getItem("AccessToken");
     if (!token) throw new Error("❌ 인증 정보 없음! 다시 로그인해주세요.");
+
+    const validPrices = formData.prices
+    .filter(p => p.price && Number(p.price) > 0)
+    .map(p => ({
+        size: p.size,
+        price: Number(p.price),
+        discountPrice: p.discountPrice ? Number(p.discountPrice) : 0,
+    }));
 
     const payload = {
         menuName: formData.menuName,
