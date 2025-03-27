@@ -8,7 +8,7 @@ import MenuButton from '../../../components/MenuButton/MenuButton';
 import { adminFetchMenuApi } from '../../../apis/menuApi';
 import { useEffect, useState } from 'react';
 import ToggleSwitch from '../../../components/ToggleSwitch/ToggleSwitch';
-import { Select } from '@mui/material';
+import { InputLabel, MenuItem, Select } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import { salesModeState } from '../../../atoms/salesModeState/salesModeState';
 import { useMutation } from '@tanstack/react-query';
@@ -18,13 +18,13 @@ function AdminSalesPage(props) {
     const [menuList, setMenuList] = useState([]); // 메뉴 목록
     const [salesMode, setSalesMode] = useRecoilState(salesModeState); // 매출/주문 모드 상태
     const [yearOptions, setYearOptions] = useState([]); // 연도 옵션
-    const [year, setYear] = useState({ value: "", label: "" }); // 선택된 연도
+    const [year, setYear] = useState(""); // 선택된 연도
     const [salesData, setSalesData] = useState([]); // 필터링된 매출 데이터
     const navigate = useNavigate();
 
     // sales와 year가 변경될 때마다 salesData 업데이트
     useEffect(() => {
-        const filteredSales = sales.filter((sale) => sale.year === year.value);
+        const filteredSales = sales.filter((sale) => sale.year === year);
         setSalesData(filteredSales);
     }, [sales, year]);
 
@@ -39,14 +39,16 @@ function AdminSalesPage(props) {
             if (Array.isArray(response) && response.length > 0) {
                 const salesData = response; // 매출 데이터
                 setSales(salesData);
-
+    
                 // 고유 연도 목록 추출하여 yearOptions에 설정
-                const years = [...new Set(salesData.map((data) => data.year))];
+                const years = salesData.map((data) => ({label: data.year, value: data.year}));
                 setYearOptions(years);
-
+    
                 // 첫 번째 연도를 기본값으로 설정
                 if (years.length > 0) {
-                    setYear({ value: years[0], label: years[0] });
+                    // year.value가 설정된 값이 yearOptions에 포함되지 않으면 빈 값으로 초기화
+                    const selectedYear = years[0].value;
+                    setYear(selectedYear);
                 }
             }
         },
@@ -54,6 +56,10 @@ function AdminSalesPage(props) {
             console.log("salesQuery", error);
         },
     });
+
+    useEffect(() => {
+        console.log("Updated yearOptions: ", yearOptions);
+    }, [yearOptions]);
 
     // 메뉴 조회 API 요청
     const menuMutation = useMutation({
@@ -78,13 +84,9 @@ function AdminSalesPage(props) {
     };
 
     // year.value가 yearOptions에 포함되지 않으면 빈 문자열로 설정
-    const handleYearOptionsOnChange = (selectedValue) => {
-        const newYearValue = selectedValue?.value || "";
-        // year.value가 yearOptions에 포함되면 그 값을, 아니면 빈 문자열로 설정
-        setYear({
-            value: yearOptions.includes(newYearValue) ? newYearValue : "",
-            label: selectedValue?.label || "",
-        });
+    const handleYearOptionsOnChange = (e) => {
+        // yearOptions에 포함되는 값만 허용, 아니면 빈 문자열로 설정
+        setYear(e.target.value);
     };
 
     return (
@@ -107,22 +109,23 @@ function AdminSalesPage(props) {
                         <div>총 주문 수</div>
                     </div>
                     <Select
-                        options={yearOptions.map((year) => ({
-                            label: year,
-                            value: year,
-                        }))}
-                        value={year.value} // year.value를 그대로 사용
-                        onChange={handleYearOptionsOnChange} // value 변경 처리
-                        placeholder="연도"
-                        styles={{
-                            control: (baseStyles, state) => ({
-                                ...baseStyles,
-                                border: state.isFocused ? "none" : "none",
-                                backgroundColor: "transparent",
-                                fontSize: "20px",
-                            }),
-                        }}
-                    />
+                        value={year} // 상태 값 전달
+                        onChange={handleYearOptionsOnChange} // 연도 변경 처리
+                        label="연도"
+                    >
+                        {/* placeholder처럼 사용할 MenuItem */}
+                        <MenuItem value="">
+                            <em>연도 선택</em>
+                        </MenuItem>
+                        {
+                            yearOptions.map((yearOption) => (
+                                <MenuItem key={yearOption.value} value={yearOption.value}>
+                                    {yearOption.label}
+                                </MenuItem>
+                            ))
+                        }
+                    </Select>
+
                 </div>
                 <div css={s.chartBox}>
                     {!salesMode ? (
