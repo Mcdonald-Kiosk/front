@@ -7,11 +7,15 @@ function ExportOrderId(props) {
     const navi = useNavigate();
 
     const location = useLocation();
-    console.log("주문번호는? : ", location.state?.orderId);  // 넘긴 orderId를 확인
 
+    console.log(location)
+    console.log("주문번호는? : ", location);  // 넘긴 orderId를 확인
+
+    
     const handleGoFirst = () => {
         navi("/menu");
     }
+
 
     return (
         <div css={s.container}>
