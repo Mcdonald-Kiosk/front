@@ -55,10 +55,24 @@ const SelectPayMethod = () => {
             .join(", ") // 공백 하나로 이어붙이기
     )
     .join(", "); // 여러 개의 상품명을 하나의 문자열로 변환 (그래야 카카오페이API에 포함시킬 수 있음)
+
+
+    const [orderNumber, setOrderNumber] = useState(() => {
+        // localStorage에서 orderId 값을 읽고, 없으면 1000으로 시작
+        const savedOrderId = localStorage.getItem('orderId');
+        return savedOrderId ? parseInt(savedOrderId, 10) : 1000;
+    });
+    
+    // 주문 번호를 증가시키고 localStorage에 저장
+    const incrementOrderId = () => {
+        const newOrderId = orderNumber + 1;
+        localStorage.setItem('orderId', newOrderId);  // 증가된 번호 저장
+        setOrderNumber(newOrderId);  // 상태 업데이트
+    };
     
     // 지금은 임시로 주문번호를 쓰는데, 관리자 메뉴쪽에서 주문번호를 관리하는 페이지를 만들어서, 1000 9001 9001 9002 9003 / 9001 9066
     const products = addedCartState.map((item) => ({
-        orderId: Math.min(addedCartState.length * 1000, 9000) + (addedCartState.length - 1), // 1000부터 시작, 1씩 증가
+        orderNumber, // 1000부터 시작, 1씩 증가
         productName: item.detailMenu,
         side: item.detailSide,
         drink: item.detailDrink,
@@ -104,7 +118,7 @@ const SelectPayMethod = () => {
     
                 if (priceInfo) {
                     orderDetailList.push({
-                        order_id: products[0].orderId, // 주문 임시 번호
+                        order_id: products[0].orderNumber, // 주문 임시 번호
                         menu_price_id: priceInfo.menuPriceId, // 가격 ID
                         menu_count: quantity, // 수량
                         is_set: isSet, // 세트 여부
@@ -123,7 +137,7 @@ const SelectPayMethod = () => {
                     const priceInfo = sideMenu.menuPrice.find(price => price.size === sideSize);
                     if (priceInfo) {
                         orderDetailList.push({
-                            order_id: products[0].orderId, // 주문 임시 번호
+                            order_id: products[0].orderNumber, // 주문 임시 번호
                             menu_price_id: priceInfo.menuPriceId, // 가격 ID
                             menu_count: quantity, // 수량
                             is_set: false, // 사이드는 세트 메뉴가 아니므로 false
@@ -161,11 +175,12 @@ const SelectPayMethod = () => {
         try {
             const orderDetailList = await buildOrderDetailList(); // 주문 상세 목록 준비
             const orderIdFromList = orderDetailList[0]?.order_id; // 첫 번째 아이템에서 order_id 추출
+            incrementOrderId();  // 주문 번호 증가
     
-            // orderId가 없으면 처리할 수 없으므로 경고
+            // orderId가 없으면 결제를 진행할 수 없으므로 경고
             if (!orderIdFromList) {
                 console.error("주문 ID가 없습니다.");
-                return;
+                return;  // 결제 진행을 막음
             }
     
             const paymentResponse = await PortOne.requestPayment({
@@ -175,16 +190,16 @@ const SelectPayMethod = () => {
                 totalAmount: totalPrice,
                 currency: "CURRENCY_KRW",
                 payMethod: "EASY_PAY",
-                channelKey: "channel-key-39a34f05-a2cb-44f1-a0ca-0798cf19bca2",
+                channelKey: "channel-key-539cbacf-386c-4d05-bdbb-c36b01075c32",
                 products: products.map(product => ({
-                    id: product.orderId.toString(),
+                    id: product.orderNumber.toString(),  // orderNumber를 사용
                     name: [product.productName, product.side, product.drink].filter(Boolean).join(", "),
                     amount: product.price,
                     quantity: product.quantity,
                 })),
             });
     
-            const point = Math.floor(totalPrice * 0.05);  // 0.5% 포인트 계산
+            const point = Math.floor(totalPrice * 0.05);  // 5% 포인트 계산
     
             navi("/savePoint", {
                 state: {
@@ -193,11 +208,11 @@ const SelectPayMethod = () => {
                 }
             });
         } catch (error) {
-            console.error(error);
+            console.error("결제 오류 발생:", error);
         }
     };
     
-
+    
 
     return (
         <div css={s.container}>
