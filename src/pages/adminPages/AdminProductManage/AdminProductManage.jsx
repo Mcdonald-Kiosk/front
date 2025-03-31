@@ -41,7 +41,25 @@ function AdminProductManage() {
 
     useEffect(() => {
         if (!menuDetail || typeof menuDetail !== "object" || isAdding) return;
-
+    
+        const defaultPrices = [
+            { size: "M", price: "", discountPrice: "" },
+            { size: "L", price: "", discountPrice: "" },
+        ];
+    
+        const prices = Array.isArray(menuDetail.menuPrice)
+            ? defaultPrices.map((defaultPrice) => {
+                const found = menuDetail.menuPrice.find((p) => p.size === defaultPrice.size);
+                return found
+                    ? {
+                        size: found.size,
+                        price: found.menuPrice || "",
+                        discountPrice: found.discountPrice || "",
+                    }
+                    : defaultPrice;
+            })
+            : defaultPrices;
+    
         setFormData({
             menuCategory: menuDetail.menuCategory || "",
             menuName: menuDetail.menuName || "",
@@ -49,13 +67,7 @@ function AdminProductManage() {
             isExposure: menuDetail.isExposure ?? 1,
             singleImg: menuDetail.singleImg || null,
             setImg: menuDetail.setImg || null,
-            prices: Array.isArray(menuDetail.menuPrice)
-                ? menuDetail.menuPrice.map((price) => ({
-                    size: price.size,
-                    price: price.menuPrice || "",
-                    discountPrice: price.discountPrice || "",
-                }))
-                : [],
+            prices: prices,
         });
     }, [menuDetail, isAdding]);
 
