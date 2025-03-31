@@ -21,7 +21,8 @@ function AdminOrderPage(props) {
     const [ pageNumbers, setPageNumbers ] = useState([]); //페이지 번호 목록 상태
     const page = parseInt(searchParams.get("page") || "1"); //현재 페이지 번호
 
-    const [ payModalOpen, setPayModalOpen ] = useState(false);
+    const [ payModalOpen, setPayModalOpen ] = useState(false); //모달 열림 상태
+    const [ payModalDate, setPayModalDate ] = useState(null); //모달에 전달할 데이터
 
     const handlePageNumbersOnClick = (pageNumber) => { //클릭된 페이지 번호로 파라미터 적용
         searchParams.set("page", pageNumber);
@@ -216,7 +217,7 @@ function AdminOrderPage(props) {
                     }),
                 }
             });
-            //console.log(paymentsResponse);
+            console.log(paymentsResponse);
             setTotalCount(paymentsResponse.data.page.totalCount); // 총페이지 수 받기
             
             //결제 내역 값 세팅
@@ -227,43 +228,50 @@ function AdminOrderPage(props) {
                 orderId: item.customer.name,
                 orderName: item.orderName,
                 totalAmount: item.amount.total,
-            })));
+                time: new Date(new Date(item.requestedAt).getTime() + 9 * 60 * 60 * 1000).toISOString().slice(11, 19),
+            }))); //한국 표준 시로 변환
             //console.log(payments);
         }
         fetchPayments();
     }, [page, selectedDate, totalCount]);
 
 
-    console.log(payments);
+    //console.log(payments);
     // 결제 취소
     // post
     // /payments/{paymentId}/cancel
-    const handleCandleClick = async (uuid, payments) => {
-        console.log(uuid)
-        const foundorder = payments.find(o => o.uuid === uuid); //uuid로 찾기
-        try {
-            const jwtResponse = await axios.post("https://api.portone.io/login/api-secret", {
-                "apiSecret": import.meta.env.VITE_PORTONE_API_KEY,
-            });
-            const accessToken = jwtResponse.data.accessToken;
+    // const handleCancelClick = async (uuid, payments) => {
+    //     console.log(uuid)
+    //     const foundorder = payments.find(o => o.uuid === uuid); //uuid로 찾기
+    //     try {
+    //         const jwtResponse = await axios.post("https://api.portone.io/login/api-secret", {
+    //             "apiSecret": import.meta.env.VITE_PORTONE_API_KEY,
+    //         });
+    //         const accessToken = jwtResponse.data.accessToken;
 
-            await axios.post(
-                `https://api.portone.io/payments/${uuid}/cancel`, 
-                {
-                    storeId: import.meta.env.VITE_PORTONE_STOREID,
-                    reason: "취소사유",
-                }, 
-                {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    }
-                }
-            );
-            alert("취소완료")
-        }  catch(error) {
-            console.log(error);
-        }
+    //         await axios.post(
+    //             `https://api.portone.io/payments/${uuid}/cancel`, 
+    //             {
+    //                 storeId: import.meta.env.VITE_PORTONE_STOREID,
+    //                 reason: "취소사유",
+    //             }, 
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${accessToken}`,
+    //                 }
+    //             }
+    //         );
+    //         alert("취소완료")
+    //     }  catch(error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    const handleCancelButtonOnClick = (payData) => {
+        setPayModalDate(payData);
+        setPayModalOpen(true);        
     }
+    //console.log(payModalDate);
 
     return (
         <div css={s.container}>
@@ -288,7 +296,7 @@ function AdminOrderPage(props) {
                     <span className="orderid">주문번호</span>
                     <span className="ordername">주문명</span>
                     <span className="totalamount">총액</span>
-                    <span className="mid">MID</span>
+                    <span className="time">결제시간</span>
                     <span className="status">결제상태</span>
                 </div>
                 {
@@ -297,9 +305,9 @@ function AdminOrderPage(props) {
                             <span className="orderid">{p.orderId}</span>
                             <span className="ordername">{p.orderName}</span>
                             <span className="totalamount">{p.totalAmount}</span>
-                            <span className="mid">{p.mid}</span>
+                            <span className="time">{p.time}</span>
                             <span className="status">
-                                <button css={s.statusbutton(p.status)} onClick={() => handleCandleClick(p.uuid, payments)}>
+                                <button css={s.statusbutton(p.status)} onClick={() => handleCancelButtonOnClick(p)}>
                                     {PAYSTATUS[p.status]}
                                 </button>
                             </span>
@@ -307,9 +315,10 @@ function AdminOrderPage(props) {
                     )
                 }
             </div>
+
             <ReactModal
                 isOpen={payModalOpen}
-                onRequestClose={() = setPayModalOpen(false)}
+                onRequestClose={() => setPayModalOpen(false)}
                 style={{
                     overlay: {
                         display: "flex",
@@ -326,7 +335,7 @@ function AdminOrderPage(props) {
                     }
                 }}
             >
-                <AdminPayMoal setOpen={setPayModalOpen} />
+                <AdminPayMoal setOpen={setPayModalOpen} payData={payModalDate}/>
             </ReactModal>
 
             <div css={s.footer}>
