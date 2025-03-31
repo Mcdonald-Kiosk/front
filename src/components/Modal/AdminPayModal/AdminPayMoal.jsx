@@ -3,69 +3,77 @@ import axios from 'axios';
 import * as s from './style';
 import React, { useEffect, useState } from 'react';
 0
-function AdminPayMoal({ payData }) {
+function AdminPayMoal({ payData }) { //uuid 넘겨받기
+
+    const [ isCancel, setIsCancel ] = useState(payData.status); //환불 여부 상태
     const [ pressTime, setPressTime ] = useState(null); //버튼 눌린 시간 상태
+    const [ clickTime, setClickTime ] = useState(null); //버튼 때는 시간 상태
     const [ reasons, setReasons ] = useState(""); //결제 취소 사유 상태
-    const [ pressMessage, setPressMessage ] = useState("3초이상 꾹 눌러주세요")
+    const [ pressMessage, setPressMessage ] = useState("3초이상 꾹 눌러주세요"); //버튼 메세지 상태
     
     const handleReasonInputOnChange = (e) => { //text 저장
         setReasons(e.target.value);
     }
-    console.log(reasons);
 
     const handleButtonDown = () => {
-        setPressTime(Date.now());
+        setPressTime(Date.now()); //버튼 누르는 시간 저장
+        setClickTime(null); //버튼 때는 시간 초기화
     };
 
+    const handleButtonOnClick = () => {
+        setClickTime(Date.now()); //버튼 때는 시간 저장
+    };
+
+    //3초 이상 버튼 누르게하는 함수
     useEffect(() => {
         let interval;
+    
         if (pressTime) {
-            interval = setInterval(() =>{
+            interval = setInterval(() =>{ //설정한 시간간격만큼 계속 반복
                 const currentTime = Date.now();
                 const timeDifference = currentTime - pressTime;
                 const seconds = Math.floor(timeDifference / 1000);
-                if(timeDifference < 3000) {
-                    setPressMessage(3 - seconds + "초 남았습니다")
-                } else {
-                    handleCancelClick(timeDifference);
+
+                if(timeDifference < 3000) { //3초미만 일때 반환
+                    setPressMessage(3 - seconds + "초 남았습니다");
+                    if(clickTime !== null) {
+                        handleCancelOnClick(timeDifference);
+                        clearInterval(interval);
+                    }
+                } else { //3초 이상 클릭하면 환불처리
+                    handleCancelOnClick(timeDifference);
                     setPressMessage("결제가 취소되었습니다");
                     clearInterval(interval);
                 }
-            }, 1000);
-
-            return () => {
-                handleCancelClick(Date.now() - pressTime);
-                clearInterval(interval);
-            }
+            }, 500);
+            return () => clearInterval(interval);
         }
-    }, [pressTime])
+    }, [pressTime, clickTime]);
 
-
-    // 결제 취소
-    // post
-    // /payments/{paymentId}/cancel
     //console.log(payData);
-    const handleCancelClick = async (timeDifference) => {
+    //결제 취소(post)     /payments/{paymentId}/cancel
+    const handleCancelOnClick = async (timeDifference) => {
 
-        if(timeDifference < 3000) {
-            setPressMessage("3초 간 누르지 않았습니다");
+        if(timeDifference < 3000) { //3초 이하면 환불 못함
+            setPressMessage("3초이상 꾹 눌러주세요");
             console.log(timeDifference);
             return;
         }
 
+        //console.log(reasons);
+        //3초 이상일 때 환불 진행
         setPressMessage("결제가 취소되었습니다");
-
-        try {
+        try { //인증
             const jwtResponse = await axios.post("https://api.portone.io/login/api-secret", {
                 "apiSecret": import.meta.env.VITE_PORTONE_API_KEY,
             });
             const accessToken = jwtResponse.data.accessToken;
 
-            await axios.post(
+            await axios.post( //파라미터를 통해 post요청
                 `https://api.portone.io/payments/${payData.uuid}/cancel`, 
                 {
                     storeId: import.meta.env.VITE_PORTONE_STOREID,
-                    reason: {reasons},
+                    reason: reasons, //결제 취소 사유 적기
                 }, 
                 {
                     headers: {
@@ -73,12 +81,14 @@ function AdminPayMoal({ payData }) {
                     }
                 }
             );
-            alert("취소완료")
+            alert("결제 취소가 완료되었습니다");
+            setIsCancel(payData.status); //결제 취소 상태 저장
+            //console.log(payData.status);
         }  catch(error) {
             console.log(error);
         }
     }
-
+    //console.log(isCancel)
 
     return (
         <div css={s.container}>
@@ -113,7 +123,7 @@ function AdminPayMoal({ payData }) {
             </div>
             <div css={s.footer}>
                 <div>{pressMessage}</div>
-                <button onClick={handleCancelOnClick} onMouseDown={handleButtonDown} disabled={reasons === ""}>결제취소</button>
+                <button onClick={handleButtonOnClick} onMouseDown={handleButtonDown} disabled={reasons === "" ? 1 : isCancel === "CANCELLED" ? 1 : 0}>결제취소</button>
             </div>
 
         </div>

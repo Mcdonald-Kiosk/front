@@ -13,9 +13,10 @@ import AdminPayMoal from '../../../components/Modal/AdminPayModal/AdminPayMoal';
 
 //결제 조회 페이지
 function AdminOrderPage(props) {
-    const [ payments, setPayments ] = useState([]); //결제 내역 상태
-
     const [ searchParams, setSearchParams ] = useSearchParams(); //url파라미터
+    
+    const [ payments, setPayments ] = useState([]); //결제 내역 상태
+    const [ refreshify, setRefreshify ] = useState(1); //페이지 새로고침 상태
     const [ totalCount, setTotalCount ] = useState(0); //결제 내역 갯수 상태
     const [ totalPages, setTotalPages ] = useState(1); //총 페이지 수 상태
     const [ pageNumbers, setPageNumbers ] = useState([]); //페이지 번호 목록 상태
@@ -233,7 +234,18 @@ function AdminOrderPage(props) {
             //console.log(payments);
         }
         fetchPayments();
-    }, [page, selectedDate, totalCount]);
+    }, [page, selectedDate, totalCount, refreshify]);
+
+    
+    const handleRefreshifyButtonOnClick = () => {
+        setRefreshify(refreshify === 1 ? 0 : 1); //버튼 누를 떄마다 상태값을 바꿔서 useEffect가동
+    }
+
+    const handleCancelButtonOnClick = (payData) => {
+        setPayModalDate(payData);
+        setPayModalOpen(true);        
+    }
+    //console.log(payModalDate);
 
 
     //console.log(payments);
@@ -267,11 +279,6 @@ function AdminOrderPage(props) {
     //     }
     // }
 
-    const handleCancelButtonOnClick = (payData) => {
-        setPayModalDate(payData);
-        setPayModalOpen(true);        
-    }
-    //console.log(payModalDate);
 
     return (
         <div css={s.container}>
@@ -287,7 +294,9 @@ function AdminOrderPage(props) {
                         onChange={handleSelectDateOnChange}
                         />
                     </div>
-                    <button><MdOutlineRefresh size={24} fill="#444444" /></button>
+                    <button onClick={handleRefreshifyButtonOnClick}>
+                        <MdOutlineRefresh size={24} fill="#444444" />
+                    </button>
                 </div>
             </div>  
 

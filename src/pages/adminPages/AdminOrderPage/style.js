@@ -32,6 +32,15 @@ export const upside = css`
             padding: .5rem;
             height: fit-content;
             background-color: #fda41eff;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #b47312ff;
+            }
+
+            &:active {
+                background-color: #995c007c;
+            }
         }
     }
 `;
@@ -102,6 +111,12 @@ export const statusbutton = (status) => css`
         : status === "FAILED" ? "#868686"
         : status === "CANCELLED" ? "#fd3f3f" : "#3fb7fd"};
     font-weight: 800;
+    
+    &:hover{
+        background-color:
+        ${status === "FAILED"}
+    }
+
 `;
 
 
