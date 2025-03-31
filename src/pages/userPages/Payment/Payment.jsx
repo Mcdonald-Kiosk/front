@@ -1,13 +1,19 @@
 /**@jsxImportSource @emotion/react */
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as s from './style';
+import { useState } from 'react';
 
 
 function Payment(props) {
     const navi = useNavigate();
+    const location = useLocation();
+    const { usePoint, phoneNumber } = useState(location.state?.point || 0);
+
+    console.log(phoneNumber)
+    console.log(usePoint)
 
     const handleEasyPay = () => {
-        navi("/selectPayMethod");
+        navi("/selectPayMethod", { state: { usePoint, phoneNumber } });
     }
 
     const handleBack = () => {
