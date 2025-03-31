@@ -6,8 +6,10 @@ import React, { useEffect, useState } from 'react';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import { IoRefreshOutline } from 'react-icons/io5';
 import { MdNavigateBefore, MdNavigateNext, MdOutlineRefresh } from 'react-icons/md';
+import ReactModal from 'react-modal';
 import { data, useSearchParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import AdminPayMoal from '../../../components/Modal/AdminPayModal/AdminPayMoal';
 
 //결제 조회 페이지
 function AdminOrderPage(props) {
@@ -18,6 +20,8 @@ function AdminOrderPage(props) {
     const [ totalPages, setTotalPages ] = useState(1); //총 페이지 수 상태
     const [ pageNumbers, setPageNumbers ] = useState([]); //페이지 번호 목록 상태
     const page = parseInt(searchParams.get("page") || "1"); //현재 페이지 번호
+
+    const [ payModalOpen, setPayModalOpen ] = useState(false);
 
     const handlePageNumbersOnClick = (pageNumber) => { //클릭된 페이지 번호로 파라미터 적용
         searchParams.set("page", pageNumber);
@@ -234,7 +238,7 @@ function AdminOrderPage(props) {
     // 결제 취소
     // post
     // /payments/{paymentId}/cancel
-    const handleCandleClick = async (uuid) => {
+    const handleCandleClick = async (uuid, payments) => {
         console.log(uuid)
         const foundorder = payments.find(o => o.uuid === uuid); //uuid로 찾기
         try {
@@ -295,7 +299,7 @@ function AdminOrderPage(props) {
                             <span className="totalamount">{p.totalAmount}</span>
                             <span className="mid">{p.mid}</span>
                             <span className="status">
-                                <button css={s.statusbutton(p.status)} onClick={() => handleCandleClick(p.uuid)}>
+                                <button css={s.statusbutton(p.status)} onClick={() => handleCandleClick(p.uuid, payments)}>
                                     {PAYSTATUS[p.status]}
                                 </button>
                             </span>
@@ -303,6 +307,27 @@ function AdminOrderPage(props) {
                     )
                 }
             </div>
+            <ReactModal
+                isOpen={payModalOpen}
+                onRequestClose={() = setPayModalOpen(false)}
+                style={{
+                    overlay: {
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "#00000044"
+                    },
+                    content: {
+                        potition: "static",
+                        boxSizing: "border-box",
+                        borderRadius: "1.5rem",
+                        height: "60rem",
+                        width: "100rem",
+                    }
+                }}
+            >
+                <AdminPayMoal setOpen={setPayModalOpen} />
+            </ReactModal>
 
             <div css={s.footer}>
                 <button disabled={page === 1} onClick={() => handlePageNumbersOnClick(page - 1)}>

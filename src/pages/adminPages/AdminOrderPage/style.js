@@ -15,9 +15,9 @@ export const upside = css`
     & span {
         margin: 1rem;
         padding: 1rem 1rem 1.5rem 1rem;
-        border-bottom: .3rem dashed #00000055;
-        font-size: 3rem;
-        font-weight: 500;
+        //border-bottom: .3rem dashed #00000055;
+        font-size: 4rem;
+        font-weight: 600;
     }
 
     & div {
