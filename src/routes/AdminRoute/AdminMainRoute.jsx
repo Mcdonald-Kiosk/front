@@ -12,6 +12,7 @@ import AdminProductManage from '../../pages/adminPages/AdminProductManage/AdminP
 import AdminMyPage from '../../pages/adminPages/AdminMyPage/AdminMyPage';
 import AdminMainPage from '../../pages/adminPages/AdminMainPage/AdminMainPage';
 import AdminProductInfo from '../../pages/adminPages/AdminProductInfo/AdminProductInfo';
+import AdminCategoryPage from '../../pages/AdminCategoryPage/AdminCategoryPage';
 
 function AdminMainRoute(props) {
     return (
@@ -24,6 +25,7 @@ function AdminMainRoute(props) {
                         <Route path='/product' element={<AdminProductPage />} />
                         <Route path='/product/manage' element={<AdminProductManage />} />
                         <Route path='/product/information' element={<AdminProductInfo />} />
+                        <Route path='/product/category' element={<AdminCategoryPage />} />
                         <Route path='/option' element={<AdminOptionPage />} />
                         <Route path="/sale/*" element={<AdminSalesPage />} />
                         <Route path='/order' element={<AdminOrderPage />} />
