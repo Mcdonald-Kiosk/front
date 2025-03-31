@@ -10,6 +10,7 @@ import PrePayment from '../../pages/userPages/PrePayment/PrePayment';
 import SelectPayMethod from '../../pages/userPages/SelectPayMethod/SelectPayMethod';
 import SavePoint from '../../pages/userPages/SavePoint/SavePoint';
 import ExportOrderId from '../../pages/userPages/ExportOrderId/ExportOrderId';
+import UsePoint from '../../pages/userPages/UsePoint/UsePoint';
 
 function UserRoute(props) {
     const selectedLanguage = useRecoilValue(selectedLanguageState); // 전역 상태 가져오기
@@ -23,6 +24,7 @@ function UserRoute(props) {
                 <Route path="/payment/*" element={<Payment />} />
                 <Route path="/menu/*" element={<SelectMenu />} />
                 <Route path="/order/*" element={<OrderPage />} />
+                <Route path="/usePoint/*" element={<UsePoint />} />
                 <Route path="/*" element={<NotFoundPage />} />
             </Routes>
     );
