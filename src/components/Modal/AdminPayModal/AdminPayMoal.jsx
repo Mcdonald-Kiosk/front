@@ -4,13 +4,16 @@ import React, { useState } from 'react';
 
 function AdminPayMoal({ payData }) {
 
-    const [ reasons, setReasons ] = useState();
-
+    const [ reasons, setReasons ] = useState("");
+    const handleReasonInputOnChange = (e) => {
+        setReasons(e.target.value);
+    }
+    console.log(reasons);
 
     // 결제 취소
     // post
     // /payments/{paymentId}/cancel
-    console.log(payData);
+    //console.log(payData);
     const handleCancelClick = async () => {
         try {
             const jwtResponse = await axios.post("https://api.portone.io/login/api-secret", {
@@ -46,7 +49,7 @@ function AdminPayMoal({ payData }) {
                 </div>
                 <div>
                     <div>결제 금액</div>
-                    <div>{payData.totalAmount}</div>
+                    <div>{payData.totalAmount} 원</div>
                 </div>
                 <div>
                     <div>결제시간</div>
@@ -58,10 +61,18 @@ function AdminPayMoal({ payData }) {
                     <div>주문내역</div>
                     <div>{payData.orderName}</div>
                 </div>
-                <div>결제취소 사유</div>
+                <div>
+                    <div>결제취소 사유</div>
+                    <div>
+                        <label>취소 사유를 적어주세요</label>
+                        <input type="text" 
+                            value={reasons} onChange={handleReasonInputOnChange} />
+                    </div>
+                </div>
             </div>
             <div css={s.footer}>
-                <button onClick={handleCancelClick}>결제취소</button>
+                <div>1초이상 꾹 눌러주세요</div>
+                <button onClick={handleCancelClick} disabled={reasons === ""}>결제취소</button>
             </div>
 
         </div>
