@@ -58,6 +58,17 @@ export const body = css`
     }
 `;
 
+export const inputText = css`
+    box-sizing: border-box;
+    border: .1rem solid #000000;
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 100%;
+    height: 8rem;
+    outline: none;
+    resize: vertical;
+`;
+
 export const footer = css`
     display: flex;
     flex-direction: column;
