@@ -7,7 +7,6 @@ import MenuModifyModal from '../../../components/Modal/MenuModifyModal/MenuModif
 import { addedCart } from '../../../atoms/addedCart/addedCart';
 import { useRecoilState } from 'recoil';
 import MenuCategory from './menu/MenuCategory';
-import menuForUser from '../../../hooks/menu/menuForUser';
 import { disabledCategoriesState } from '../../../atoms/disabledCategories/disabledCategories';
 import { orderedCategoriesState } from '../../../atoms/orderedCategoriesState/orderedCategoriesState';
 import { useNavigate } from 'react-router-dom';
