@@ -99,7 +99,7 @@ export const updateMenuApi = async (menuId, formData) => {
     .filter((p) => p.price && Number(p.price) > 0)
     .map((p) => ({
         size: p.size,
-        price: Number(p.price),
+        menuPrice: Number(p.price),
         ...(p.discountPrice && Number(p.discountPrice) > 0
         ? { discountPrice: Number(p.discountPrice) }
         : {}), // 빈 값이면 아예 속성 자체를 안 보냄
