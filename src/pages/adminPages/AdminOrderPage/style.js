@@ -128,6 +128,7 @@ export const cancelreason = css`
     }
 
     & > span { //수정하기
+        display: none;
         position: absolute;
         transform: translateX(-50%);
         left: 50%;
