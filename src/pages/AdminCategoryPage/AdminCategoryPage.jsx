@@ -14,9 +14,12 @@ function AdminCategoryPage() {
     useEffect(() => {
         if (menuData && categories.length === 0) {
             const uniqueCategories = [...new Set(menuData.map(menu => menu.menuCategory))];
-            setCategories(uniqueCategories);
+            setCategories(prevCategories => [
+                ...prevCategories,
+                ...uniqueCategories.filter(category => !prevCategories.includes(category))
+            ]);
         }
-    }, [menuData]);
+    }, [menuData, categories]);
 
     const handleToggleCategory = (category) => {
         setDisabledCategories(prev => 
