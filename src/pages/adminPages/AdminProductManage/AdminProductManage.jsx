@@ -51,10 +51,10 @@ function AdminProductManage() {
             setImg: menuDetail.setImg || null,
             prices: Array.isArray(menuDetail.menuPrice)
                 ? menuDetail.menuPrice.map((price) => ({
-                      size: price.size,
-                      price: price.menuPrice || "",
-                      discountPrice: price.discountPrice || "",
-                  }))
+                    size: price.size,
+                    price: price.menuPrice || "",
+                    discountPrice: price.discountPrice || "",
+                }))
                 : [],
         });
     }, [menuDetail, isAdding]);

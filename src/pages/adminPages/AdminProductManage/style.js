@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 // 전체 컨테이너
 export const container = css`
     margin: 2rem auto;
-    background: #d1d5db;
     padding: 1.5rem;
     border-radius: 10px;
 `;
@@ -55,10 +54,7 @@ export const inputGroup = css`
     justify-content: center;
     gap: 3rem;
     width: 80rem;
-    background-color: lightblue;
-    & > div:nth-last-of-type() {
-        display: block;
-    }
+    
 
     & > div {
         width: 70rem;
@@ -81,16 +77,6 @@ export const input = css`
     border: 1px solid #ccc;
     border-radius: 6px;
     box-sizing: border-box;
-`;
-
-export const textArea = css`
-    width: 60%;
-    height: 15rem;
-    padding: 1.25rem 3rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-    resize: none;
 `;
 
 // 버튼 그룹
