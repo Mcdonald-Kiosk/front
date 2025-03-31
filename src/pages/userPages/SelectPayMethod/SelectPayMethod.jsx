@@ -42,7 +42,7 @@ const SelectPayMethod = () => {
     const [addedCartState] = useRecoilState(addedCart);
 
     // 장바구니의 가격 합산
-    const totalPrice = addedCartState.reduce((sum, item) => sum + (item.detailPrice) * item.quantity, 0); // 모든 상품 가격 합산
+    const totalPrice = addedCartState.reduce((sum, item) => sum + (item.detailPrice) * item.quantity, 0); // 모든 상품 가격 합산. sum은 ...prev 같은 개념
 
     console.log("장바구니 목록 : ", addedCartState);
     
@@ -157,7 +157,7 @@ const SelectPayMethod = () => {
                     const priceInfo = drinkMenu.menuPrice.find(price => price.size === drinkSize);
                     if (priceInfo) {
                         orderDetailList.push({
-                            order_id: products[0].orderId, // 주문 임시 번호
+                            order_id: products[0].orderNumber, // 주문 임시 번호
                             menu_price_id: priceInfo.menuPriceId, // 가격 ID
                             menu_count: quantity, // 수량
                             is_set: false, // 음료는 세트 메뉴가 아니므로 false
@@ -166,6 +166,8 @@ const SelectPayMethod = () => {
                 }
             }
         });
+        console.log("orderDetailList 배열. order_detail_tb 전용", JSON.stringify(orderDetailList, null, 1));
+        console.log("order_tb 전용", totalPrice, orderDetailList[0]?.order_id);
     
         // 주문 상세 목록 반환
         return orderDetailList;
@@ -190,7 +192,7 @@ const SelectPayMethod = () => {
                 totalAmount: totalPrice,
                 currency: "CURRENCY_KRW",
                 payMethod: "EASY_PAY",
-                channelKey: "channel-key-539cbacf-386c-4d05-bdbb-c36b01075c32",
+                channelKey: "channel-key-39a34f05-a2cb-44f1-a0ca-0798cf19bca2",
                 products: products.map(product => ({
                     id: product.orderNumber.toString(),  // orderNumber를 사용
                     name: [product.productName, product.side, product.drink].filter(Boolean).join(", "),
