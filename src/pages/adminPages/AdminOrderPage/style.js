@@ -107,16 +107,32 @@ export const statusbutton = (status) => css`
     width: fit-content;
     color: #222222;
     background-color:
-        ${status === "PAID" ? "#dfc11cff"
+        ${status === "PAID" ? "#f1d21dff"
         : status === "FAILED" ? "#868686"
         : status === "CANCELLED" ? "#fd3f3f" : "#3fb7fd"};
     font-weight: 800;
     
     &:hover{
         background-color:
-        ${status === "FAILED"}
+            ${status === "PAID" ? "#b39b17ff" : "yourDefaultColor"};
+        cursor:
+            ${status === "PAID" ? "pointer" : "default"};
+    }
+`;
+
+export const cancelreason = css`
+    position: relative;
+
+    &:hover > span {
+        display: block;
     }
 
+    & > span { //수정하기
+        position: absolute;
+        transform: translateX(-50%);
+        left: 50%;
+
+    }
 `;
 
 

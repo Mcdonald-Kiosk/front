@@ -230,6 +230,7 @@ function AdminOrderPage(props) {
                 orderName: item.orderName,
                 totalAmount: item.amount.total,
                 time: new Date(new Date(item.requestedAt).getTime() + 9 * 60 * 60 * 1000).toISOString().slice(11, 19),
+                cancelReason: item?.cancellations?.[0].reason ?? null, //.cancellations[0].reason
             }))); //한국 표준 시로 변환
             //console.log(payments);
         }
@@ -246,9 +247,8 @@ function AdminOrderPage(props) {
         setPayModalOpen(true);        
     }
     //console.log(payModalDate);
-
-
     //console.log(payments);
+
     // 결제 취소
     // post
     // /payments/{paymentId}/cancel
@@ -308,9 +308,9 @@ function AdminOrderPage(props) {
                     <span className="time">결제시간</span>
                     <span className="status">결제상태</span>
                 </div>
-                {
+                { //취소사유 옆에 창으로 띄우기
                     payments.map(p =>
-                        <div css={s.listbody}>
+                        <div key={p.uuid} css={s.listbody}>
                             <span className="orderid">{p.orderId}</span>
                             <span className="ordername">{p.orderName}</span>
                             <span className="totalamount">{p.totalAmount}</span>
@@ -319,6 +319,7 @@ function AdminOrderPage(props) {
                                 <button css={s.statusbutton(p.status)} onClick={() => handleCancelButtonOnClick(p)}>
                                     {PAYSTATUS[p.status]}
                                 </button>
+                                <span css={s.cancelreason}><span>취소사유 : {p.cancelReason}</span></span>
                             </span>
                         </div>
                     )
