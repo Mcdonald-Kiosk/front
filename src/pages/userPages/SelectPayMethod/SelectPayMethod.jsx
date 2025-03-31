@@ -8,6 +8,7 @@ import * as s from './style';
 import { useLocation, useNavigate } from 'react-router-dom';
 import menuForUser from '../../../hooks/menu/menuForUser';
 import { usePointApi } from '../../../apis/pointApi';
+import { usePointMutation } from '../../../mutations/useProcessPointMutation';
 
 /*
   해야 할 것
@@ -23,11 +24,13 @@ const SelectPayMethod = () => {
     const navi = useNavigate();
     
     // usePointMutation 훅을 아래 위치에서 호출
-    const { mutateAsync: usePointMutation } = usePointApi(); // 이 라인을 이동시켜서 제대로 훅을 사용할 수 있도록 처리
+    const { mutateAsync: usePoints } = usePointMutation(); // 이 라인을 이동시켜서 제대로 훅을 사용할 수 있도록 처리
 
     const location = useLocation();
-    const { usePoint, phoneNumber } = useState(location.state?.point || 0); // UsePointModal에서 전달한 usePoint 받기
+    const [usePoint, setUsePoint] = useState(location.state?.usePoint || 0);
+    const [phoneNumber, setPhoneNumber] = useState(location.state?.phoneNumber || "");
 
+    console.log(location.state)
     // 장바구니 상태 관리
     const [addedCartState] = useRecoilState(addedCart);
 
@@ -190,7 +193,7 @@ const SelectPayMethod = () => {
             });
 
             try {
-                await usePointMutation({
+                await usePoints({
                     phoneNumber: phoneNumber,
                     calcul: 0,  
                     point: usePoint,

@@ -7,13 +7,16 @@ import { useState } from 'react';
 function Payment(props) {
     const navi = useNavigate();
     const location = useLocation();
-    const { usePoint, phoneNumber } = useState(location.state?.point || 0);
 
-    console.log(phoneNumber)
-    console.log(usePoint)
+    const [usePoint, setUsePoint] = useState(location.state?.usePoint || 0);
+    const [phoneNumber, setPhoneNumber] = useState(location.state?.phoneNumber || "");
 
     const handleEasyPay = () => {
-        navi("/selectPayMethod", { state: { usePoint, phoneNumber } });
+        navi("/selectPayMethod", { state: { 
+                        usePoint: usePoint,
+                        phoneNumber: phoneNumber
+                    }
+                 });
     }
 
     const handleBack = () => {
