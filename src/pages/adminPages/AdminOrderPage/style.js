@@ -45,6 +45,11 @@ export const upside = css`
     }
 `;
 
+export const datePicker = css`
+    display: flex;
+    align-items: center;
+`
+
 export const calandar = css`
     margin-right: 2rem;
     padding: 0.5rem;
@@ -62,6 +67,9 @@ export const listcontainer = css`
     flex-direction: column;
     justify-content: center;
     width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 0 0.3rem 0.2rem #00000022;
+    overflow: hidden;
 
     & div {
         display: flex;
@@ -117,20 +125,30 @@ export const listcontainer = css`
 `;
 
 export const listhead = css`
+    box-sizing: border-box;
     margin-bottom: .2rem;
     border-bottom: .1rem solid #333333;
-    padding: .2rem 0;
     font-size: 1.5rem;
+    padding: 0.6rem 0;
     font-weight: bold;
+    background-color: #004417;
+    & * {
+        color: #fafafa;
+        cursor: default;
+    }
 `;
 
 export const listbody = css`
-    border-bottom: 0.1rem dashed #333333;
+    border-bottom: 0.1rem solid #dbdbdb;
     font-size: 1.5rem;
+    cursor: default;
 `;
 
 
 export const cancelreasons = (status) => css`
+    & > button {
+        width: 9rem;
+    }
     & button:hover + span {
         display: 
             ${status === "CANCELLED" ? "block" : "none"};

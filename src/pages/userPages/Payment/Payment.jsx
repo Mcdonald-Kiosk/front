@@ -24,7 +24,7 @@ function Payment(props) {
     }
 
     return (
-        <div css={s.container}>
+        <>
             <header>
 
             </header>
@@ -56,7 +56,7 @@ function Payment(props) {
             <footer css={s.footer} onClick={handleBack}>
                 이전 단계
             </footer>
-        </div>
+        </>
     );
 }
 

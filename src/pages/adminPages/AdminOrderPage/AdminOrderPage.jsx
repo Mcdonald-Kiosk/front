@@ -10,6 +10,7 @@ import ReactModal from 'react-modal';
 import { data, useSearchParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import AdminPayMoal from '../../../components/Modal/AdminPayModal/AdminPayMoal';
+import AdminHeader from '../../../components/common/AdminHeader/AdminHeader';
 
 //결제 조회 페이지
 function AdminOrderPage(props) {
@@ -247,10 +248,9 @@ function AdminOrderPage(props) {
 
 
     return (
-        <div css={s.container}>
-            <div css={s.upside}>
-                <span>결제 내역</span>
-                <div>
+        <>
+            <AdminHeader title={"결제 내역"} rightElement={
+                <div css={s.datePicker}>
                     <label htmlFor="date" />
                     <div css={s.calandar}>
                         <input type="date"
@@ -264,7 +264,7 @@ function AdminOrderPage(props) {
                         <MdOutlineRefresh size={24} fill="#444444" />
                     </button>
                 </div>
-            </div>  
+            } />
 
             <div css={s.listcontainer}>
                 <div css={s.listhead}>
@@ -347,7 +347,7 @@ function AdminOrderPage(props) {
                     )
                 }
                 </div>
-        </div>
+        </>
     );
 }
 
