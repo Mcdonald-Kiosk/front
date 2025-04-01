@@ -75,13 +75,44 @@ export const listcontainer = css`
         width: 7rem;
         flex-grow: 1;
         white-space: nowrap;
+        text-align: center;
+    }
+
+    & div .orderid {
         overflow: hidden;
         text-overflow: ellipsis;
-        text-align: center;
     }
 
     & div .ordername {
         flex-grow: 3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    & div .totalamount {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    & div .time {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    & div .status {
+        position: relative;
+
+        & > span {
+            display: none;
+            position: absolute;
+            border-radius: 1rem;
+            width: max-content;
+            font-size: 1.6rem;
+            background-color: #ffffffee;
+            transform: translate(-100%, -50%);
+            top: 50%;
+            left: -10%;
+        }
     }
 `;
 
@@ -99,6 +130,14 @@ export const listbody = css`
 `;
 
 
+export const cancelreasons = (status) => css`
+    & button:hover + span {
+        display: 
+            ${status === "CANCELLED" ? "block" : "none"};
+    }
+`;
+
+
 export const statusbutton = (status) => css`
     border-radius: .7rem;
     border: none;
@@ -108,7 +147,7 @@ export const statusbutton = (status) => css`
     color: #222222;
     background-color:
         ${status === "PAID" ? "#f1d21dff"
-        : status === "FAILED" ? "#868686"
+        : status === "FAILED" ? "#868686d2"
         : status === "CANCELLED" ? "#fd3f3f" : "#3fb7fd"};
     font-weight: 800;
     
@@ -118,23 +157,9 @@ export const statusbutton = (status) => css`
         cursor:
             ${status === "PAID" ? "pointer" : "default"};
     }
+
 `;
 
-export const cancelreason = css`
-    position: relative;
-
-    &:hover > span {
-        display: block;
-    }
-
-    & > span { //수정하기
-        display: none;
-        position: absolute;
-        transform: translateX(-50%);
-        left: 50%;
-
-    }
-`;
 
 
 export const footer = css`

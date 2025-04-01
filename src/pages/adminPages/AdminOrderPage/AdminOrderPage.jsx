@@ -276,18 +276,19 @@ function AdminOrderPage(props) {
                     <span className="time">결제시간</span>
                     <span className="status">결제상태</span>
                 </div>
-                { //취소사유 옆에 창으로 띄우기
+                { //취소사유 옆에 창으로 띄우기 
                     payments.map(p =>
                         <div key={p.uuid} css={s.listbody}>
                             <span className="orderid">{p.orderId}</span>
                             <span className="ordername">{p.orderName}</span>
                             <span className="totalamount">{p.totalAmount}</span>
                             <span className="time">{p.time}</span>
-                            <span className="status" css={s.cancelreason}>
+                            <span className="status" css={s.cancelreasons(p.status)}>
                                 <button css={s.statusbutton(p.status)} onClick={() => handleCancelButtonOnClick(p)}>
                                     {PAYSTATUS[p.status]}
                                 </button>
-                                <span>취소사유 : {p.cancelReason}</span>
+                                <span>취소사유 &nbsp;&nbsp; : &nbsp;&nbsp; {p.cancelReason}</span>
+                                {/* &nbsp;로 띄어쓰기 */}
                             </span>
                         </div>
                     )
