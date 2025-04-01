@@ -17,13 +17,16 @@ function MainSidebar(props) {
         if (!token) {
             navigate("/admin/login");  // 토큰이 없으면 로그인 페이지로 이동
         }
+        // https://cafe.daum.net/studyitworld
+        // http://localhost:5173/admin/main
+        const pathSegment = location.pathname.split('/')[3]; // 경로에서 슬러시 기준으로 해당 순서의 값 저장
+        setActiveButton(pathSegment);  // 해당 경로의 클릭된 버튼을 상태로 설정
     }, [navigate]);
 
     const handleButtonClick = (buttonName) => {
-        setActiveButton(buttonName);  // 클릭된 버튼을 상태로 설정
         // 페이지 이동
         if (buttonName === 'menu') {
-            navigate('/admin/main/menu');  // 예시로 메뉴 관리 페이지로 이동
+            navigate('/admin/main/menu'); 
         }
         if (buttonName === 'product') {
             navigate('/admin/main/product');  
@@ -37,7 +40,7 @@ function MainSidebar(props) {
         if (buttonName === 'order') {
             navigate('/admin/main/order');  
         }
-        if (buttonName === 'info') {
+        if (buttonName === 'mypage') {
             navigate('/admin/main/mypage');  
         }
         
@@ -99,8 +102,8 @@ function MainSidebar(props) {
                 </div>
                 <div css={s.buttonstyle}>
                     <button 
-                        css={[s.emptybutton, activeButton === 'info' && s.activeButton]} 
-                        onClick={() => handleButtonClick('info')}
+                        css={[s.emptybutton, activeButton === 'mypage' && s.activeButton]} 
+                        onClick={() => handleButtonClick('mypage')}
                     >
                         내 정보
                     </button>
