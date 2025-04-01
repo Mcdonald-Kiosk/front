@@ -55,14 +55,32 @@ export const buttons = css`
 `;
 
 export const menuListContainer = css`
-    margin: 0 2.5rem;
+    margin: 0;
     padding: 0;
+    border-radius: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 0 0.3rem 0.1rem #00000022;
+    overflow: hidden;
 
     & li {
         display: flex;
         justify-content: start;
-        border-bottom: 0.1rem solid #000000;
+        border-bottom: 0.1rem solid #dbdbdb;
+        
+        cursor: default;
+        &:nth-of-type(1) {
+            background-color: #004417;
+            & > div {
+                color: #ffffff;
+            }
+        }
+        &:not(&:nth-of-type(1)) {
+            cursor: pointer;
 
+            &:hover {
+                background-color: #00000011;
+            }
+        } 
         
         & div {
             justify-content: center;
@@ -70,11 +88,11 @@ export const menuListContainer = css`
             align-content: center;
             margin: 1rem 4rem 1rem 0;
             text-align: center;
-            font-size: 2rem;
+            font-size: 1.6rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            flex-grow: 1;
+            flex-grow: 1;    
         }
     }
 `;

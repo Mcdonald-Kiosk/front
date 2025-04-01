@@ -3,6 +3,7 @@ import { MdInfoOutline, MdOutlineCategory, MdProductionQuantityLimits } from 're
 import * as s from './style';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import AdminHeader from '../../../components/common/AdminHeader/AdminHeader';
 
 function AdminProductPage(props) {
     const navigate = useNavigate();
@@ -17,7 +18,8 @@ function AdminProductPage(props) {
 
 
     return (
-        <div css={s.mainContainer}>
+        <>
+            {/* <AdminHeader title={"제품 관리"} /> */}
             <div css={s.mainCon}>
                 <div onClick={handleProductManageOnClick}>
                     <MdProductionQuantityLimits/>
@@ -32,7 +34,7 @@ function AdminProductPage(props) {
                     <h5>영양정보 / <br /> 원산지 관리</h5>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

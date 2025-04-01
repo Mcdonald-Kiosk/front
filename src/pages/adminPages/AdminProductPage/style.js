@@ -13,7 +13,9 @@ export const mainContainer = css`
 
 export const mainCon = css`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
 
     & > div {
         width: 28rem;
