@@ -59,7 +59,7 @@ function PrePayment(props) {
 
 
     return (
-        <div css={s.container}>
+        <>
             <header css={s.header}>
                 <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ec545603-cf4e-48e0-936d-5376ea12fdc0/dh1vv57-b11b6232-616f-4266-8bb2-388aa1f1c548.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2VjNTQ1NjAzLWNmNGUtNDhlMC05MzZkLTUzNzZlYTEyZmRjMFwvZGgxdnY1Ny1iMTFiNjIzMi02MTZmLTQyNjYtOGJiMi0zODhhYTFmMWM1NDgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.RNXDS0nBItT7WkcJDYigGSDUyjQXJhkqwM8CSB-keHY" alt="" />
                 <p>주 문</p>
@@ -104,7 +104,7 @@ function PrePayment(props) {
                     </div>
                 </div>
             </footer>
-        </div>
+        </>
     );
 }
 
