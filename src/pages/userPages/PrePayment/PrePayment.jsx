@@ -53,6 +53,10 @@ function PrePayment(props) {
         navi("/order");
     }
 
+    const handleUsePoint = () => {
+        navi("/usePoint")
+    }
+
 
     return (
         <div css={s.container}>
@@ -89,6 +93,9 @@ function PrePayment(props) {
                     <p>총합 : {totalPrice}원</p> {/* 총합을 여기 표시 */}
                 </div>
                 <div>
+                    <div onClick={handleUsePoint}>
+                        포인트 사용
+                    </div>
                     <div onClick={handleCompletePayment}>
                         결제방법
                     </div>
