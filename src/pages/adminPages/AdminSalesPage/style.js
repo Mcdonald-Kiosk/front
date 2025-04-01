@@ -1,12 +1,13 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-    z-index: 99;
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 99;
+    width: 100%;
+    max-width: 140rem;
+    height: 100%;
     overflow: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
