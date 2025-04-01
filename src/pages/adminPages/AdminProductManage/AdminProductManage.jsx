@@ -53,15 +53,15 @@ function AdminProductManage() {
     
         const prices = Array.isArray(menuDetail.menuPrice)
             ? defaultPrices.map((d) => {
-                  const found = menuDetail.menuPrice.find((p) => p.size === d.size);
-                  return found
-                      ? {
-                            size: found.size,
-                            price: found.menuPrice || "",
-                            discountPrice: found.discountPrice || "",
-                        }
-                      : d;
-              })
+                const found = menuDetail.menuPrice.find((p) => p.size === d.size);
+                return found
+                    ? {
+                        size: found.size,
+                        price: found.menuPrice || "",
+                        discountPrice: found.discountPrice || "",
+                    }
+                : d;
+            })
             : defaultPrices;
     
         setFormData({
