@@ -17,6 +17,7 @@ export const header = css`
     padding: 3rem;
     font-size: 3rem;
     font-weight: 800;
+    white-space: nowrap;
 `;
 
 export const headerLink = css`
@@ -50,7 +51,7 @@ export const buttonstyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem 0 1.5rem 0;
+    margin: 1rem 2rem 1.5rem 2rem;
     border-radius: 0.5rem;
     border: 0.2rem solid #9cb163;
 

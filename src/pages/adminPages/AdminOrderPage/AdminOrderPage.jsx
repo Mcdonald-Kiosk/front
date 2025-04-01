@@ -30,7 +30,7 @@ function AdminOrderPage(props) {
         setSearchParams(searchParams);
     }
 
-    //오늘 날짜 계산
+    //오늘 날짜 계산 로직
     const today = () => { 
         const date = new Date();
         const year = date.getFullYear();
@@ -43,8 +43,8 @@ function AdminOrderPage(props) {
 
     //달력에 선택된 값으로 변경
     const handleSelectDateOnChange = (e) => { 
-        searchParams.set("page", 1); //1페이지로 파라미터 값 변경
-        setSearchParams(searchParams); //파라미터 업데이터
+        searchParams.set("page", 1); //날짜 변경 시 1페이지로 파라미터 값 변경
+        setSearchParams(searchParams); //파라미터 업데이트
         setSelectedDate(e.target.value); //달력값 상태 업데이트
     }
 
@@ -67,11 +67,7 @@ function AdminOrderPage(props) {
         } 
     }, [totalCount, page]);
 
-
-
-
-
-    //status의 값을 보고 메세지 띄우기
+    //status의 값을 보고 띄울 메세지
     const PAYSTATUS = { 
         "PAID": "결제완료",
         "FAILED": "결제실패",
@@ -79,7 +75,7 @@ function AdminOrderPage(props) {
         "READY": "결제 중"
     }
 
-    //상품목록 더미데이터
+    //상품목록 더미데이터 (삭제예정)
     const orders = [
         {
             orderId: 1024,
@@ -148,7 +144,7 @@ function AdminOrderPage(props) {
     ]
     //console.log(foundorder);
 
-    // 물품구입 - payone으로 보내기
+    // 물품구입 - payone으로 보내기 (삭제 예정)
     const handlePaymentClick = async (orderId) => {
         const foundorder = orders.find(o => o.orderId === orderId); //주문번호로 찾기
         const nameOfProducts = foundorder.products.map(product => 
@@ -236,13 +232,15 @@ function AdminOrderPage(props) {
     }, [page, selectedDate, totalCount, refreshify]);
 
     
+    //새로고침 로직
     const handleRefreshifyButtonOnClick = () => {
         setRefreshify(refreshify === 1 ? 0 : 1); //버튼 누를 떄마다 상태값을 바꿔서 useEffect가동
     }
 
+    //결제 취소 버튼 로직
     const handleCancelButtonOnClick = (payData) => {
-        setPayModalDate(payData);
-        setPayModalOpen(payData.status === "PAID" ? true : false);        
+        setPayModalDate(payData); //결제 데이터 모달로 넘겨주기
+        setPayModalOpen(payData.status === "PAID" ? true : false); //결제 완료일때만 모달 동작하기        
     }
     //console.log(payModalDate);
     //console.log(payments);
@@ -276,7 +274,7 @@ function AdminOrderPage(props) {
                     <span className="time">결제시간</span>
                     <span className="status">결제상태</span>
                 </div>
-                { //취소사유 옆에 창으로 띄우기 
+                {
                     payments.map(p =>
                         <div key={p.uuid} css={s.listbody}>
                             <span className="orderid">{p.orderId}</span>
@@ -287,7 +285,7 @@ function AdminOrderPage(props) {
                                 <button css={s.statusbutton(p.status)} onClick={() => handleCancelButtonOnClick(p)}>
                                     {PAYSTATUS[p.status]}
                                 </button>
-                                <span>취소사유 &nbsp;&nbsp; : &nbsp;&nbsp; {p.cancelReason}</span>
+                                <span>취소사유 : &nbsp;&nbsp; {p.cancelReason}</span>
                                 {/* &nbsp;로 띄어쓰기 */}
                             </span>
                         </div>
@@ -306,7 +304,7 @@ function AdminOrderPage(props) {
                         backgroundColor: "#00000044"
                     },
                     content: {
-                        potition: "static",
+                        position: "static",
                         boxSizing: "border-box",
                         borderRadius: "1.5rem",
                         height: "60rem",
@@ -334,8 +332,7 @@ function AdminOrderPage(props) {
             </div>
         
             <div>
-                ===더미데이터용===
-                {/* <button onClick={handleSearchClick}>조회</button> */}
+                ===더미데이터용(삭제예정)===
                 {
                     orders.map(o => 
                         <div key={o.orderId}>
