@@ -2,12 +2,19 @@
 import { useEffect, useState } from "react";
 import * as s from "./style";
 import useMenuData from "../../../hooks/menu/getMenuHooks";
+import { useMenuInfo } from "../../../hooks/menu/getMenuInfoHook";
 
 function AdminProductInfo() {
     const [selectedMenu, setSelectedMenu] = useState(null);
     const [isAdding, setIsAdding] = useState(false);
     const { data: menus = [], isLoading } = useMenuData();
 
+    useEffect(() => {
+        // 렌더링 될 때 첫 번째 메뉴 ID 자동 선택
+        if (selectedMenu === null && menus.length > 0) {
+            setSelectedMenu(menus[0].menuId);
+        }
+    }, [menus]);
     
 
     const handleSubmitMenuOnClick = async () => {
@@ -15,10 +22,6 @@ function AdminProductInfo() {
     };
 
     const handleUpdateMenuOnClick = async () => {
-        
-    };
-
-    const handleDeleteMenuOnClick = async () => {
         
     };
 
@@ -79,25 +82,25 @@ function AdminProductInfo() {
                         <tr>
                             <th css={s.th}>영양소</th>
                             <th css={s.th}>중량(g)</th>
-                            <th css={s.th}>중량(ml)</th>
-                            <th css={s.th}>열량</th>
-                            <th css={s.th}>당</th>
-                            <th css={s.th}>단백질</th>
-                            <th css={s.th}>포화지방</th>
-                            <th css={s.th}>나트륨</th>
-                            <th css={s.th}>카페인</th>
+                            <th css={s.th}>용량(ml)</th>
+                            <th css={s.th}>열량(kcal)</th>
+                            <th css={s.th}>당(g)</th>
+                            <th css={s.th}>단백질(g)</th>
+                            <th css={s.th}>포화지방(g)</th>
+                            <th css={s.th}>나트륨(mg)</th>
+                            <th css={s.th}>카페인(mg)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td css={s.td}>함량</td>
-                            <td css={s.td}>276g</td>
+                            <td css={s.td}>276</td>
                             <td css={s.td}>-</td>
-                            <td css={s.td}>545kcal</td>
-                            <td css={s.td}>11g</td>
-                            <td css={s.td}>21g</td>
-                            <td css={s.td}>9g</td>
-                            <td css={s.td}>966mg</td>
+                            <td css={s.td}>545</td>
+                            <td css={s.td}>11</td>
+                            <td css={s.td}>21</td>
+                            <td css={s.td}>9</td>
+                            <td css={s.td}>966</td>
                             <td css={s.td}>-</td>
                         </tr>
                         <tr css={s.evenRow}>
@@ -115,13 +118,10 @@ function AdminProductInfo() {
                 </table>
             </div>
             <div css={s.buttonGroup}>
-                <button> 임시1
+                <button css={s.button}> 추가
                 </button>
 
-                <button> 임시2
-                </button>
-
-                <button> 임시3
+                <button css={s.button}> 수정
                 </button>
             </div>
         </div>
