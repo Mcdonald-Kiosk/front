@@ -8,6 +8,7 @@ import { useAllMenuList, useGetCategories } from '../../../queries/AdminQuery/Ad
 // import { useUpdateIsPosureMutation } from '../../../mutations/adminMutaion';
 import ReactModal from 'react-modal';
 import AdminMenuInfoModal from '../../../components/Modal/AdminMenuInfoModal/AdminMenuInfoModal';
+import AdminHeader from '../../../components/common/AdminHeader/AdminHeader';
 
 function AdminMenuPage(props) {
     const [ searchParams, setSearchParams ] = useSearchParams(); //url파라미터
@@ -50,7 +51,7 @@ function AdminMenuPage(props) {
             <li key={menu.menuId} onClick={() => handleInfoModalOnClick(menu.menuId)}>
                 <div css={s.numBox}>{menu.menuId}</div>
                 <div css={s.nameBox}>{menu.menuName}</div>
-                <div css={s.priceBox}>{menu.menuPrice[0].menuPrice}</div>
+                <div css={s.priceBox}>{menu.menuPrice[0].menuPrice} 원</div>
                 <div css={s.exBox}>
                     <input 
                         type='checkbox' 
@@ -121,9 +122,8 @@ function AdminMenuPage(props) {
     //console.log(searchMenuList);
     
     return (
-        <div css={s.container}>
-            <div css={s.header}>
-                <span>메뉴관리</span>
+        <>
+            <AdminHeader title={"메뉴관리"} rightElement={
                 <div>
                     <Select 
                         options={selectCategories}
@@ -132,7 +132,7 @@ function AdminMenuPage(props) {
                             minHeight: '4rem',
                             fontSize: '1.4rem',
                             fontWeight: '600',
-                          }}
+                        }}
                         value={category}
                         onChange={handleSelectCategoryOnChange}
                     >
@@ -144,17 +144,16 @@ function AdminMenuPage(props) {
                                 width: '12rem',
                                 minHeight: '3rem',
                                 fontSize: '1.4rem', 
-                              }}
-                              >
+                            }}
+                            >
                             {categoryOption.label}
                         </MenuItem>
                         ))}
                     </Select>
                 </div>
-            </div>
+            } />
 
             <div>
-                <div css={s.title}>{category !== '전체' ? `${category} 리스트` : "전체 리스트"}</div>
                 <ul css={s.menuListContainer}>
                     <li>
                         <div css={s.numBox}>NO.</div>
@@ -202,7 +201,7 @@ function AdminMenuPage(props) {
                     <GoChevronRight />
                 </button>
             </div>
-        </div>
+        </>
     );
 }
 

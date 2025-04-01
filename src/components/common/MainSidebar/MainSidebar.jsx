@@ -34,7 +34,7 @@ function MainSidebar(props) {
         if (buttonName === 'option') {
             navigate('/admin/main/option');  
         }
-        if (buttonName === 'sales') {
+        if (buttonName === 'sale') {
             navigate('/admin/main/sale');  
         }
         if (buttonName === 'order') {
@@ -60,62 +60,43 @@ function MainSidebar(props) {
                 </Link>
             </div>
             <div css={s.body}>
-                <div css={s.buttonstyle}>
-                    <button 
-                        css={[s.emptybutton, activeButton === 'menu' && s.activeButton]}  // 클릭된 버튼에 activeButton 스타일 적용
-                        onClick={() => handleButtonClick('menu')}
-                    >
-                        메뉴 관리
-                    </button>
-                </div>
-                <div css={s.buttonstyle}>
-                    <button 
-                        css={[s.emptybutton, activeButton === 'product' && s.activeButton]} 
-                        onClick={() => handleButtonClick('product')}
-                    >
-                        제품 관리
-                    </button>
-                </div>
-                <div css={s.buttonstyle}>
-                    <button 
-                        css={[s.emptybutton, activeButton === 'option' && s.activeButton]} 
-                        onClick={() => handleButtonClick('option')}
-                    >
-                        옵션 관리
-                    </button>
-                </div>
-                <div css={s.buttonstyle}>
-                    <button 
-                        css={[s.emptybutton, activeButton === 'sales' && s.activeButton]} 
-                        onClick={() => handleButtonClick('sales')}
-                    >
-                        매출 관리
-                    </button>
-                </div>
-                <div css={s.buttonstyle}>
-                    <button 
-                        css={[s.emptybutton, activeButton === 'order' && s.activeButton]} 
-                        onClick={() => handleButtonClick('order')}
-                    >
-                        주문 관리
-                    </button>
-                </div>
-                <div css={s.buttonstyle}>
-                    <button 
-                        css={[s.emptybutton, activeButton === 'mypage' && s.activeButton]} 
-                        onClick={() => handleButtonClick('mypage')}
-                    >
-                        내 정보
-                    </button>
-                </div>
-                <div css={s.buttonstyle}>
-                    <button 
-                        css={s.emptybutton} 
-                        onClick={handleLogoutButtonOnClick}
-                    >
-                        <BiLogOut />로그아웃
-                    </button>
-                </div>
+                <button 
+                    css={s.menuButton(activeButton === "menu")}  // 클릭된 버튼에 activeButton 스타일 적용
+                    onClick={() => handleButtonClick('menu')}
+                >
+                    메뉴 관리
+                </button>
+                <button 
+                    css={s.menuButton(activeButton === "product")}  // 클릭된 버튼에 activeButton 스타일 적용
+                    onClick={() => handleButtonClick('product')}
+                >
+                    제품 관리
+                </button>
+                <button 
+                    css={s.menuButton(activeButton === "sale")}  // 클릭된 버튼에 activeButton 스타일 적용
+                    onClick={() => handleButtonClick('sale')}
+                >
+                    매출 관리
+                </button>
+                <button 
+                    css={s.menuButton(activeButton === "order")}  // 클릭된 버튼에 activeButton 스타일 적용
+                    onClick={() => handleButtonClick('order')}
+                >
+                    주문 관리
+                </button>
+                <button 
+                    css={s.menuButton(activeButton === "mypage")}  // 클릭된 버튼에 activeButton 스타일 적용
+                    onClick={() => handleButtonClick('mypage')}
+                >
+                    내 정보
+                </button>
+                <button 
+                    css={s.menuButton(false)}  // 클릭된 버튼에 activeButton 스타일 적용
+                    onClick={handleLogoutButtonOnClick}
+                >
+                    <BiLogOut />로그아웃
+                </button>
+                
                 <div css={s.footer}></div>
             </div>
         </div>
