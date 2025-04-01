@@ -148,8 +148,6 @@ function AdminOrderPage(props) {
     ]
     //console.log(foundorder);
 
-    //중간 단계 => db의 자료에 맞게 결제 후 리스트 띄우기 
-    //주문 번호 중에 하나 선택 => 주문 번호 안의 물품을 products에 map하기
     // 물품구입 - payone으로 보내기
     const handlePaymentClick = async (orderId) => {
         const foundorder = orders.find(o => o.orderId === orderId); //주문번호로 찾기
@@ -181,7 +179,7 @@ function AdminOrderPage(props) {
                         };
                     }),
             });
-            console.log(paymentResponse);
+            //console.log(paymentResponse);
         }  catch(error) {
             console.log(error);
         }
@@ -244,40 +242,10 @@ function AdminOrderPage(props) {
 
     const handleCancelButtonOnClick = (payData) => {
         setPayModalDate(payData);
-        setPayModalOpen(true);        
+        setPayModalOpen(payData.status === "PAID" ? true : false);        
     }
     //console.log(payModalDate);
     //console.log(payments);
-
-    // 결제 취소
-    // post
-    // /payments/{paymentId}/cancel
-    // const handleCancelClick = async (uuid, payments) => {
-    //     console.log(uuid)
-    //     const foundorder = payments.find(o => o.uuid === uuid); //uuid로 찾기
-    //     try {
-    //         const jwtResponse = await axios.post("https://api.portone.io/login/api-secret", {
-    //             "apiSecret": import.meta.env.VITE_PORTONE_API_KEY,
-    //         });
-    //         const accessToken = jwtResponse.data.accessToken;
-
-    //         await axios.post(
-    //             `https://api.portone.io/payments/${uuid}/cancel`, 
-    //             {
-    //                 storeId: import.meta.env.VITE_PORTONE_STOREID,
-    //                 reason: "취소사유",
-    //             }, 
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${accessToken}`,
-    //                 }
-    //             }
-    //         );
-    //         alert("취소완료")
-    //     }  catch(error) {
-    //         console.log(error);
-    //     }
-    // }
 
 
     return (
@@ -308,18 +276,19 @@ function AdminOrderPage(props) {
                     <span className="time">결제시간</span>
                     <span className="status">결제상태</span>
                 </div>
-                { //취소사유 옆에 창으로 띄우기
+                { //취소사유 옆에 창으로 띄우기 
                     payments.map(p =>
                         <div key={p.uuid} css={s.listbody}>
                             <span className="orderid">{p.orderId}</span>
                             <span className="ordername">{p.orderName}</span>
                             <span className="totalamount">{p.totalAmount}</span>
                             <span className="time">{p.time}</span>
-                            <span className="status">
+                            <span className="status" css={s.cancelreasons(p.status)}>
                                 <button css={s.statusbutton(p.status)} onClick={() => handleCancelButtonOnClick(p)}>
                                     {PAYSTATUS[p.status]}
                                 </button>
-                                <span css={s.cancelreason}><span>취소사유 : {p.cancelReason}</span></span>
+                                <span>취소사유 &nbsp;&nbsp; : &nbsp;&nbsp; {p.cancelReason}</span>
+                                {/* &nbsp;로 띄어쓰기 */}
                             </span>
                         </div>
                     )
