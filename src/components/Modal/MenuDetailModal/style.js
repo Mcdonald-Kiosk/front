@@ -51,6 +51,11 @@ export const modalBasich3 = css`
         font-weight: 700;
         color: #f5f5f5;
         background-color: #1da840;
+
+        &:hover {
+            box-shadow: 0 0 .5rem .1rem #078827;
+            background-color: #078827;
+        }
     }
 `;
 

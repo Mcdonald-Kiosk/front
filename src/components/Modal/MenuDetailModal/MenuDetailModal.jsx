@@ -240,7 +240,6 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                     <div>
                         <div css={s.modalBasich3}>
                             <h3>사이드 선택</h3>
-                            <button>상세<br></br>정보</button>
                         </div>
                         <div css={s.mapParent}>
                             {filteredSides?.map((side, index) => (
@@ -273,7 +272,6 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                     <div>
                         <div css={s.modalBasich3}>
                             <h3>음료 선택</h3>
-                            <button>상세<br></br>정보</button>
                         </div>
                         <div css={s.mapParent}>
                             {filteredDrinks?.map((drink, index) => (
@@ -307,7 +305,6 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                     <div>
                         <div css={s.modalBasich3}>
                             <h3>사이즈 선택</h3>
-                            <button>상세<br></br>정보</button>
                         </div>                        
                         <div css={s.temp}>
                             <div css={s.modalBuguerSetImage(radioChecked.size === "1")}>

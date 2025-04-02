@@ -19,9 +19,17 @@ export const closebutton = css`
         box-sizing: border-box;
         border-radius: 50%;
         border: none;
-        padding: .5rem 1rem;
+        padding: .4rem .6rem;
         font-size: 2rem;
         background-color: transparent;
+
+        &:hover {
+            color: #000000aa;
+        }
+
+        &:active {
+            color: #00000033;
+        }
     }
 `;
 
@@ -111,13 +119,14 @@ export const footer = css`
     & button {
         box-sizing: border-box;
         border-radius: .5rem;
+        box-sizing: border-box;
         padding: 1rem 2rem;
         font-size: 2rem;
         font-weight: 600;
         background-color: #fafd2d;
 
         &:hover {
-            background-color: #cccf22;
+            box-shadow: 0 0 .6rem .1rem #000000;
         }
 
         &:active {
