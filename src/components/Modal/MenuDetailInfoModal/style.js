@@ -38,7 +38,12 @@ export const modalbody = css`
 
 export const bodyup = css`
     display: flex;
-    margin: 1rem;
+    justify-content: center;
+    margin: 1rem 0;
+    box-shadow: 0 0 .5rem .2rem;
+    box-sizing: border-box;
+    border-radius: 2rem;
+    padding: 1.5rem 1rem;
     white-space: nowrap;
     text-overflow: ellipsis;
     
@@ -47,13 +52,14 @@ export const bodyup = css`
         flex-direction: column;
         align-items: center;
         border-right: 0.1rem dashed #00000055;
-        font-size: 2rem;
-        width: 100%;
+        min-width: 5rem;
+        font-size: 1.8rem;
         text-align: center;
 
         & div {
-            padding: .2rem .5rem;
+            padding: .3rem .8rem;
         }
+
 
     }
 
@@ -62,11 +68,15 @@ export const bodyup = css`
         font-size: 2rem;
         font-weight: 600;
         border-right: 0.3rem solid #00000055;
-    
+
+        & > div {
+            background-color: #00000000;
+        }
     }
     .line:nth-last-of-type(1) {
         border: none;
     }
+
 `;
 
 export const bodydown = css`
@@ -82,7 +92,6 @@ export const bodydown = css`
 export const origin = css`
     display: flex;
     align-items: center;
-    margin-bottom: 4rem;
     padding: 1rem;
     overflow-x: auto;
     text-overflow: ellipsis;
@@ -131,5 +140,13 @@ export const footer = css`
         font-weight: 700;
         color: #fafafa;
         background-color: #f13709;
+
+        &:hover {
+            background-color: #be2a05;
+        }
+
+        &:active {
+            background-color: #8d1c00;
+        }
     }
 `;

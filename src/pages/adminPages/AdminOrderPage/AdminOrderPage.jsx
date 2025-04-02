@@ -163,7 +163,6 @@ function AdminOrderPage(props) {
                 channelKey: "channel-key-880a138a-b3ba-4ad9-9135-791ff84b4e76",
                 customer: { //주문번호 집어넣음
                     customerId: foundorder.orderId.toString(),
-                    fullName: foundorder.orderId.toString(),
                 },
                 products: //map에 담겨 return되는 값 자체가 배열이라서 [] 생략
                     foundorder.products.map( p => {
@@ -213,7 +212,7 @@ function AdminOrderPage(props) {
                     }),
                 }
             });
-            console.log(paymentsResponse);
+            //console.log(paymentsResponse);
             setTotalCount(paymentsResponse.data.page.totalCount); // 총페이지 수 받기
             
             //결제 내역 값 세팅
@@ -261,7 +260,7 @@ function AdminOrderPage(props) {
                         />
                     </div>
                     <button onClick={handleRefreshifyButtonOnClick}>
-                        <MdOutlineRefresh size={24} fill="#444444" />
+                        <MdOutlineRefresh size={24} fill="#fdfdfd" />
                     </button>
                 </div>
             } />
@@ -276,13 +275,13 @@ function AdminOrderPage(props) {
                 </div>
                 {
                     payments.map(p =>
-                        <div key={p.uuid} css={s.listbody}>
+                        <div key={p.uuid} css={s.listbody(p.status)} onClick={() => handleCancelButtonOnClick(p)}>
                             <span className="orderid">{p.orderId}</span>
                             <span className="ordername">{p.orderName}</span>
                             <span className="totalamount">{p.totalAmount} 원</span>
                             <span className="time">{p.time}</span>
-                            <span className="status" css={s.cancelreasons(p.status)}>
-                                <button css={s.statusbutton(p.status)} onClick={() => handleCancelButtonOnClick(p)}>
+                            <span className="status">
+                                <button css={s.statusbutton(p.status)}>
                                     {PAYSTATUS[p.status]}
                                 </button>
                                 <span>취소사유 : &nbsp;&nbsp; {p.cancelReason}</span>

@@ -20,6 +20,15 @@ export const headline = css`
         font-weight: 800;
         color: #fafafa;
         background-color: #e74f09;
+
+        &:hover {
+            box-shadow: 0 0 .4rem .1rem #e74f09;
+        }
+
+        &:active {
+            box-shadow: 0 0 .4rem .1rem #c44002;
+            background-color: #c44002;
+        }
     }
 `;
 
@@ -37,7 +46,7 @@ export const modalhead = css`
     display: flex;
     justify-content: space-around;
     margin-bottom: 2.5rem;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 500;
 `;
 
@@ -150,8 +159,9 @@ export const bodyup = css`
         flex-direction: column;
         align-items: center;
         border-right: 0.1rem dashed #00000055;
-        font-size: 2.5rem;
-        width: 100%;
+        padding: 0 2rem;
+        min-width: 5rem;
+        font-size: 2.2rem;
         text-align: center;
 
         & > div {
@@ -163,7 +173,7 @@ export const bodyup = css`
 
     .line:nth-of-type(1) {
         min-width: 18rem;
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         font-weight: 600;
         border-right: 0.3rem solid #00000055;
     
@@ -205,19 +215,22 @@ export const modalfooter = css`
     padding: 0 10rem;
 
     & button {
+        border: none;
         border-radius: 1rem;
         height: 8rem;
         width: 25rem;
         font-size: 2rem;
         font-weight: 800;
-        background-color: #ffd900aa;
+        color: #fafafa;
+        background-color: #13a00eff;
 
         &:hover {
-            background-color: #cfb000aa;
+            box-shadow: 0 0 .6rem .1rem #13a00eff;
         }
 
         &:active {
-            background-color: #a58c00;
+            box-shadow: 0 0 .6rem .1rem #035a00ff;
+            background-color: #035a00ff;
         }
     }
 
