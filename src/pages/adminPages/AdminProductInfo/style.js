@@ -1,96 +1,109 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
 export const container = css`
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
     padding: 2rem;
+    gap: 2rem;
 `;
 
-export const productContainer = css`
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    `;
-
-export const imageCon = css`
+export const leftPanel = css`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    `;
+    gap: 2rem;
+`;
 
 export const imageBox = css`
-    width: 20rem;
-    height: 20rem;
-    border: 1px solid #ddd;
+    width: 25rem;
+    height: 25rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1.6rem;
+    font-weight: bold;
     overflow: hidden;
-    background-color: #f9f9f9;
+    background-color: #fff;
     
     img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        height: auto;
+        object-fit: contain;
     }
     `;
 
-export const menuGroup = css`
+export const dropdown = css`
+    width: 25rem;
+    padding: 0.6rem;
+    font-size: 1.4rem;
+    border: 1px solid #000;
+`;
+
+export const inputGroup = css`
     display: flex;
     flex-direction: column;
     gap: 1rem;
     `;
-    
-export const dropdownContainer = css`
-    margin-bottom: 1.5rem;
-    `;
-
-export const dropdown = css`
-    padding: 0.5rem;
-    font-size: 1.6rem;
-    `;
 
 export const label = css`
+    font-size: 1.4rem;
+    font-weight: 600;
     margin-bottom: 0.3rem;
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin-right: 2rem;
-    `;
+`;
 
 export const input = css`
-    padding: 0.5rem;
+    padding: 0.6rem 1rem;
     font-size: 1.6rem;
+    border: 1px solid #000;
     width: 20rem;
+`;
+
+export const buttonGroup = css`
+    display: flex;
+    gap: 1rem;
+`;
+
+export const button = css`
+    width: 12rem;
+    padding: 0.8rem;
+    font-size: 1.6rem;
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+`;
+
+export const rightPanel = css`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 `;
 
 export const table = css`
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1.5rem;
 `;
 
 export const caption = css`
-    caption-side: top;
-    margin-bottom: 0.5rem;
+    font-size: 1.6rem;
     font-weight: bold;
+    margin: 1rem 0;
 `;
 
 export const th = css`
-    border: 1px solid #ddd;
-    padding: 0.5rem;
-    background-color: #f1f1f1;
-    font-size: 0.9rem;
+    border: 1px solid #000;
+    padding: 0.6rem;
+    background-color: #f2f2f2;
+    text-align: center;
 `;
 
 export const td = css`
-    border: 1px solid #ddd;
-    padding: 0.5rem;
+    border: 1px solid #000;
+    padding: 0.6rem;
     text-align: center;
-    font-size: 0.9rem;
 `;
 
 export const evenRow = css`
-    background-color: #f9f9f9;
+    background-color: #f8f8f8;
 `;
