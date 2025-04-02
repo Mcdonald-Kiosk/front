@@ -114,9 +114,11 @@ export const listcontainer = css`
             display: none;
             position: absolute;
             border-radius: 1rem;
+            padding: 1rem 5rem;
             width: max-content;
             font-size: 1.6rem;
-            background-color: #ffffffee;
+            color: #ffffff;
+            background-color: #333333cc;
             transform: translate(-100%, -50%);
             top: 50%;
             left: -10%;

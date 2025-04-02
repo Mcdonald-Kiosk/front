@@ -3,8 +3,14 @@ import { useInfoMenuById } from '../../../queries/AdminQuery/AdminMenuBoardQuery
 import * as s from './style';
 import React from 'react';
 
-function MenuInfoMiddleModal({ menuId }) {
+function MenuDetailInfoModal({ setOpen, menuId }) {
+    //props에 기본적으로, 내가 대입한 값과 setOpen이 객체로서 같이 온다.
+    //따라서 setOpen을 값을 넣지 않았어도, 기본적으로 존재한다.
+
     const getInfoMenuById = useInfoMenuById(menuId);
+    //console.log(getInfoMenuById);
+    // console.log(menuId);
+    // console.log(setOpen);
     
     return (
         <div>
@@ -13,7 +19,7 @@ function MenuInfoMiddleModal({ menuId }) {
                 <span>{getInfoMenuById?.data?.data?.menuName} {getInfoMenuById?.data?.data?.size}</span>
             </div>
             <div css={s.modalbody}>
-                <div css={s.text}>영양정보</div>
+                <div css={s.text1}>영양정보</div>
                 <div css={s.bodyup}>
                     <div className="line">
                         <div>영양소</div>
@@ -63,14 +69,18 @@ function MenuInfoMiddleModal({ menuId }) {
                 </div>
             </div>
             <div css={s.bodydown}>
-                <div>원산지</div>
-                {getInfoMenuById?.data?.data?.menuOrigin?.split('/').map((item, index) => (
-                    <div key={index}>{item}</div>))
-                }
+                <div css={s.text2}>원산지</div>
+                <div css={s.origin}>
+                    {getInfoMenuById?.data?.data?.menuOrigin?.split('/').map((item, index) => (
+                        <div key={index}>{item}</div>))
+                    }
+                </div>
             </div>
-            
+            <div css={s.footer}>
+                <button onClick={() => setOpen(false)}>뒤로가기</button>
+            </div>
         </div>
     );
 }
 
-export default MenuInfoMiddleModal;
+export default MenuDetailInfoModal;

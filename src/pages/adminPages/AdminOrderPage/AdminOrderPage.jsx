@@ -241,7 +241,7 @@ function AdminOrderPage(props) {
     //결제 취소 버튼 로직
     const handleCancelButtonOnClick = (payData) => {
         setPayModalDate(payData); //결제 데이터 모달로 넘겨주기
-        setPayModalOpen(payData.status === "PAID" ? true : false); //결제 완료일때만 모달 동작하기        
+        setPayModalOpen(payData.status === "PAID" || payData.status === "READY" ? true : false); //결제 완료일때만 모달 동작하기        
     }
     //console.log(payModalDate);
     //console.log(payments);
@@ -279,7 +279,7 @@ function AdminOrderPage(props) {
                         <div key={p.uuid} css={s.listbody}>
                             <span className="orderid">{p.orderId}</span>
                             <span className="ordername">{p.orderName}</span>
-                            <span className="totalamount">{p.totalAmount}</span>
+                            <span className="totalamount">{p.totalAmount} 원</span>
                             <span className="time">{p.time}</span>
                             <span className="status" css={s.cancelreasons(p.status)}>
                                 <button css={s.statusbutton(p.status)} onClick={() => handleCancelButtonOnClick(p)}>
