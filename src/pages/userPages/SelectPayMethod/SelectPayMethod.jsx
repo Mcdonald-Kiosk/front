@@ -9,28 +9,26 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import menuForUser from '../../../hooks/menu/menuForUser';
 import { usePointApi } from '../../../apis/pointApi';
 import { usePointMutation } from '../../../mutations/useProcessPointMutation';
+import { useOrderId } from '../../../hooks/order/getOrderIdHook';
+import { postOrderDetailTb, postOrderTb } from '../../../mutations/order/orderMutation';
 
-/*
-  해야 할 것
-  - 결제 후 장바구니를 비운다
-  - 총 결제 금액과 menuName과 일치하는 menuPrice를 DB에서 가져온다
-  - isSet을 검사하는 로직을 추가해서
-  - order_id, menu_price_id, menu_count, is_set를 DB에 POST로 보내야 한다
-*/
 
-const SelectPayMethod = () => {
-    const { data: menuData, error, isLoading } = menuForUser();
-    const [orderId, setOrderId] = useState(0);
+const SelectPayMethod = () => {    
+    const location = useLocation();
     const navi = useNavigate();
+
+    const { data: menuData, error, isLoading } = menuForUser();
+    const { data: orderIdFromTb, errorFromTb, isLoading: isLoadingOrderId } = useOrderId(); // 수정된 훅 사용
     
     // usePointMutation 훅을 아래 위치에서 호출
     const { mutateAsync: usePoints } = usePointMutation(); // 이 라인을 이동시켜서 제대로 훅을 사용할 수 있도록 처리
-
-    const location = useLocation();
+    const { mutateAsync: postOrder } = postOrderTb();
+    const { mutateAsync: postOrderDetail } = postOrderDetailTb();
     const [usePoint, setUsePoint] = useState(location.state?.usePoint || 0);
     const [phoneNumber, setPhoneNumber] = useState(location.state?.phoneNumber || "");
+    const [addOrderId, setAddOrderId] = useState(0);
 
-    console.log(location.state)
+    
     // 장바구니 상태 관리
     const [addedCartState] = useRecoilState(addedCart);
 
@@ -45,11 +43,12 @@ const SelectPayMethod = () => {
     )
     .join(", "); // 여러 개의 상품명을 하나의 문자열로 변환 (그래야 카카오페이API에 포함시킬 수 있음)
 
-
     const [orderNumber, setOrderNumber] = useState(() => {
         const savedOrderId = localStorage.getItem('orderId');
         return savedOrderId ? parseInt(savedOrderId, 10) : 1000;
     });
+
+
     
     // 주문 번호를 증가시키고 localStorage에 저장
     const incrementOrderId = () => {
@@ -77,6 +76,9 @@ const SelectPayMethod = () => {
         await addedCartState.forEach((item) => {
             const { isSet, detailMenu, detailSide, detailDrink, sideSize, drinkSize, quantity } = item;
 
+            setAddOrderId(orderIdFromTb + 1);
+            console.log("아악");
+
             const mainMenu = menuData.find((menu) =>
                 menu.menuName === detailMenu
             );
@@ -87,6 +89,9 @@ const SelectPayMethod = () => {
                     priceInfo = mainMenu.menuPrice[0];
                 }
                 if (mainMenu.menuCategory === "디저트") {
+                    priceInfo = mainMenu.menuPrice[0];
+                }
+                if (mainMenu.menuCategory === "맥모닝") {
                     priceInfo = mainMenu.menuPrice[0];
                 }
                 if (mainMenu.menuCategory === "사이드") {
@@ -101,10 +106,10 @@ const SelectPayMethod = () => {
 
                 if (priceInfo) {
                     orderDetailList.push({
-                        order_id: products[0].orderNumber, // 주문 임시 번호
-                        menu_price_id: priceInfo.menuPriceId, // 가격 ID
-                        menu_count: quantity, // 수량
-                        is_set: isSet, // 세트 여부
+                        orderId: addOrderId, 
+                        menuPriceId: priceInfo.menuPriceId, // 가격 ID
+                        menuCount: quantity, // 수량
+                        isSet: isSet? 1 : 0, // 세트 여부
                     });
                 }
             }
@@ -120,10 +125,10 @@ const SelectPayMethod = () => {
                     const priceInfo = sideMenu.menuPrice.find(price => price.size === sideSize);
                     if (priceInfo) {
                         orderDetailList.push({
-                            order_id: products[0].orderNumber, // 주문 임시 번호
-                            menu_price_id: priceInfo.menuPriceId, // 가격 ID
-                            menu_count: quantity, // 수량
-                            is_set: false, // 사이드는 세트 메뉴가 아니므로 false
+                            orderId: addOrderId, 
+                            menuPriceId: priceInfo.menuPriceId, // 가격 ID
+                            menuCount: quantity, // 수량
+                            isSet: isSet? 1 : 0, // 사이드는 세트 메뉴가 아니므로 false
                         });
                     }
                 }
@@ -140,10 +145,10 @@ const SelectPayMethod = () => {
                     const priceInfo = drinkMenu.menuPrice.find(price => price.size === drinkSize);
                     if (priceInfo) {
                         orderDetailList.push({
-                            order_id: products[0].orderNumber, // 주문 임시 번호
-                            menu_price_id: priceInfo.menuPriceId, // 가격 ID
-                            menu_count: quantity, // 수량
-                            is_set: false, // 음료는 세트 메뉴가 아니므로 false
+                            orderId: addOrderId, 
+                            menuPriceId: priceInfo.menuPriceId, // 가격 ID
+                            menuCount: quantity, // 수량
+                            isSet: isSet? 1 : 0, // 음료는 세트 메뉴가 아니므로 false
                         });
                     }
                 }
@@ -156,7 +161,7 @@ const SelectPayMethod = () => {
     const handlePaymentOnClick = async () => {
         try {
             const orderDetailList = await buildOrderDetailList();
-            const orderIdFromList = orderDetailList[0]?.order_id;
+            const orderIdFromList = orderDetailList[0]?.orderId;
             incrementOrderId();  
 
             if (!orderIdFromList) {
@@ -183,7 +188,17 @@ const SelectPayMethod = () => {
                 })),
             });
 
+            
+
             const point = Math.floor(totalPrice * 0.05);
+
+            // ✅ order_tb 먼저 post (비동기 처리)
+            console.log("order_tb에 보낼 데이터:", products[0].orderNumber + 1, totalPrice);
+            await postOrder({ orderTempId: products[0].orderNumber + 1, totalPrice: totalPrice });
+
+            // ✅ order_detail_tb는 order_tb가 성공한 후 실행해야 함
+            console.log("order_detail_tb에 보낼 데이터:", orderDetailList);
+            await postOrderDetail(orderDetailList);
 
             navi("/savePoint", {
                 state: {
@@ -207,8 +222,8 @@ const SelectPayMethod = () => {
         }
     };
 
-    console.log(phoneNumber)
-    console.log(usePoint)
+    console.log("사용한 번호 :", phoneNumber)
+    console.log("사용한 마일리지 :", usePoint)
     return (
         <div css={s.container}>
             <div css={s.header}>
@@ -217,7 +232,7 @@ const SelectPayMethod = () => {
                 </div>
             </div>
             <div css={s.footer}>
-                <div onClick={() => navi("/previousPage")}>이전 단계</div>
+                <div onClick={() => navi("/payment")}>이전 단계</div>
             </div>
         </div>
     );
