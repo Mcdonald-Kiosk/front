@@ -5,6 +5,24 @@ export const modalcontainer = css`
     flex-direction: column;
 `;
 
+export const headline = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > button {
+        margin-right: 2rem;
+        box-sizing: border-box;
+        border-radius: 1.5rem;
+        border: none;
+        padding: 1.1rem .8rem;
+        font-size: 2rem;
+        font-weight: 800;
+        color: #fafafa;
+        background-color: #e74f09;
+    }
+`;
+
 export const text = css`
     margin: 1rem 0 1rem 0rem;
     border-bottom: 0.5rem dashed #00000022;

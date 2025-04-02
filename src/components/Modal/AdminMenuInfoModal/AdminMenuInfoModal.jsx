@@ -4,7 +4,7 @@ import { useUpdateIsPosureMutation } from '../../../mutations/adminMutaion';
 import { useInfoMenuById } from '../../../queries/AdminQuery/AdminMenuBoardQuery';
 import * as s from './style';
 
-function AdminMenuInfoModal({ menuId }) {
+function AdminMenuInfoModal({ setOpen, menuId }) {
 
     const navigate = useNavigate();
     const getInfoMenuById = useInfoMenuById(menuId);
@@ -48,7 +48,10 @@ function AdminMenuInfoModal({ menuId }) {
     return (
         <div>
             <div css={s.modalcontainer}>
-                <div css={s.text}>제품정보</div>
+                <div css={s.headline}>
+                    <div css={s.text}>제품정보</div>
+                    <button onClick={() => setOpen(false)}>닫기</button>
+                </div>
                 <div css={s.modalhead}>
                     <div css={s.headleft}>
                         <div>
