@@ -161,7 +161,7 @@ const SelectPayMethod = () => {
     const handlePaymentOnClick = async () => {
         try {
             const orderDetailList = await buildOrderDetailList();
-            const orderIdFromList = orderDetailList[0]?.orderId;
+            const orderIdFromList = products[0].orderNumber;
             incrementOrderId();  
 
             if (!orderIdFromList) {
@@ -225,16 +225,45 @@ const SelectPayMethod = () => {
     console.log("사용한 번호 :", phoneNumber)
     console.log("사용한 마일리지 :", usePoint)
     return (
-        <div css={s.container}>
-            <div css={s.header}>
-                <div onClick={handlePaymentOnClick}>
-                    <img src="https://miro.medium.com/v2/resize:fit:680/0*ztVd5YkRc7IiSxXu.png" alt="카카오페이" />
+        <>
+            <header css={s.header}>
+                <img src="https://static.thenounproject.com/png/3573-200.png" alt="" />
+                <p>간 편 결 제</p>
+            </header>
+            <main css={s.main}>
+                <div css={s.method}>
+                    <div onClick={handlePaymentOnClick}>
+                        <img src="https://miro.medium.com/v2/resize:fit:680/0*ztVd5YkRc7IiSxXu.png" alt="카카오페이" />
+                    </div>
+                    <div>
+                        <img src="https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe4dc04f8-8180-4da2-b666-213378cb1138%2Ftoss_logo.png&blockId=18c0905d-e963-4698-b65f-d41c8e2bb396&width=256" alt="토스페이" />
+                    </div>
+                    <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfwAG7A1D_N3jFcg7opYZcZ0gGWhF-zghxZg&s" alt="네이버페이" />
+                    </div>
+                    <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpATk_8HhjpT1TfS0ARtf9LZhAThjlyyWQnf8dqVchZJs4_9o4DlbQU9t68Moz7MvF4hw&usqp=CAU" alt="삼성페이" />
+                    </div>
+                    <div>
+                        <img src="https://biz.chosun.com/resizer/v2/LTW4BB6XXNGKXBTQIW7P574G4M.png?auth=c37b922dc0270f26327e51389d834173d33f2862117b48c1b6836e4d311b7a1a&width=616" alt="애플페이" />
+                    </div>
+                    <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ77aw2ADniWhJknNT14MbOr8_KbfO7KBQ9zA&s" alt="페이코" />
+                    </div>
+                    <div>
+                        <img src="https://www.zeropay.or.kr/images/sprite/zeropay_thumbnail.png" alt="제로페이" />
+                    </div>
+                    <div>
+                        <img src="https://play-lh.googleusercontent.com/QAtwQ3pzH4VOo3mPNuIvS83w9cgtTKcpsCZj3UPgU8tKRK4dS1DzlsZl3wDFTAaOQPI" alt="국민페이" />
+                    </div>
                 </div>
+            </main>
+            <div css={s.foot} onClick={() => navi("/payment")}>
+                <footer css={s.footer}>
+                    이전 단계
+                </footer>
             </div>
-            <div css={s.footer}>
-                <div onClick={() => navi("/payment")}>이전 단계</div>
-            </div>
-        </div>
+        </>
     );
 };
 
