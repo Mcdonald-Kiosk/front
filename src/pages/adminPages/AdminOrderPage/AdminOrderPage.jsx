@@ -240,7 +240,7 @@ function AdminOrderPage(props) {
     //결제 취소 버튼 로직
     const handleCancelButtonOnClick = (payData) => {
         setPayModalDate(payData); //결제 데이터 모달로 넘겨주기
-        setPayModalOpen(payData.status === "PAID" || payData.status === "READY" ? true : false); //결제 완료일때만 모달 동작하기        
+        setPayModalOpen(payData.status === "PAID" ? true : false); //결제 완료일때만 모달 동작하기        
     }
     //console.log(payModalDate);
     //console.log(payments);
