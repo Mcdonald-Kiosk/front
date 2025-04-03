@@ -29,6 +29,8 @@ function OrderPage(props) {
         }
     }, [categories, disabledCategories]);
 
+    console.log("장바구니 :", addedCartState);
+
     const handleMenuCategoryOnClick = (category) => {
         if (selectedCategory !== category) {
             setSelectedCategory(category);
