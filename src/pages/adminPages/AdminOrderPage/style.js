@@ -130,10 +130,14 @@ export const listbody = (status) => css`
     border-bottom: 0.1rem solid #dbdbdb;
     font-size: 1.5rem;
     cursor: 
-        ${status === "PAID" || status === "READY" ? "pointer" : "default"};
+        ${status === "PAID" ? "pointer" : "default"};
 
     &:hover {
-        background-color: #dddddd;
+        box-shadow: 
+            ${status === "PAID" ? "inset 0 0 0.7rem 0.1rem #000000" : "none"};
+
+        background-color: 
+            ${status === "PAID" ? "#cccccc" : "#dfdfdf"};
 
         & > span > span {
             display: 
