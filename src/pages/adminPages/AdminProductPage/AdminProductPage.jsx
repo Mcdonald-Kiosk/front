@@ -16,6 +16,9 @@ function AdminProductPage(props) {
         navigate("/admin/main/product/information")
     }
 
+    const handleCategoryOnClick = () => {
+        navigate("/admin/main/product/category")
+    }
 
     return (
         <>
@@ -25,7 +28,7 @@ function AdminProductPage(props) {
                     <MdProductionQuantityLimits/>
                     <h5>상품 관리</h5>
                 </div>
-                <div>
+                <div onClick={handleCategoryOnClick}>
                     <MdOutlineCategory />
                     <h5>카테고리 관리</h5>
                 </div>

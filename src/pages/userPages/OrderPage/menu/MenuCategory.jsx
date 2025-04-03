@@ -1,6 +1,7 @@
 /**@jsxImportSource @emotion/react */
 import React from 'react';
 import menuForUser from '../../../../hooks/menu/menuForUser';
+import { addedCart } from '../../../../atoms/addedCart/addedCart';
 
 function MenuCategory({ selectedCategory, onMenuItemClick }) {
     const { data: menuData, error, isLoading } = menuForUser();
@@ -13,9 +14,6 @@ function MenuCategory({ selectedCategory, onMenuItemClick }) {
         console.error("메뉴 데이터를 가져오는 데 실패했습니다:", error);
         return <div>메뉴 데이터를 가져오는 데 실패했습니다.</div>;
     }
-
-    console.log("메뉴", menuData);
-    console.log("메뉴 순서용", menuData[0].isExposure);
 
     return (
         <div>
