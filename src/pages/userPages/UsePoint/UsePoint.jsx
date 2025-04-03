@@ -77,6 +77,7 @@ const UsePoint = () => {
                     ))}
                 </div>
                 <button css={s.footer} onClick={handlePointCheck}>포인트 조회</button>
+                <button>뒤로 가기</button>
                 
                 {/* 에러 메시지가 있을 경우 표시 */}
                 {errorMessage && <p css={s.errorMessage}>{errorMessage}</p>}

@@ -37,6 +37,7 @@ function OrderPage(props) {
 
     const handleBackMenuOnClick = () => {
         navi("/menu");
+        setAddedCartState([]);
     };
 
     const handlePaymentOnClick = () => {
