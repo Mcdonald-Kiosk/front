@@ -44,8 +44,8 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
     // 사이드와 음료 데이터만 필터링
     const filteredSides = menuData?.filter(item => item.menuCategory === "사이드");
     const filteredDrinks = menuData?.filter(item => item.menuCategory === "음료");
-    // console.log("Filtered Sides:", filteredSides); // 사이드 확인
-    // console.log("Filtered Drinks:", filteredDrinks); // 음료 확인
+    console.log("Filtered Sides:", filteredSides); // 사이드 확인
+    console.log("Filtered Drinks:", filteredDrinks); // 음료 확인
 
     // 기본 사이드 및 음료
     const defaultSide = filteredSides?.find((item) => item.menuName === "후렌치 후라이")?.menuName;
@@ -242,7 +242,9 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                             <h3>사이드 선택</h3>
                         </div>
                         <div css={s.mapParent}>
-                            {filteredSides?.map((side, index) => (
+                            {filteredSides ?.filter((menu) => menu.isExposure === 1)
+                                .sort((a, b) => a.menuSequence - b.menuSequence) // seq 낮은 순 정렬
+                                .map((side, index) => (
                                 <div css={s.childrenDiv} key={`${side.menuName}-${index}`}>
                                     <div css={s.modalSideSetImage(radioChecked.side === index.toString())}>
                                         <label onClick={() => handleChangeSideOnClick(side.menuName)}>
@@ -274,7 +276,9 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                             <h3>음료 선택</h3>
                         </div>
                         <div css={s.mapParent}>
-                            {filteredDrinks?.map((drink, index) => (
+                            {filteredDrinks ?.filter((menu) => menu.isExposure === 1)
+                            .sort((a, b) => a.menuSequence - b.menuSequence) // seq 낮은 순 정렬
+                            .map((drink, index) => (
                                 <div css={s.childrenDiv} key={`${drink.menuName}-${index}`}>
                                     <div css={s.modalSideSetImage(radioChecked.drink === index.toString())}>
                                         <label onClick={() => handleChangeDrinkOnClick(drink.menuName)}>
