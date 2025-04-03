@@ -12,7 +12,7 @@ import AdminProductManage from '../../pages/adminPages/AdminProductManage/AdminP
 import AdminMyPage from '../../pages/adminPages/AdminMyPage/AdminMyPage';
 import AdminMainPage from '../../pages/adminPages/AdminMainPage/AdminMainPage';
 import AdminProductInfo from '../../pages/adminPages/AdminProductInfo/AdminProductInfo';
-import AdminCategoryPage from '../../pages/AdminCategoryPage/AdminCategoryPage';
+import AdminCategoryPage from '../../pages/adminPages/AdminCategoryPage/AdminCategoryPage';
 
 function AdminMainRoute(props) {
     const navigate = useNavigate();
