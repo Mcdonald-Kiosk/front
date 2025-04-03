@@ -57,15 +57,18 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
     const handleTemp = () => {
         setIsLarge(true);
 
-        if (menu.category === "음료") {
+        console.log("handleTemp의 조건문 바깥");
+
+        if (menu.category === "음료" || menu.category === "커피") {
             setDrinkLarge("L")
+            console.log("handleTemp의 조건문 안쪽 drink");
         }
-        if (menu.category === "커피") {
-            setDrinkLarge("L")
-        }
+
         if (menu.category === "사이드") {
             setSideLarge("L")
+            console.log("handleTemp의 조건문 안쪽 side");
         }
+
         return;
     }
 
@@ -141,9 +144,20 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
         const newOrderId = addedCartState.length > 0 ? Math.max(...addedCartState.map(item => item.orderId)) + 1 : 1;
 
         // console.log("Menu object before add:", menu); // menu 객체 확인
-        const basePrice = isSet ? menu.price1 : isLarge? menu.price2 : menu.price1; // NaN 방지 
-        const sidePrice = isSet ? (side !== defaultSide ? filteredSides?.find(temp1 => temp1.menuName === side)?.menuPrice[0].discountPrice : filteredSides?.find(temp1 => temp1.menuName === defaultSide)?.menuPrice[0].discountPrice) : 0;
-        const drinkPrice = isSet ? (drink !== defaultDrink ? filteredDrinks?.find(temp2 => temp2.menuName === drink)?.menuPrice[0].discountPrice : filteredDrinks?.find(temp2 => temp2.menuName === defaultDrink)?.menuPrice[0].discountPrice ) : 0;
+        const basePrice = isSet ? menu.price1 : isLarge ? menu.price2 : menu.price1; // NaN 방지
+        
+        // size 는 undefined 다른 조건 찾아야 함
+        const sidePrice = isSet 
+    ? (side !== defaultSide 
+            ? filteredSides?.find(temp1 => temp1.menuName === side)?.menuPrice[sideLarge ? 1 : 0].discountPrice 
+            : filteredSides?.find(temp1 => temp1.menuName === defaultSide)?.menuPrice[sideLarge ? 1 : 0].discountPrice) 
+        : 0;
+
+    const drinkPrice = isSet 
+        ? (drink !== defaultDrink 
+            ? filteredDrinks?.find(temp2 => temp2.menuName === drink)?.menuPrice[drinkLarge === "L" ? 1 : 0].discountPrice 
+            : filteredDrinks?.find(temp2 => temp2.menuName === defaultDrink)?.menuPrice[drinkLarge === "L" ? 1 : 0].discountPrice) 
+        : 0;
 
         // console.log("Base price:", basePrice); // 기본 가격 확인
         // console.log("Side price:", sidePrice); // 사이드 가격 확인
@@ -260,6 +274,25 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                             </div>
                                         </label>
                                     </div>
+                                    {side.setImg && (
+                                            <div css={s.modalSideSetImage(radioChecked.side === index.toString())}>
+                                                    <label onClick={() => {
+                                                        handleChangeSideOnClick(side.menuName);
+                                                        handleTemp();
+                                                    }}>
+                                                    <input type="radio" name='side' onChange={handleRadioOnChange} value={index}/>
+                                                    <img src={side.setImg} alt={`${side.menuName} 세트`} />
+                                                    <div>
+                                                        <p>{side.menuName}</p>
+                                                        <p>
+                                                        {side.menuName === defaultSide 
+                                                            ? "+ 여기 계산해서 다시" 
+                                                            : `+${Math.max(side.menuPrice[1].discountPrice - filteredSides?.find(side => side.menuName === defaultSide)?.menuPrice[0]?.discountPrice, 0)}원`}
+                                                        </p>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        )}  
                                 </div>
                             ))}
                         </div>
