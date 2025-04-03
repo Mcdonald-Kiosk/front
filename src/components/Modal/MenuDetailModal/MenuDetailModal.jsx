@@ -44,8 +44,8 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
     // 사이드와 음료 데이터만 필터링
     const filteredSides = menuData?.filter(item => item.menuCategory === "사이드");
     const filteredDrinks = menuData?.filter(item => item.menuCategory === "음료");
-    console.log("Filtered Sides:", filteredSides); // 사이드 확인
-    console.log("Filtered Drinks:", filteredDrinks); // 음료 확인
+    // console.log("Filtered Sides:", filteredSides); // 사이드 확인
+    // console.log("Filtered Drinks:", filteredDrinks); // 음료 확인
 
     // 기본 사이드 및 음료
     const defaultSide = filteredSides?.find((item) => item.menuName === "후렌치 후라이")?.menuName;
@@ -114,7 +114,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
     };
 
     const handleChangeSideOnClick = (selectedSide) => {
-        console.log("Selected side:", selectedSide); // 선택한 사이드 확인
+        //console.log("Selected side:", selectedSide); // 선택한 사이드 확인
         if (isSet) {
             let newPrice = filteredSides?.find(side => side.menuName === selectedSide)?.menuPrice[0].discountPrice - filteredSides?.find(side => side.menuName === defaultSide)?.menuPrice[0].discountPrice;
             if (newPrice < 0) {
@@ -192,7 +192,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
 
     //상세정보 모달로 데이터 전송
     const handleMenuInfoModalButtonOnClick = (menuId) => {
-        //console.log("데이터 아이디: " + menuId);
+        // console.log("데이터 아이디: " + menuId);
         setMenuInfoModalData(menuId);
         setMenuInfoModalOpen(true);
     }
