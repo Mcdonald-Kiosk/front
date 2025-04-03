@@ -52,7 +52,7 @@ function SelectMenu(props) {
     }
 
     return (
-        <div css={s.container}>
+        <>
             <header css={s.smImage}>
                 {images.map((image, index) => (
                     <img
@@ -97,7 +97,7 @@ function SelectMenu(props) {
             <footer>
                 {/* Footer 내용 */}
             </footer>
-        </div>
+        </>
     );
 }
 

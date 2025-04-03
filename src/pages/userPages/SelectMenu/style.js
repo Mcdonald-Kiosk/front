@@ -1,13 +1,5 @@
 import { css } from "@emotion/react";
 
-export const container = css`
-    display: flex;
-    flex-direction: column;
-    width: 40rem;
-    height: 71.1rem;
-    border: 0.2rem solid black;
-`;
-
 export const smImage = css`
     display: flex;
     width: 100%;
@@ -33,6 +25,7 @@ export const smChoice = css`
     align-items: center;
     width: 100%;
     font-size: 1rem;
+    margin-top: 3rem;
 `;
 
 export const smLanguage = css`
@@ -41,7 +34,7 @@ export const smLanguage = css`
     width: 100%;
     height: 7rem;
     justify-content: space-evenly;
-    margin-bottom: 4rem;
+    margin-bottom: 7rem;
     
     & > span {
         display: flex;
@@ -49,15 +42,15 @@ export const smLanguage = css`
         align-items: center;
         border: 0.2rem solid black;
         border-radius: 2rem;
-        width: 12rem;
+        width: 15rem;
+        height: 10rem;
         font-size: 2rem;
         font-weight: 800;
     }
 `;
 
 export const selectedLanguage = css`
-    background-color:#ffd154;
-    box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,0.25); 
+    box-shadow: 0 0 0.6rem 0.1rem #4296e5e1;
 `;
 
 export const smHow = css`
