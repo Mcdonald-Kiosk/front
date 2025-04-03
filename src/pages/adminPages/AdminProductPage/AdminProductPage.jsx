@@ -19,7 +19,7 @@ function AdminProductPage(props) {
 
     return (
         <>
-            {/* <AdminHeader title={"제품 관리"} /> */}
+            <AdminHeader title={"제품 관리"} />
             <div css={s.mainCon}>
                 <div onClick={handleProductManageOnClick}>
                     <MdProductionQuantityLimits/>

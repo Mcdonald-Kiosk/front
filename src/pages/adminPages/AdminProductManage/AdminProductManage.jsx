@@ -9,6 +9,7 @@ import {
 } from "../../../mutations/menuMutation";
 import useMenuData, { useMenuDetail } from "../../../hooks/menu/getMenuHooks";
 import ImageModal from "../AdminMenuImagine/AdminMenuImagine";
+import AdminHeader from "../../../components/common/AdminHeader/AdminHeader";
 
 const INITIAL_FORM_DATA = {
     menuName: "",
@@ -172,7 +173,8 @@ function AdminProductManage() {
     };
 
     return (
-        <div css={s.container}>
+        <>
+            <AdminHeader title={"상품 관리"} />
             <div css={s.dropdownContainer}>
                 <select
                     onChange={(e) => setSelectedMenu(Number(e.target.value))}
@@ -317,7 +319,7 @@ function AdminProductManage() {
                     삭제
                 </button>
             </div>
-        </div>
+        </>
     );
 }
 
