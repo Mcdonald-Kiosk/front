@@ -140,7 +140,7 @@ function AdminProductManage() {
     
         const missingFields = [];
     
-        if (!formData.singleImg) missingFields.push("단품 이미지");
+        if (!formData.singleImg) missingFields.push("메뉴 이미지");
         if (!formData.menuName.trim()) missingFields.push("상품명");
         if (!formData.menuCategory.trim()) missingFields.push("카테고리");
         if (!formData.menuSequence) missingFields.push("상품 우선 순위");
