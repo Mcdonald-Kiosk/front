@@ -11,11 +11,9 @@ function AdminProductInfo() {
     const [selectedMenuId, setSelectedMenuId] = useState(null);
     const [selectedMenu, setSelectedMenu] = useState(null);
     const { data: menuInfoList = [] } = useMenuInfoList(selectedMenuId);
-
     const [editMode, setEditMode] = useState(false);
     const [menuOrigin, setMenuOrigin] = useState("");
     const [editInfo, setEditInfo] = useState([]);
-
     const { mutate: updateMutate } = useUpdateMenuInfo();
 
     useEffect(() => {
@@ -41,6 +39,7 @@ function AdminProductInfo() {
         }
     }, [menuInfoList]);
 
+    // 일일 영양소 권장량 기준(g)
     const NUTRITION_STANDARD = {
         sugars: 100,
         protein: 55,
@@ -53,7 +52,7 @@ function AdminProductInfo() {
         return `${Math.round((value / standard) * 100)}%`;
     };
 
-    const handleCellEdit = (index, field, value) => {
+    const handleCellUpdateOnBlur = (index, field, value) => {
         const updated = [...editInfo];
         updated[index][field] = value;
         setEditInfo(updated);
@@ -81,10 +80,6 @@ function AdminProductInfo() {
         setEditMode(!editMode);
     };
 
-    const handleDeleteMenuOnClick = () => {
-        alert("삭제 기능 준비 중!");
-    };
-
     return (
         <>
             <AdminHeader title={"영양정보 및 원산지 관리"} />
@@ -98,7 +93,6 @@ function AdminProductInfo() {
                             "이미지 영역"
                         )}
                     </div>
-
                     <div css={s.inputGroup}>
                         <label css={s.label}>메뉴 이름</label>
                         <select
@@ -113,7 +107,6 @@ function AdminProductInfo() {
                                 </option>
                             ))}
                         </select>
-
                         <label css={s.label}>원산지</label>
                         <textarea
                             css={s.textarea}
@@ -127,13 +120,8 @@ function AdminProductInfo() {
                         <button css={s.button} onClick={handleUpdateMenuOnClick}>
                             {editMode ? "확인" : "수정"}
                         </button>
-                        <button css={s.button} onClick={handleDeleteMenuOnClick}>
-                            삭제
-                        </button>
                     </div>
                 </div>
-
-                {/* 오른쪽 패널 */}
                 <div css={s.rightPanel}>
                     {editInfo.length > 0 &&
                         editInfo
@@ -170,7 +158,7 @@ function AdminProductInfo() {
                                                     contentEditable={editMode}
                                                     suppressContentEditableWarning={true}
                                                     onBlur={(e) =>
-                                                        handleCellEdit(
+                                                        handleCellUpdateOnBlur(
                                                             index,
                                                             field,
                                                             e.target.innerText === "-" ? "" : e.target.innerText

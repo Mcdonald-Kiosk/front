@@ -34,7 +34,7 @@ function AdminProductPage(props) {
                 </div>
                 <div onClick={handleProductInfoOnClick}>
                     <MdInfoOutline />
-                    <h5>영양정보 / <br /> 원산지 관리</h5>
+                    <h5>영양정보 / 원산지 관리</h5>
                 </div>
             </div>
         </>
