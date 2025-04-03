@@ -14,10 +14,14 @@ function MenuCategory({ selectedCategory, onMenuItemClick }) {
         return <div>메뉴 데이터를 가져오는 데 실패했습니다.</div>;
     }
 
+    console.log("메뉴", menuData);
+    console.log("메뉴 순서용", menuData[0].isExposure);
+
     return (
         <div>
             {(menuData || [])
-                .filter((menu) => menu.menuCategory === selectedCategory)
+                .filter((menu) => menu.menuCategory === selectedCategory && menu.isExposure === 1)
+                .sort((a, b) => a.menuSequence - b.menuSequence) // seq 낮은 순 정렬
                 .map((menu) => (
                     <div 
                         key={menu.menuId} 
