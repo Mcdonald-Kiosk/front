@@ -114,7 +114,7 @@ export const table = css`
 `;
 
 export const caption = css`
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.6rem;
     font-weight: bold;
     font-size: 1.6rem;
 `;

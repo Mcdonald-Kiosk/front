@@ -16,7 +16,7 @@ function AdminProductInfo() {
     const [menuOrigin, setMenuOrigin] = useState("");
     const [editInfo, setEditInfo] = useState([]);
 
-    const { mutate } = useUpdateMenuInfo();
+    const { mutate: updateMutate } = useUpdateMenuInfo();
 
     useEffect(() => {
         if (menus.length > 0) {
@@ -34,7 +34,10 @@ function AdminProductInfo() {
     useEffect(() => {
         if (menuInfoList.length > 0) {
             setMenuOrigin(menuInfoList[0].menuOrigin || "");
-            setEditInfo(menuInfoList.map(info => ({ ...info }))); // 초기값 저장
+            setEditInfo(menuInfoList.map((info) => ({ ...info })));
+        } else {
+            setMenuOrigin("");
+            setEditInfo([]);
         }
     }, [menuInfoList]);
 
@@ -50,15 +53,14 @@ function AdminProductInfo() {
         return `${Math.round((value / standard) * 100)}%`;
     };
 
-    const handleCellChange = (e, index, key) => {
+    const handleCellEdit = (index, field, value) => {
         const updated = [...editInfo];
-        updated[index][key] = e.target.innerText;
+        updated[index][field] = value;
         setEditInfo(updated);
     };
 
-    const handleEditOnClick = () => {
+    const handleUpdateMenuOnClick = () => {
         if (editMode) {
-            // API 호출
             editInfo.forEach((info) => {
                 const requestBody = {
                     menuInfoId: info.menuInfoId,
@@ -72,21 +74,14 @@ function AdminProductInfo() {
                     caffeine: parseInt(info.caffeine) || 0,
                     menuOrigin: menuOrigin,
                 };
-                mutate(requestBody, {
-                    onSuccess: () => {
-                        console.log("✅ 수정 성공:", requestBody);
-                    },
-                    onError: (error) => {
-                        console.error("❌ 수정 실패:", error);
-                    },
-                });
+                updateMutate(requestBody);
             });
             alert("수정 완료!");
         }
         setEditMode(!editMode);
     };
 
-    const handleDeleteOnClick = () => {
+    const handleDeleteMenuOnClick = () => {
         alert("삭제 기능 준비 중!");
     };
 
@@ -94,6 +89,7 @@ function AdminProductInfo() {
         <>
             <AdminHeader title={"영양정보 및 원산지 관리"} />
             <div css={s.container}>
+                {/* 왼쪽 패널 */}
                 <div css={s.leftPanel}>
                     <div css={s.imageBox}>
                         {selectedMenu?.singleImg ? (
@@ -128,70 +124,89 @@ function AdminProductInfo() {
                     </div>
 
                     <div css={s.buttonGroup}>
-                        <button css={s.button} onClick={handleEditOnClick}>
+                        <button css={s.button} onClick={handleUpdateMenuOnClick}>
                             {editMode ? "확인" : "수정"}
                         </button>
-                        <button css={s.button} onClick={handleDeleteOnClick}>
+                        <button css={s.button} onClick={handleDeleteMenuOnClick}>
                             삭제
                         </button>
                     </div>
                 </div>
 
+                {/* 오른쪽 패널 */}
                 <div css={s.rightPanel}>
                     {editInfo.length > 0 &&
-                        editInfo.map((info, index) => (
-                            <table css={s.table} key={index}>
-                                <caption css={s.caption}>{info.size} 사이즈 영양정보</caption>
-                                <thead>
-                                    <tr>
-                                        <th css={s.th}>영양소</th>
-                                        <th css={s.th}>중량(g)</th>
-                                        <th css={s.th}>용량(ml)</th>
-                                        <th css={s.th}>열량(kcal)</th>
-                                        <th css={s.th}>당(g)</th>
-                                        <th css={s.th}>단백질(g)</th>
-                                        <th css={s.th}>포화지방(g)</th>
-                                        <th css={s.th}>나트륨(mg)</th>
-                                        <th css={s.th}>카페인(mg)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td css={s.td}>함량</td>
-                                        {["weight", "volume", "calories", "sugars", "protein", "saturatedFat", "sodium", "caffeine"].map((key) => (
-                                            <td
-                                                css={s.td}
-                                                key={key}
-                                                contentEditable={editMode}
-                                                suppressContentEditableWarning
-                                                onBlur={(e) => handleCellChange(e, index, key)}
-                                            >
-                                                {info[key] || "-"}
+                        editInfo
+                            .filter((info) => {
+                                // 조건: set_img가 없으면 M사이즈만, set_img 있으면 둘 다
+                                if (!selectedMenu?.setImg) {
+                                    return info.size === "M";
+                                }
+                                return true;
+                            })
+                            .map((info, index) => (
+                                <table css={s.table} key={index}>
+                                    <caption css={s.caption}>{info.size} 사이즈 영양정보</caption>
+                                    <thead>
+                                        <tr>
+                                            <th css={s.th}>영양소</th>
+                                            <th css={s.th}>중량(g)</th>
+                                            <th css={s.th}>용량(ml)</th>
+                                            <th css={s.th}>열량(kcal)</th>
+                                            <th css={s.th}>당(g)</th>
+                                            <th css={s.th}>단백질(g)</th>
+                                            <th css={s.th}>포화지방(g)</th>
+                                            <th css={s.th}>나트륨(mg)</th>
+                                            <th css={s.th}>카페인(mg)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td css={s.td}>함량</td>
+                                            {["weight", "volume", "calories", "sugars", "protein", "saturatedFat", "sodium", "caffeine"].map((field, i) => (
+                                                <td
+                                                    key={i}
+                                                    css={s.td}
+                                                    contentEditable={editMode}
+                                                    suppressContentEditableWarning={true}
+                                                    onBlur={(e) =>
+                                                        handleCellEdit(
+                                                            index,
+                                                            field,
+                                                            e.target.innerText === "-" ? "" : e.target.innerText
+                                                        )
+                                                    }
+                                                >
+                                                    {info[field] !== 0 && info[field] !== null
+                                                        ? info[field]
+                                                        : editMode
+                                                        ? ""
+                                                        : "-"}
+                                                </td>
+                                            ))}
+                                        </tr>
+                                        <tr css={s.evenRow}>
+                                            <td css={s.td}>영양소 기준치</td>
+                                            <td css={s.td}>-</td>
+                                            <td css={s.td}>-</td>
+                                            <td css={s.td}>-</td>
+                                            <td css={s.td}>
+                                                {calculatePercentage(info.sugars, NUTRITION_STANDARD.sugars)}
                                             </td>
-                                        ))}
-                                    </tr>
-                                    <tr css={s.evenRow}>
-                                        <td css={s.td}>영양소 기준치</td>
-                                        <td css={s.td}>-</td>
-                                        <td css={s.td}>-</td>
-                                        <td css={s.td}>-</td>
-                                        <td css={s.td}>
-                                            {calculatePercentage(info.sugars, NUTRITION_STANDARD.sugars)}
-                                        </td>
-                                        <td css={s.td}>
-                                            {calculatePercentage(info.protein, NUTRITION_STANDARD.protein)}
-                                        </td>
-                                        <td css={s.td}>
-                                            {calculatePercentage(info.saturatedFat, NUTRITION_STANDARD.saturatedFat)}
-                                        </td>
-                                        <td css={s.td}>
-                                            {calculatePercentage(info.sodium, NUTRITION_STANDARD.sodium)}
-                                        </td>
-                                        <td css={s.td}>-</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        ))}
+                                            <td css={s.td}>
+                                                {calculatePercentage(info.protein, NUTRITION_STANDARD.protein)}
+                                            </td>
+                                            <td css={s.td}>
+                                                {calculatePercentage(info.saturatedFat, NUTRITION_STANDARD.saturatedFat)}
+                                            </td>
+                                            <td css={s.td}>
+                                                {calculatePercentage(info.sodium, NUTRITION_STANDARD.sodium)}
+                                            </td>
+                                            <td css={s.td}>-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            ))}
                 </div>
             </div>
         </>
