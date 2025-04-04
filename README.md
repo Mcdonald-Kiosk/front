@@ -107,7 +107,7 @@
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/seohyeonwook">
+            <a href="https://github.com/chlaudwns94">
                 <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/b015e01d-1078-428e-a713-a92b23e4ff6a" width="150" height="150" />
             </a>
         </td>
@@ -360,7 +360,6 @@
 <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=white"/>
 <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white"/>
 <img src="https://img.shields.io/badge/Amazon Aws-232F3E?style=for-the-badge&logo=Amazon Aws&logoColor=white"/>
-<img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>
 </p>
 
 ### 2. Front-End
