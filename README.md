@@ -536,22 +536,6 @@ https://mangrove-comic-a17.notion.site/da55c3b2cb47486eb592dbc297ae8e01?v=f86578
     <b>카카오페이 결제 화면</b>
 </div>
 
-### 📨 피드백 화면
-
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/8f228aed-e36a-484e-bf38-1f4c326668f7" width="100%"/>
-    <b>피드백 작성 화면</b>
-</div>
-
-### 🏖 관광지 추천 화면
-
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/6b81d711-e5bc-4457-8283-5bc337d4cb82" width="100%"/>
-    <b>관광지 추천 리스트 및 지도 화면</b>
-</div>
-
-### 🛠 관리자 화면
-
 <div align="center" dir="auto">
     <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/2bcb3cb7-00da-4bdf-a927-63b7d5eda19c" width="100%"/>
     <b>관리자 모드 진입 및 메인 화면</b>
