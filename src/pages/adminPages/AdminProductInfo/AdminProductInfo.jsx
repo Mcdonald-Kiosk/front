@@ -5,10 +5,16 @@ import useMenuData from "../../../hooks/menu/getMenuHooks";
 import { useMenuInfoList } from "../../../hooks/menu/getMenuInfoHook";
 import AdminHeader from "../../../components/common/AdminHeader/AdminHeader";
 import { useUpdateMenuInfo } from "../../../mutations/menuIfoMutation";
+import { useSearchParams } from "react-router-dom";
 
 function AdminProductInfo() {
+    //메뉴관리페이지에서 넘어오는 정보 받기 - 삭제 ㄴㄴ
+    const [ searchParams, setSearchParams ] = useSearchParams();
+    //메뉴관리페이지에서 넘어오는거 없으면 null로 기존꺼 유지됨 - 삭제 ㄴㄴ
+    const [ selectedMenuId, setSelectedMenuId ] = useState(!!searchParams.get("menuId") ? parseInt(searchParams.get("menuId")) : null);
+
     const { data: menus = [] } = useMenuData();
-    const [selectedMenuId, setSelectedMenuId] = useState(null);
+    // const [selectedMenuId, setSelectedMenuId] = useState(null);
     const [selectedMenu, setSelectedMenu] = useState(null);
     const { data: menuInfoList = [] } = useMenuInfoList(selectedMenuId);
     const [editMode, setEditMode] = useState(false);

@@ -41,7 +41,7 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
             navigate(`/admin/main/product/manage?menuId=${menuData}`);  
         }
         if(buttonName === 'info') {
-            navigate(`/admin/main/option/?menuId=${menuData}`); 
+            navigate(`/admin/main/product/information?menuId=${menuData}`);
         }
     
     //삭제ㄴㄴㄴ
@@ -183,8 +183,8 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
                     </div>
                 </div>
                 <div css={s.modalfooter}>
-                    <button onClick={() => handleButtonOnClick('product', getInfoMenuById.data?.data[0]?.menuId)}>제품 정보 변경</button>
-                    <button onClick={() => handleButtonOnClick('info', getInfoMenuById.data?.data[0]?.menuId)}>제품 상세정보 변경</button>
+                    <button onClick={() => handleButtonOnClick('product', menuId)}>제품 정보 변경</button>
+                    <button onClick={() => handleButtonOnClick('info', menuId)}>제품 상세정보 변경</button>
                 </div>
 
             </div>
