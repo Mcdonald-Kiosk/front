@@ -29,6 +29,9 @@ function AdminMyPage() {
         loginUser.refetch();
     };
 
+    //실험용
+    
+
     return (
         <>
             <AdminHeader title={"내정보"} />

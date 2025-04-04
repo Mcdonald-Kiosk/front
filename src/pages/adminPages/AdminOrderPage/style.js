@@ -124,7 +124,7 @@ export const listbody = (status) => css`
             border-radius: 1rem;
             padding: 1rem 5rem;
             width: max-content;
-            max-width: 60rem;
+            max-width: 55rem;
             white-space: normal;
             font-size: 1.6rem;
             color: #ffffff;

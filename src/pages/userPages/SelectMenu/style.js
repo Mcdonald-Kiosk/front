@@ -70,6 +70,7 @@ export const smHow = css`
     height: 15rem;
     justify-content: space-evenly;
 
+
     & > span {
         display: flex;
         border: 0.2rem solid black;
@@ -79,6 +80,7 @@ export const smHow = css`
         box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,0.25);
         justify-content: center;
         align-items: center;
+        background-color: #ffffff;
 
         & > img {
             display: flex;

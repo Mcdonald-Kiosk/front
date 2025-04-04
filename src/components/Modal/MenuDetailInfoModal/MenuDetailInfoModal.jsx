@@ -2,12 +2,16 @@
 import * as s from './style';
 import { useInfoMenuById } from '../../../queries/AdminQuery/AdminMenuBoardQuery';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { selectedLanguageState } from '../../../atoms/selectedLanguage/selectedLanguage';
 
 function MenuDetailInfoModal({ setOpen, menuId }) {
     //props에 기본적으로, 내가 대입한 값과 setOpen이 객체로서 같이 온다.
     //따라서 setOpen을 값을 넣지 않았어도, 기본적으로 존재한다.
     // console.log(menuId);
     // console.log(setOpen);
+    // const selectedLanguage = useRecoilValue(selectedLanguageState);
+    // console.log(selectedLanguage);
 
     const [ toggledSize, setToggledSize ] = useState(0); //스위치 상태
     const [ isSize, setIsSize ] = useState("M"); //사이즈 상태
@@ -53,7 +57,7 @@ function MenuDetailInfoModal({ setOpen, menuId }) {
                             : null
                         }    
                     </div>
-                    <div>{getInfoMenuById.data?.data[0]?.menuName} &nbsp; ({selectedSizeMenu?.size})</div>
+                    <div>{getInfoMenuById.data?.data[0]?.menuName}</div>
                 </div>
             </div>
             <div css={s.modalbody}>

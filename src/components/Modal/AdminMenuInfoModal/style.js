@@ -67,9 +67,13 @@ export const headleft = css`
 
 export const selectsize = (toggledSize) => css`
     display: flex;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     min-width: 18rem;
+
+    & > div {
+        min-width: 9rem;
+    }
 
     & > label {
         position: relative;
