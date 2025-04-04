@@ -43,23 +43,28 @@ export const smLanguage = css`
     height: 7rem;
     justify-content: space-evenly;
     margin-top: 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
     
     & > span {
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 0.2rem solid black;
-        border-radius: 2rem;
-        width: 12rem;
+        box-shadow: 0 0 0.6rem 0.1rem #ffa600e1;
+        width: 14rem;
+        height: 10rem;
         font-size: 2rem;
         font-weight: 800;
+        border-radius: 1rem;
+
+        &:hover {
+            box-shadow: 0 0 0.6rem 0.1rem #ffa600e1;
+        }
     }
+
 `;
 
 export const selectedLanguage = css`
     background-color:#ffd154;
-    box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,0.25); 
 `;
 
 export const smHow = css`
@@ -69,15 +74,15 @@ export const smHow = css`
     width: 100%;
     height: 15rem;
     justify-content: space-evenly;
-
+    margin-top: 2rem;
 
     & > span {
         display: flex;
-        border: 0.2rem solid black;
+
         border-radius: 1rem;
         width: 17rem;
         height: 17rem;
-        box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,0.25);
+        box-shadow: 0 0 0.6rem 0.1rem #ffa600e1;
         justify-content: center;
         align-items: center;
         background-color: #ffffff;
