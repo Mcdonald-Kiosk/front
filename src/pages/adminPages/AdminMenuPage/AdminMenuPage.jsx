@@ -20,7 +20,7 @@ function AdminMenuPage(props) {
     const allMenuList = useAllMenuList(); //모든 메뉴 불러오기
     const { data: searchMenuList, isLoading: isMenuLoading, isFetchedAfterMount: isMenuFetchedAfterMount } = allMenuList; //모든 메뉴 배열에 담기
     // const updateIsExposureMutation = useUpdateIsPosureMutation(); //노출여부 뮤태이션
-    console.log(allMenuList.isRefetching);
+    //console.log(allMenuList.isRefetching);
     const [ infoModalOpen, setInfoModalOpen ] = useState(false); //모달 열림 상태
     const [ infoModalDate, setInfoModalDate ] = useState(1); //모달에 전달할 메뉴데이터
 

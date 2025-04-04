@@ -212,7 +212,7 @@ function AdminOrderPage(props) {
                     }),
                 }
             });
-            console.log(paymentsResponse);
+            //console.log(paymentsResponse);
             setTotalCount(paymentsResponse.data.page.totalCount); // 총페이지 수 받기
             
             //결제 내역 값 세팅

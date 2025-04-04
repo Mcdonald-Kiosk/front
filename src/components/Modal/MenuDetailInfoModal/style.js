@@ -9,7 +9,7 @@ export const modalhead = css`
     & > div {
         display: flex;
         flex-direction: column;
-        min-width: 17rem;
+        margin-left: 1rem;
         font-size: 2rem;
         font-weight: 600;
 
@@ -27,6 +27,7 @@ export const modalhead = css`
 
         & > div:nth-of-type(2){
             text-align: center;
+            min-width: 12rem;
         }
     }
 `;
@@ -34,8 +35,12 @@ export const modalhead = css`
 
 export const selectsize = (toggledSize) => css`
     display: flex;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
+
+    & > div {
+        min-width: 8rem;
+    }
 
     & > label {
         position: relative;

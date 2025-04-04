@@ -77,7 +77,7 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
                             }
                         </div>
                         <div css={s.selectsize(toggledSize)}>
-                            size : &nbsp; {selectedSizeMenu?.size}
+                            <div>size : &nbsp; {selectedSizeMenu?.size}</div>
                             {
                                 getInfoMenuById.data?.data[0].menuPrice.length > 1
                                 ? <label>
