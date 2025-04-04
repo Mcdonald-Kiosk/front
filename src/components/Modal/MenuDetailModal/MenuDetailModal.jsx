@@ -344,7 +344,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <input type="radio" name="drink" onChange={handleRadioOnChange} value={`${index}-set`} />
                                     <img src={drink.setImg} alt={`${drink.menuName} 세트`} />
                                     <div>
-                                        <p>{drink.menuName}</p>
+                                        <p>{drink.menuName} L</p>
                                         <p>{drink.menuName === defaultDrink ? `+${defaultSetDrink}원` : `+${Math.max(drink.menuPrice[1].discountPrice - defaultPrice, 0)}원`}</p>
                                     </div>
                                     </label>
