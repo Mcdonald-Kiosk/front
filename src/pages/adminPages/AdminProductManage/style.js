@@ -17,7 +17,7 @@ export const imageCon = css`
     & > span {
         text-align: center;
         font-size: 1.4rem;
-        margin: 1.6rem 0;
+        margin: 0.7rem 0 2rem 0;
     }
 `;
 
@@ -65,7 +65,7 @@ export const dropdownContainer = css`
 export const dropdown = css`
     width: 50%;
     height: 4.5rem;
-    padding: 0 1.5rem;
+    padding: 0 3rem;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -89,7 +89,7 @@ export const input = css`
 // 버튼 그룹
 export const buttonGroup = css`
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     display: flex;
     justify-content: space-between;
 
