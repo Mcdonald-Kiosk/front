@@ -33,7 +33,7 @@ export const headline = css`
 `;
 
 export const text = css`
-    margin: 1rem 0 1rem 0rem;
+    margin: 1rem 0 1rem 2rem;
     border-bottom: 0.5rem dashed #00000022;
     padding-bottom: 1rem;
     font-size: 2.5rem;
@@ -67,7 +67,7 @@ export const headleft = css`
 
 export const selectsize = (toggledSize) => css`
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     min-width: 18rem;
 
@@ -243,7 +243,7 @@ export const bodyup = css`
 export const bodydown = css`
     display: flex;
     align-items: center;
-    margin: 2rem 0 2rem 3.5rem;
+    margin: 3.5rem 0 2rem 3.5rem;
     font-size: 2.5rem;
 
     & div {
