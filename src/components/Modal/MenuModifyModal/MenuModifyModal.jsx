@@ -194,8 +194,8 @@ const MenuModifyModal = ({ menu, onClose }) => {
                             ))}
                         </div>
                         <div css={s.nextAndClose}>
-                            <button onClick={handleAddToCart} css={s.cart}>카트에 담기</button>
-                            <button onClick={onClose} css={s.closeTemp}>닫기</button>
+                            <span onClick={handleAddToCart} css={s.cart}>카트에 담기</span>
+                            <span onClick={onClose} css={s.closeTemp}>닫기</span>
                         </div>
                     </div>
                 )}
