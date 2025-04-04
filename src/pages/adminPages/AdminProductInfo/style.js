@@ -16,8 +16,8 @@ export const leftPanel = css`
 `;
 
 export const imageBox = css`
-    width: 16rem;
-    height: 16rem;
+    width: 25rem;
+    height: 20rem;
     background-color: #f0f0f0;
     display: flex;
     justify-content: center;
@@ -35,7 +35,7 @@ export const imageBox = css`
 
 export const dropdown = css`
     width: 100%;
-    height: 3rem;
+    height: 4.5rem;
     margin-bottom: 2rem;
     padding: 0.5rem;
     font-size: 1.4rem;
@@ -57,7 +57,7 @@ export const label = css`
 
 export const textarea = css`
     width: 100%;
-    height: 6rem;
+    height: 8rem;
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 0.4rem;
