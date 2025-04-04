@@ -17,10 +17,10 @@ function AdminProductInfo() {
     const { mutate: updateMutate } = useUpdateMenuInfo();
 
     useEffect(() => {
-        if (menus.length > 0) {
+        if (menus.length > 0 && selectedMenuId === null) {
             setSelectedMenuId(menus[0].menuId);
         }
-    }, [menus]);
+    }, [menus, selectedMenuId]);
 
     useEffect(() => {
         if (selectedMenuId) {

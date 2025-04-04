@@ -86,8 +86,8 @@ export const buttonGroup = css`
 `;
 
 export const button = css`
-    width: 6rem;
-    height: 2.5rem;
+    width: 20rem;
+    height: 4rem;
     background-color: #ffcc00;
     border: none;
     border-radius: 0.5rem;
