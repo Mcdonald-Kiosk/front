@@ -25,13 +25,13 @@ function AdminProductPage(props) {
             <AdminHeader title={"제품 관리"} />
             <div css={s.mainCon}>
                 <div css={s.content} onClick={handleProductManageOnClick}>
-                    <img src="https://github.com/hz-uiw/project_img/blob/master/mcdonald_kiosk_project/admin_menu_productManage.png?raw=true" alt="" />
+                    <img src="https://github.com/hz-uiw/project_img/blob/main/mcdonald_kiosk_project/admin_menu_productManage.png?raw=true" alt="" />
                 </div>
                 <div css={s.content} onClick={handleCategoryOnClick}>
-                    <img src="https://github.com/hz-uiw/project_img/blob/master/mcdonald_kiosk_project/admin_menu_category.png?raw=true" alt="" />
+                    <img src="https://github.com/hz-uiw/project_img/blob/main/mcdonald_kiosk_project/admin_menu_category.png?raw=true" alt="" />
                 </div>
                 <div css={s.content} onClick={handleProductInfoOnClick}>
-                    <img src="https://github.com/hz-uiw/project_img/blob/master/mcdonald_kiosk_project/admin_menu_nutrition&origin.png?raw=true" alt="" />
+                    <img src="https://github.com/hz-uiw/project_img/blob/main/mcdonald_kiosk_project/admin_menu_nutrition&origin.png?raw=true" alt="" />
                 </div>
             </div>
         </>
