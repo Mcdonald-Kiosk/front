@@ -4,9 +4,30 @@ import React, { useState } from "react";
 import * as s from './style';
 import { useProcessPointMutation } from "../../../mutations/useProcessPointMutation";
 import { useLocation, useNavigate } from "react-router-dom";
+import { selectedLanguageState } from '../../../atoms/selectedLanguage/selectedLanguage';
+import { useRecoilValue } from "recoil";
+
+const languageTexts = {
+    한국어: {
+        title: "적립할 번호를 입력해주세요",
+        phone: "전화번호",
+        confirm: "확인",
+        go: "넘어 가기",
+    },
+    영어: {
+        title: "Please enter the number to collect points",
+        phone: "Phone Number",
+        confirm: "OK",
+        go: "Skip",
+    }
+};
+
 
 const SavePoint = () => {
     const navi = useNavigate();
+
+    const language = useRecoilValue(selectedLanguageState);
+    const t = languageTexts[language];
     
     const location = useLocation();
     const [point, setPoint] = useState(location.state?.point || 0);
@@ -88,16 +109,16 @@ const SavePoint = () => {
         <>
             <div css={s.container}>
                 <img src="https://cdn-icons-png.flaticon.com/512/99/99656.png" alt="" css={s.img} />
-                <p css={s.p}>적립할 번호를 입력해주세요</p>
+                <p css={s.p}>{t.title}</p>
                 <input
                     type="text"
                     value={input}
                     readOnly
                     css={s.input}
-                    placeholder="전화번호 입력"
+                    placeholder={t.phone}
                 />
                 <div css={s.keypad}>
-                    {["1", "2", "3", "4", "5", "6", "7", "8", "9", "×", "0", "확인"].map((key) => (
+                    {["1", "2", "3", "4", "5", "6", "7", "8", "9", "×", "0", `${t.confirm}`].map((key) => (
                         <button 
                             key={key} 
                             onClick={() => handleButtonClick(key)} 
@@ -107,7 +128,7 @@ const SavePoint = () => {
                         </button>
                     ))}
                 </div>
-                <button css={s.footer} onClick={handleSkip}>넘어가기</button>
+                <button css={s.footer} onClick={handleSkip}>{t.go}</button>
             </div>
         </>           
     );

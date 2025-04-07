@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate } from 'react-router-dom';
 import { selectedLanguageState } from '../../../atoms/selectedLanguage/selectedLanguage';
-import { addedCart } from '../../../atoms/addedCart/addedCart';
+import EatIn from './img/EatIn.png';
+import TakeOut from './img/TakeOut.png';
 
 function SelectMenu(props) {
     const navi = useNavigate();
@@ -19,7 +20,6 @@ function SelectMenu(props) {
 
     const [selectedLanguage, setSelectedLanguage] = useRecoilState(selectedLanguageState); // 선택된 언어의 전역 상태 
 
-    const [cart, setCart] = useRecoilState(addedCart); // 추가
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -33,11 +33,6 @@ function SelectMenu(props) {
     const handleLanguageClick = (language) => {
         if (selectedLanguage !== language) { 
             setSelectedLanguage(language);
-            
-            // 선택한 언어를 addedCart에 추가 (중복 방지)
-            if (!cart.includes(language)) {
-                setCart([...cart, language]);
-            }
         }
     };
 
@@ -49,10 +44,6 @@ function SelectMenu(props) {
         영어: {
             selectLanguage: "Please select a language",
             selectLocation: "Please choose your dining location",
-        },
-        중국어: {
-            selectLanguage: "请选择语言",
-            selectLocation: "请选择就餐地点",
         }
     };
 
@@ -65,16 +56,26 @@ function SelectMenu(props) {
             <header css={s.smImage}>
                 {images.map((image, index) => (
                     <img
-                        key={index}
-                        src={image}
-                        alt="키오스크 화면"
-                        css={[s.imageStyle, { opacity: index === imageIndex ? 1 : 0, zIndex: index === imageIndex ? 1 : 0 }]}
+                    key={index}
+                    src={image}
+                    alt="키오스크 화면"
+                    css={[s.imageStyle, { opacity: index === imageIndex ? 1 : 0, zIndex: index === imageIndex ? 1 : 0 }]}
                     />
                 ))}
             </header>
+            <h1 css={s.whereText}>{languageTexts[selectedLanguage].selectLocation}</h1>
             <main css={s.smChoice}>
-                <h1>{languageTexts[selectedLanguage].selectLanguage}</h1>
+                <div css={s.smHow}>
+                <span onClick={handleToOrderOnClick}>
+                    <img src={EatIn} alt="Eat In" />
+                </span>
+                <span onClick={handleToOrderOnClick}>
+                    <img src={TakeOut} alt="Take Out" />
+                </span>
+                </div>
+                <h1 css={s.langText}>{languageTexts[selectedLanguage].selectLanguage}</h1>
                 <div css={s.smLanguage}>
+
                     <span
                         css={selectedLanguage === "한국어" ? s.selectedLanguage : null}
                         onClick={() => handleLanguageClick("한국어")}>
@@ -87,20 +88,6 @@ function SelectMenu(props) {
                         English
                     </span>
 
-                    <span
-                        css={selectedLanguage === "중국어" ? s.selectedLanguage : null}
-                        onClick={() => handleLanguageClick("중국어")}>
-                        中國語
-                    </span>
-                </div>
-                <h1>{languageTexts[selectedLanguage].selectLocation}</h1>
-                <div css={s.smHow}>
-                    <span onClick={handleToOrderOnClick}>
-                        <img src="https://www.mcdonalds.co.za/resources/img/McDonalds-Dine-In.png" alt="" />
-                    </span>
-                    <span onClick={handleToOrderOnClick}>
-                        <img src="https://www.mcdonalds.co.za/resources/img/McDonalds-Takeout.png" alt="" />
-                    </span>
                 </div>
             </main>
             <footer>

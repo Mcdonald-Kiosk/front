@@ -4,6 +4,7 @@ import { addedCart } from "../../../atoms/addedCart/addedCart";
 /**@jsxImportSource @emotion/react */
 import * as s from './style';
 import menuForUser from "../../../hooks/menu/menuForUser";
+import { selectedLanguageState } from "../../../atoms/selectedLanguage/selectedLanguage";
 
 
 const MenuModifyModal = ({ menu, onClose }) => {
@@ -16,6 +17,29 @@ const MenuModifyModal = ({ menu, onClose }) => {
     const [drinkLarge, setDrinkLarge] = useState("M");
     const [isLarge, setIsLarge] = useState(false);
     const [isSet] = useState(true);
+
+        const [selectedLanguage] = useRecoilState(selectedLanguageState);
+    
+        const languageTexts = {
+            한국어: {
+              moidifySide: "사이드 수정",
+              modifyDrink: "음료 수정",
+              next: "다음",
+              close: "닫기",
+              addToCart: "카트에 담기",
+              defaultPrice: "+0원",
+              currency: "원"
+            },
+            영어: {
+              moidifySide: "Modify Side",
+              modifyDrink: "Modify Drink",
+              next: "Next",
+              close: "Close",
+              addToCart: "Add to Cart",
+              defaultPrice: "+0KRW",
+              currency: "KRW"
+            }
+          };
 
     // 필터링된 사이드와 음료
     const filteredSides = menuData?.filter(item => item.menuCategory === "사이드");
@@ -158,7 +182,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                 {step === 2 && (
                     <div>
                         <div css={s.modalBasich3}>
-                            <h3>사이드 수정</h3>
+                            <h3>{languageTexts[selectedLanguage].moidifySide}</h3>
                         </div>
                         <div css={s.mapParent}>
                         {filteredSides
@@ -178,7 +202,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                     <img src={side.singleImg} alt={side.menuName} />
                                     <div>
                                         <p>{side.menuName}</p>
-                                        <p>{side.menuName === defaultSide ? "+0원" : `+${Math.max(side.menuPrice[0].discountPrice - defaultPrice, 0)}원`}</p>
+                                        <p>{side.menuName === defaultSide ? `${languageTexts[selectedLanguage].defaultPrice}` : `+${Math.max(side.menuPrice[0].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
                                 </div>
@@ -194,7 +218,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                     <img src={side.setImg} alt={`${side.menuName} 세트`} />
                                     <div>
                                         <p>{side.menuName}</p>
-                                        <p>{side.menuName === defaultSide ? `+${defaultSetSide}원` : `+${Math.max(side.menuPrice[1].discountPrice - defaultPrice, 0)}원`}</p>
+                                        <p>{side.menuName === defaultSide ? `+${defaultSetSide}${languageTexts[selectedLanguage].currency}` : `+${Math.max(side.menuPrice[1].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
                                 </div>
@@ -205,8 +229,8 @@ const MenuModifyModal = ({ menu, onClose }) => {
                         }
                         </div>
                         <div css={s.nextAndClose}>
-                            <span onClick={handleNext}>다음</span>
-                            <span onClick={onClose}>닫기</span>
+                            <span onClick={handleNext}>{languageTexts[selectedLanguage].next}</span>
+                            <span onClick={onClose}>{languageTexts[selectedLanguage].close}</span>
                         </div>
                     </div>
                 )}
@@ -214,7 +238,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                 {step === 3 && (
                     <div>
                         <div css={s.modalBasich3}>
-                            <h3>음료 수정</h3>
+                            <h3>{languageTexts[selectedLanguage].modifyDrink}</h3>
                         </div>
                         <div css={s.mapParent}>
                             {filteredDrinks
@@ -234,7 +258,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                     <img src={drink.singleImg} alt={drink.menuName} />
                                     <div>
                                         <p>{drink.menuName}</p>
-                                        <p>{drink.menuName === defaultDrink ? "+0원" : `+${Math.max(drink.menuPrice[0].discountPrice - defaultPrice, 0)}원`}</p>
+                                        <p>{drink.menuName === defaultDrink ? `${languageTexts[selectedLanguage].defaultPrice}` : `+${Math.max(drink.menuPrice[0].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
                                 </div>
@@ -250,7 +274,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                     <img src={drink.setImg} alt={`${drink.menuName} 세트`} />
                                     <div>
                                         <p>{drink.menuName}</p>
-                                        <p>{drink.menuName === defaultDrink ? `+${defaultSetDrink}원` : `+${Math.max(drink.menuPrice[1].discountPrice - defaultPrice, 0)}원`}</p>
+                                        <p>{drink.menuName === defaultDrink ? `+${defaultSetDrink}${languageTexts[selectedLanguage].currency}` : `+${Math.max(drink.menuPrice[1].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
                                 </div>
@@ -261,8 +285,8 @@ const MenuModifyModal = ({ menu, onClose }) => {
                         }
                         </div>
                         <div css={s.nextAndClose}>
-                            <span onClick={handleAddToCart} css={s.cart}>카트에 담기</span>
-                            <span onClick={onClose} css={s.closeTemp}>닫기</span>
+                            <span onClick={handleAddToCart} css={s.cart}>{languageTexts[selectedLanguage].addToCart}</span>
+                            <span onClick={onClose} css={s.closeTemp}>{languageTexts[selectedLanguage].close}</span>
                         </div>
                     </div>
                 )}

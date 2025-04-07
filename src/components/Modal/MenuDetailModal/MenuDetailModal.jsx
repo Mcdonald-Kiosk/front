@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import menuForUser from '../../../hooks/menu/menuForUser';
 import ReactModal from 'react-modal';
 import MenuDetailInfoModal from '../MenuDetailInfoModal/MenuDetailInfoModal';
+import { selectedLanguageState } from '../../../atoms/selectedLanguage/selectedLanguage';
 
 
 const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage에서 전달받은 선택한 메뉴 상태
@@ -26,6 +27,39 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
         drink: "0",
         size: "1",
     }) 
+
+    const [selectedLanguage] = useRecoilState(selectedLanguageState);
+
+    const languageTexts = {
+        한국어: {
+          selectSet: "세트(사이즈) 선택",
+          menuDetail: <>상세<br />정보</>,
+          set: "세트",
+          next: "다음",
+          close: "닫기",
+          selectSide: "사이드 선택",
+          sizeMedium: "미디엄",
+          sizeLarge: "라지",
+          selectDrink: "음료 선택",
+          addToCart: "카트에 담기",
+          defaultPrice: "+0원",
+          currency: "원"
+        },
+        영어: {
+          selectSet: "Select Set (Size)",
+          menuDetail: <>Details<br />Info</>,
+          set: "Set",
+          next: "Next",
+          close: "Close",
+          selectSide: "Select Side",
+          sizeMedium: "Medium",
+          sizeLarge: "Large",
+          selectDrink: "Select Drink",
+          addToCart: "Add to Cart",
+          defaultPrice: "+0KRW",
+          currency: "KRW"
+        }
+      };
 
     const handleRadioOnChange = (e) => {
         setRadioChecked(prev => ({...prev, [e.target.name]: e.target.value}));
@@ -218,8 +252,8 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                 {step === 1 && (
                     <div>
                         <div css={s.modalBasich3}>
-                            <h3>세트(사이즈) 선택</h3>
-                            <button onClick={() => handleMenuInfoModalButtonOnClick(menuData.find(item => item.menuName === menu.name)?.menuId)}>상세<br></br>정보</button>
+                            <h3>{languageTexts[selectedLanguage].selectSet}</h3>
+                            <button onClick={() => handleMenuInfoModalButtonOnClick(menuData.find(item => item.menuName === menu.name)?.menuId)}>{languageTexts[selectedLanguage].menuDetail}</button>
                         </div>
                         <div css={s.temp}>
                             <div css={s.modalBuguerSetImage(radioChecked.set === "1")}>
@@ -237,15 +271,15 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                         <input type="radio" name='set' onChange={handleRadioOnChange} value={2}/>
                                         <img src={menu.img2} alt={menu.name} />
                                         <div>
-                                            {menu.name} 세트
+                                            {menu.name} {languageTexts[selectedLanguage].set}
                                         </div>
                                     </label>
                                 </div>
                             )}
                         </div>
                         <div css={s.nextAndClose}>
-                            <span onClick={handleNext}>다음</span>
-                            <span onClick={onClose}>닫기</span>
+                            <span onClick={handleNext}>{languageTexts[selectedLanguage].next}</span>
+                            <span onClick={onClose}>{languageTexts[selectedLanguage].close}</span>
                         </div>
                     </div>
                 )}
@@ -253,7 +287,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                 {step === 2 && isSet == true && (
                     <div>
                         <div css={s.modalBasich3}>
-                            <h3>사이드 선택</h3>
+                            <h3>{languageTexts[selectedLanguage].selectSide}</h3>
                         </div>
                         <div css={s.mapParent}>
                         {filteredSides
@@ -273,7 +307,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <img src={side.singleImg} alt={side.menuName} />
                                     <div>
                                         <p>{side.menuName}</p>
-                                        <p>{side.menuName === defaultSide ? "+0원" : `+${Math.max(side.menuPrice[0].discountPrice - defaultPrice, 0)}원`}</p>
+                                        <p>{side.menuName === defaultSide ? `${languageTexts[selectedLanguage].defaultPrice}` : `+${Math.max(side.menuPrice[0].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
                                 </div>
@@ -289,7 +323,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <img src={side.setImg} alt={`${side.menuName} 세트`} />
                                     <div>
                                         <p>{side.menuName} L</p>
-                                        <p>{side.menuName === defaultSide ? `+${defaultSetSide}원` : `+${Math.max(side.menuPrice[1].discountPrice - defaultPrice, 0)}원`}</p>
+                                        <p>{side.menuName === defaultSide ? `+${defaultSetSide}${languageTexts[selectedLanguage].currency}` : `+${Math.max(side.menuPrice[1].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
                                 </div>
@@ -300,8 +334,8 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                         }
                         </div>
                         <div css={s.nextAndClose}>
-                            <span onClick={handleNext}>다음</span>
-                            <span onClick={onClose}>닫기</span>
+                            <span onClick={handleNext}>{languageTexts[selectedLanguage].next}</span>
+                            <span onClick={onClose}>{languageTexts[selectedLanguage].close}</span>
                         </div>
                     </div>
                 )}
@@ -309,7 +343,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                 {step === 3 && isSet == true && (
                     <div>
                         <div css={s.modalBasich3}>
-                            <h3>음료 선택</h3>
+                            <h3>{languageTexts[selectedLanguage].selectDrink}</h3>
                         </div>
                         <div css={s.mapParent}>
                         {filteredDrinks
@@ -329,7 +363,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <img src={drink.singleImg} alt={drink.menuName} />
                                     <div>
                                         <p>{drink.menuName}</p>
-                                        <p>{drink.menuName === defaultDrink ? "+0원" : `+${Math.max(drink.menuPrice[0].discountPrice - defaultPrice, 0)}원`}</p>
+                                        <p>{drink.menuName === defaultDrink ? `${languageTexts[selectedLanguage].defaultPrice}` : `+${Math.max(drink.menuPrice[0].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
                                 </div>
@@ -345,7 +379,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <img src={drink.setImg} alt={`${drink.menuName} 세트`} />
                                     <div>
                                         <p>{drink.menuName} L</p>
-                                        <p>{drink.menuName === defaultDrink ? `+${defaultSetDrink}원` : `+${Math.max(drink.menuPrice[1].discountPrice - defaultPrice, 0)}원`}</p>
+                                        <p>{drink.menuName === defaultDrink ? `+${defaultSetDrink}${languageTexts[selectedLanguage].currency}` : `+${Math.max(drink.menuPrice[1].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
                                 </div>
@@ -356,8 +390,8 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                         }
                         </div>
                         <div css={s.nextAndClose}>
-                            <span onClick={handleAddToCart} css={s.cart}>카트에 담기</span>
-                            <span onClick={onClose} css={s.closeTemp}>닫기</span>
+                            <span onClick={handleAddToCart} css={s.cart}>{languageTexts[selectedLanguage].addToCart}</span>
+                            <span onClick={onClose} css={s.closeTemp}>{languageTexts[selectedLanguage].close}</span>
                         </div>
                     </div>
                 )}
@@ -366,7 +400,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                 {step === 10 && (
                     <div>
                         <div css={s.modalBasich3}>
-                            <h3>사이즈 선택</h3>
+                            <h3>{languageTexts[selectedLanguage].selectSet}</h3>
                         </div>                        
                         <div css={s.temp}>
                             <div css={s.modalBuguerSetImage(radioChecked.size === "1")}>
@@ -374,7 +408,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <input type="radio" name='size' onChange={handleRadioOnChange} value={1}/>
                                     <img src={menu.img} alt={menu.name} />
                                     <div>
-                                        미디엄
+                                    {languageTexts[selectedLanguage].sizeMedium}
                                     </div>
                                 </label>
                             </div>
@@ -384,15 +418,15 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                         <input type="radio" name='size' onChange={handleRadioOnChange} value={2}/>
                                         <img src={menu.img2} alt={menu.name} />
                                         <div>
-                                            라지
+                                        {languageTexts[selectedLanguage].sizeLarge}
                                         </div>
                                     </label>
                                 </div>
                             )}
                         </div>
                         <div css={s.nextAndClose}>
-                            <span onClick={handleNext}>카트에 담기</span>
-                            <span onClick={onClose}>닫기</span>
+                            <span onClick={handleNext}>{languageTexts[selectedLanguage].addToCart}</span>
+                            <span onClick={onClose}>{languageTexts[selectedLanguage].close}</span>
                         </div>
                     </div>
                 )}

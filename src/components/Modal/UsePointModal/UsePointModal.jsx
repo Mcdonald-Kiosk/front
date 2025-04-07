@@ -2,24 +2,53 @@
 import * as s from './style';
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { getPointApi } from "../../../apis/pointApi"; // 포인트 조회 API
+import { getPointApi } from "../../../apis/pointApi";
 import { usePointMutation } from '../../../mutations/useProcessPointMutation';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { selectedLanguageState } from '../../../atoms/selectedLanguage/selectedLanguage';
 
-// 키패드를 통해 포인트를 입력하고 사용하는 컴포넌트
+const languageTexts = {
+    한국어: {
+        title: "포인트 조회",
+        phone: "전화번호",
+        currentPoint: "조회된 포인트",
+        inputPlaceholder: "사용할 포인트",
+        cancel: "취소하기",
+        confirm: "확인",
+        alertInvalidUnit: "포인트는 100단위로만 사용 가능합니다.",
+        alertMinPoint: "최소 사용 포인트는 2000점입니다.",
+        alertInvalid: "사용할 포인트가 유효하지 않습니다.",
+        unit: "점"
+    },
+    영어: {
+        title: "Point Inquiry",
+        phone: "Phone Number",
+        currentPoint: "Available Point",
+        inputPlaceholder: "Enter point to use",
+        cancel: "Cancel",
+        confirm: "OK",
+        alertInvalidUnit: "Points can only be used in units of 100.",
+        alertMinPoint: "Minimum point usage is 2000.",
+        alertInvalid: "Invalid point usage.",
+        unit: "pt"
+    }
+};
+
 function UsePointModal({ phoneNumber, closeModal }) {
     const navigate = useNavigate();
-    const [point, setPoint] = useState(0); // 조회된 포인트 상태
-    const [usePoint, setUsePoint] = useState(0); // 사용자가 입력한 포인트 상태
+    const language = useRecoilValue(selectedLanguageState);
+    const t = languageTexts[language];
+
+    const [point, setPoint] = useState(0);
+    const [usePoint, setUsePoint] = useState(0);
 
     const { mutateAsync: usePointmutation } = usePointMutation();
 
-    // 포인트 조회 API 호출
     const { mutateAsync: getPoint } = useMutation({
         mutationFn: getPointApi,
         onSuccess: (response) => {
-            setPoint(response.point); // API 응답에서 포인트 설정
-            console.log(response);
+            setPoint(response.point);
         },
         onError: (error) => {
             alert(error.message || "포인트 조회 실패");
@@ -28,76 +57,62 @@ function UsePointModal({ phoneNumber, closeModal }) {
 
     useEffect(() => {
         if (phoneNumber) {
-            getPoint(phoneNumber).then((response) => {
-                console.log("API Response from getPoint:", response);
-            });
+            getPoint(phoneNumber);
         }
     }, [phoneNumber, getPoint]);
 
-    // 키패드 입력 처리 함수
     const handleKeypadClick = (key) => {
         if (key === "×") {
-            // 마지막 숫자 삭제
             setUsePoint(prev => Math.floor(prev / 10));
-        } else if (key === "확인") {
-            // 포인트 사용 확인
+        } else if (key === t.confirm) {
             handleUsePoint();
         } else {
-            // 숫자 입력
             setUsePoint(prev => prev * 10 + parseInt(key));
         }
     };
 
-    // 포인트 사용 처리
     const handleUsePoint = async () => {
-        // 포인트가 100의 배수가 아니면 알림 띄우기
         if (usePoint % 100 !== 0) {
-            alert("포인트는 100단위로만 사용 가능합니다.");
+            alert(t.alertInvalidUnit);
             return;
         }
 
         if (usePoint < 2000) {
-            alert("최소 사용 포인트는 2000점입니다.");
-            return; // 최소 사용 포인트 2000 미만일 경우 사용 불가
+            alert(t.alertMinPoint);
+            return;
         }
 
-        
-
-        if (usePoint > 0 && usePoint <= point) {       
-                closeModal(); // 모달 닫기
-                navigate("/payment", { 
-                    state: { 
-                        usePoint: usePoint,
-                        phoneNumber: phoneNumber
-                    }
-                 });
-                 console.log(phoneNumber)
-                 console.log(usePoint)
+        if (usePoint > 0 && usePoint <= point) {
+            closeModal();
+            navigate("/payment", {
+                state: {
+                    usePoint: usePoint,
+                    phoneNumber: phoneNumber
+                }
+            });
         } else {
-            alert("사용할 포인트가 유효하지 않습니다.");
+            alert(t.alertInvalid);
         }
     };
 
     return (
         <div css={s.modalBackdrop}>
             <div css={s.modalContainer}>
-                <h1>포인트 조회</h1>
-                <p>전화번호: {phoneNumber}</p>
-                <p>조회된 포인트: {point}점</p>
+                <h1>{t.title}</h1>
+                <p>{t.phone}: {phoneNumber}</p>
+                <p>{t.currentPoint}: {point}{t.unit}</p>
 
-                {/* 키패드 입력 */}
                 <div>
                     <input
                         type="text"
                         value={usePoint}
                         readOnly
-                        placeholder="사용할 포인트"
+                        placeholder={t.inputPlaceholder}
                     />
                 </div>
 
-                {/* 키패드 */}
                 <div css={s.keypad}>
-                    {["1", "2", "3", "4", "5", "6", "7", "8", "9", "×", "0", "확인"].map((key) => (
+                    {["1", "2", "3", "4", "5", "6", "7", "8", "9", "×", "0", t.confirm].map((key) => (
                         <button
                             key={key}
                             onClick={() => handleKeypadClick(key)}
@@ -108,7 +123,7 @@ function UsePointModal({ phoneNumber, closeModal }) {
                     ))}
                 </div>
 
-                <button css={s.footer} onClick={closeModal}>취소하기</button>
+                <button css={s.footer} onClick={closeModal}>{t.cancel}</button>
             </div>
         </div>
     );
