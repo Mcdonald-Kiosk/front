@@ -2,17 +2,6 @@ import axios from "axios";
 import { api } from "../../configs/axiosConfig";
 import { instance, portOneInstance } from "../utils/instance";
 
-export const getSalesRequest = async () => {
-    try {
-        const response = await api.get("/api/admin/sales");
-        console.log("🔥 [getSalesRequest] 전체 메뉴 응답:", response.data);
-        return response.data;
-    } catch (error) {
-        console.error("❌ [getSalesRequest] API 요청 실패:", error);
-        throw error;
-    }
-};
-
 export const searchSalesByMenuRequest = async () => {
     try {
         const response = await api.get("/api/admin/menusales");
