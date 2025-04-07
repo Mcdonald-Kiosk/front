@@ -1,10 +1,25 @@
 /**@jsxImportSource @emotion/react */
 import React from 'react';
 import menuForUser from '../../../../hooks/menu/menuForUser';
-import { addedCart } from '../../../../atoms/addedCart/addedCart';
+import { selectedLanguageState } from '../../../../atoms/selectedLanguage/selectedLanguage';
+import { useRecoilValue } from 'recoil';
+
+const languageTexts = {
+    한국어: {
+        none: "가격 없음",
+        currency: "원"
+    },
+    영어: {
+        none: "No price",
+        currency: "KRW"
+    }
+};
 
 function MenuCategory({ selectedCategory, onMenuItemClick }) {
     const { data: menuData, error, isLoading } = menuForUser();
+
+    const language = useRecoilValue(selectedLanguageState);
+    const t = languageTexts[language];
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -15,6 +30,8 @@ function MenuCategory({ selectedCategory, onMenuItemClick }) {
         return <div>메뉴 데이터를 가져오는 데 실패했습니다.</div>;
     }
 
+    console.log(menuData);
+
     return (
         <div>
             {(menuData || [])
@@ -24,7 +41,7 @@ function MenuCategory({ selectedCategory, onMenuItemClick }) {
                     <div 
                         key={menu.menuId} 
                         onClick={() => onMenuItemClick({
-                            name: menu.menuName, 
+                            name: language === '영어' ? menu.menuNameEng : menu.menuName, // 언어에 따라 menuName 또는 menuNameEng 선택
                             category: menu.menuCategory,
                             seq: menu.menuSequence,
                             img: menu.singleImg, 
@@ -36,8 +53,8 @@ function MenuCategory({ selectedCategory, onMenuItemClick }) {
                         style={{ cursor: 'pointer' }}
                     >
                         <img src={menu.singleImg} alt={menu.menuName} />
-                        <p>{menu.menuName}</p>
-                        <p>{menu.menuPrice?.[0]?.menuPrice ? `${menu.menuPrice[0].menuPrice}원` : "가격 없음"}</p>
+                        <p>{language === '영어' ? menu.menuNameEng : menu.menuName}</p> {/* 여기서도 조건에 따라 메뉴명 변경 */}
+                        <p>{menu.menuPrice?.[0]?.menuPrice ? `${menu.menuPrice[0].menuPrice}${t.currency}` : `${t.none}`}</p>
                     </div>
                 ))}
         </div>

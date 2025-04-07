@@ -44,17 +44,24 @@ const MenuModifyModal = ({ menu, onClose }) => {
     // 필터링된 사이드와 음료
     const filteredSides = menuData?.filter(item => item.menuCategory === "사이드");
     const filteredDrinks = menuData?.filter(item => item.menuCategory === "음료");
-
     const filteredBurgers = menuData?.filter(item => item.menuCategory === "버거");
+    console.log("1",filteredSides);
+    console.log("2",filteredDrinks);
+    console.log("3",filteredBurgers);
 
     // 기본 사이드와 음료
     const defaultSide = filteredSides?.find(item => item.menuName === "후렌치 후라이")?.menuName;
     const defaultDrink = filteredDrinks?.find(item => item.menuName === "코카 콜라")?.menuName;
+    console.log("4", defaultSide);
+    console.log("5", defaultDrink);
 
     const defaultSetSide = filteredSides?.find((item) => item.menuName === "후렌치 후라이")?.menuPrice[1].discountPrice - filteredSides?.find((item) => item.menuName === "후렌치 후라이")?.menuPrice[0].discountPrice;
     const defaultSetDrink = filteredDrinks?.find((item) => item.menuName === "코카 콜라")?.menuPrice[1].discountPrice - filteredDrinks?.find((item) => item.menuName === "코카 콜라")?.menuPrice[0].discountPrice;
+    console.log("6", defaultSetSide);
+    console.log("7", defaultSetDrink);
 
-    const selectBurger = filteredBurgers?.find(item => item.menuName === menu.detailMenu).menuName;
+    const selectBurger = filteredBurgers?.find(item => selectedLanguage === "영어" ? item.menuNameEng : item.menuName === menu.detailMenu)?.menuName;
+    console.log("8", selectBurger);
 
     const [ radioChecked, setRadioChecked ] = useState({
         set: "1",
@@ -201,7 +208,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                     <input type="radio" name="side" onChange={handleRadioOnChange} value={`${index}-single`} />
                                     <img src={side.singleImg} alt={side.menuName} />
                                     <div>
-                                        <p>{side.menuName}</p>
+                                        <p>{selectedLanguage === "영어" ? side.menuNameEng : side.menuName}</p>
                                         <p>{side.menuName === defaultSide ? `${languageTexts[selectedLanguage].defaultPrice}` : `+${Math.max(side.menuPrice[0].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
@@ -217,7 +224,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                     <input type="radio" name="side" onChange={handleRadioOnChange} value={`${index}-set`} />
                                     <img src={side.setImg} alt={`${side.menuName} 세트`} />
                                     <div>
-                                        <p>{side.menuName}</p>
+                                        <p>{selectedLanguage === "영어" ? side.menuNameEng : side.menuName}</p>
                                         <p>{side.menuName === defaultSide ? `+${defaultSetSide}${languageTexts[selectedLanguage].currency}` : `+${Math.max(side.menuPrice[1].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
@@ -257,7 +264,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                     <input type="radio" name="drink" onChange={handleRadioOnChange} value={`${index}-single`} />
                                     <img src={drink.singleImg} alt={drink.menuName} />
                                     <div>
-                                        <p>{drink.menuName}</p>
+                                        <p>{selectedLanguage === "영어" ? drink.menuNameEng : drink.menuName}</p>
                                         <p>{drink.menuName === defaultDrink ? `${languageTexts[selectedLanguage].defaultPrice}` : `+${Math.max(drink.menuPrice[0].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
@@ -273,7 +280,7 @@ const MenuModifyModal = ({ menu, onClose }) => {
                                     <input type="radio" name="drink" onChange={handleRadioOnChange} value={`${index}-set`} />
                                     <img src={drink.setImg} alt={`${drink.menuName} 세트`} />
                                     <div>
-                                        <p>{drink.menuName}</p>
+                                        <p>{selectedLanguage === "영어" ? drink.menuNameEng : drink.menuName}</p>
                                         <p>{drink.menuName === defaultDrink ? `+${defaultSetDrink}${languageTexts[selectedLanguage].currency}` : `+${Math.max(drink.menuPrice[1].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>

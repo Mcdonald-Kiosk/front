@@ -306,7 +306,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <input type="radio" name="side" onChange={handleRadioOnChange} value={`${index}-single`} />
                                     <img src={side.singleImg} alt={side.menuName} />
                                     <div>
-                                        <p>{side.menuName}</p>
+                                        <p>{selectedLanguage === "영어" ? side.menuNameEng : side.menuName}</p>
                                         <p>{side.menuName === defaultSide ? `${languageTexts[selectedLanguage].defaultPrice}` : `+${Math.max(side.menuPrice[0].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
@@ -322,7 +322,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <input type="radio" name="side" onChange={handleRadioOnChange} value={`${index}-set`} />
                                     <img src={side.setImg} alt={`${side.menuName} 세트`} />
                                     <div>
-                                        <p>{side.menuName} L</p>
+                                    <p>{selectedLanguage === "영어" ? side.menuNameEng : side.menuName} L</p>
                                         <p>{side.menuName === defaultSide ? `+${defaultSetSide}${languageTexts[selectedLanguage].currency}` : `+${Math.max(side.menuPrice[1].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
@@ -362,7 +362,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <input type="radio" name="drink" onChange={handleRadioOnChange} value={`${index}-single`} />
                                     <img src={drink.singleImg} alt={drink.menuName} />
                                     <div>
-                                        <p>{drink.menuName}</p>
+                                        <p>{selectedLanguage === "영어" ? drink.menuNameEng : drink.menuName}</p>
                                         <p>{drink.menuName === defaultDrink ? `${languageTexts[selectedLanguage].defaultPrice}` : `+${Math.max(drink.menuPrice[0].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>
@@ -378,7 +378,7 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                                     <input type="radio" name="drink" onChange={handleRadioOnChange} value={`${index}-set`} />
                                     <img src={drink.setImg} alt={`${drink.menuName} 세트`} />
                                     <div>
-                                        <p>{drink.menuName} L</p>
+                                    <p>{selectedLanguage === "영어" ? drink.menuNameEng : drink.menuName} L</p>
                                         <p>{drink.menuName === defaultDrink ? `+${defaultSetDrink}${languageTexts[selectedLanguage].currency}` : `+${Math.max(drink.menuPrice[1].discountPrice - defaultPrice, 0)}${languageTexts[selectedLanguage].currency}`}</p>
                                     </div>
                                     </label>

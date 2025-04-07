@@ -96,13 +96,23 @@ export const smLanguage = css`
 `;
 
 export const selectedLanguage = css`
-    border: 2px solid #455a64; /* 차콜 테두리 */
+    border: 2px solid #455a64;
     box-shadow: inset 0 0 5px rgba(38, 50, 56, 0.4), 0 0 5px rgba(69, 90, 100, 0.7);
-    border-radius: 8px;
-    background-color: #eceff1; /* 연한 그레이 배경 */
-    color: #263238; /* 진한 차콜 텍스트 */
-    font-weight: bold;
-    padding: 8px 16px;
-    transition: all 0.2s ease-in-out;
+    background-color: #eceff1;
+    color: #263238;
+    font-weight: 600;
+
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+
+    width: 14rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
 `;
+
+
+
 
