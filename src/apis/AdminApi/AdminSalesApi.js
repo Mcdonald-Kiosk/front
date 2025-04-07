@@ -13,8 +13,6 @@ export const searchSalesByMenuRequest = async () => {
     }
 };
 
-
-
 export const getPaymentsRequest = async () => {
     const jwtResponse = await axios.post("https://api.portone.io/login/api-secret",{
         "apiSecret": import.meta.env.VITE_PORTONE_API_KEY,
