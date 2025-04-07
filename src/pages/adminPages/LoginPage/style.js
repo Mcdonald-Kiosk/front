@@ -27,7 +27,7 @@ export const logoContainer = css`
 export const title = css`
     font-size: 5rem;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin: .5rem 0 2rem;
     text-align: center;
 `;
 
@@ -96,3 +96,35 @@ export const footerbox = css`
     justify-content: space-around;
 `;
 
+
+export const socialBox = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const socialLoginTitle = css`
+    width: max-content;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+`;
+
+export const socialLoginImege = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    
+    & > img {
+        width: 7rem;
+        height: 7rem;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.15);
+        }
+    }
+`;
