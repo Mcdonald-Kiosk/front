@@ -5,13 +5,15 @@ export const container = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
 `;
 
 export const logoContainer = css`
-    position: absolute;
-    top: 20px;
-    left: 20px;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    margin-left: -80%;
+    flex-grow: 1;
 
     & img {
         width: 20rem;
@@ -20,7 +22,7 @@ export const logoContainer = css`
 
 export const test1 = css`
     display: flex;
-
+    flex-grow: 5;
 `;
 
 export const formWrapper = css`
@@ -34,7 +36,7 @@ export const formWrapper = css`
 export const title = css`
     font-size: 5rem;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin: .5rem 0 2rem 0;
     text-align: center;
 `;
 
@@ -47,75 +49,67 @@ export const formContainer = css`
     
 `;
 
-export const inputBox = css`
+export const buttonContainer = css`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    box-sizing: border-box;
+    padding: 0 5rem;
     width: 100%;
-    height: 60px;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    background-color: #f5f5f5;
 `;
 
+
+export const button = css`
+    box-sizing: border-box;
+    border: none;
+    padding: 0.5rem 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #777777;
+    background-color: transparent;
+    letter-spacing: 0.1rem;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+        text-shadow: 0 0 3rem #333333;
+    }
+`;
+
+
+
 export const rightContainer = css`
-    width: 25rem;
-    height: 20rem;
-    margin-top: 34.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 3rem;
 `;
 
 export const socialLoginTitle = css`
+    width: max-content;
     font-size: 1.6rem;
     font-weight: bold;
     text-align: center;
-    `;
+`;
 
 export const socialLoginBox = css`
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     
     & > img {
-        margin-right: 0.8rem;
+        margin-bottom: 1rem;
         width: 8rem;
         height: 8rem;
         cursor: pointer;
         transition: transform 0.2s ease-in-out;
 
         &:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
-    }
-`;
-
-export const buttonContainer = css`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 8rem;
-    height: 8rem;
-    margin-top: 2rem;  /* OAuth2 버튼과 간격 확보 */
-    margin-right: 1rem;
-`;
-
-export const button = css`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 8rem;
-    height: 3.8rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 0.8rem;
-    text-decoration-line: none;
-
-    &:hover {
-        background-color: #0056b3;
     }
 `;
