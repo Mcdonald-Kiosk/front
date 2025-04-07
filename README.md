@@ -78,7 +78,7 @@
 <br/>
 
 <p align="right" dir="auto">
-<a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
+<a href="https://github.com/Mcdonald-Kiosk">TOP 🔼</a>
 </p>
 
 ## 👥 팀원 소개
