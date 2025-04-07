@@ -2,7 +2,7 @@ import { api } from "../configs/axiosConfig";
 
 // 메뉴 데이터를 가져오는 함수
 export const fetchMenuData = async () => {
-    const response = await api.get("/user/menu");
+    const response = await api.get("/api/user/menu");
 
     // 받아온 데이터 가공 (menuPrice를 size 기준으로 정렬)
     const sortedData = response.data.map((item) => ({
