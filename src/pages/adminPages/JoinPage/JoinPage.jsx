@@ -6,6 +6,7 @@ import { useJoinMutation } from '../../../mutations/authMutation';
 import { Input } from '@mui/material';
 import ValidInput from '../../../components/ValidInput/ValidInput';
 import { SiGoogle, SiKakao, SiNaver } from 'react-icons/si';
+import Swal from 'sweetalert2';
 
 function JoinPage(props) {
     const joinMutation = useJoinMutation();
@@ -60,13 +61,25 @@ function JoinPage(props) {
         });
     
         if (isErrors()) {
-            alert("가입 정보를 다시 확인해주세요.");
+            await Swal.fire({
+                position: "center",
+                icon: "error",
+                text: "가입 정보를 다시 확인해주세요.",
+                confirmButtonText: '확인',
+                confirmButtonColor: "#e22323"
+            })
             return;
         }
     
         // 비밀번호 불일치 처리
         if (inputValue.adminPassword !== inputValue.passwordCheck) {
-            alert("비밀번호가 일치하지 않습니다.");
+            await Swal.fire({
+                position: "center",
+                icon: "error",
+                text: "비밀번호가 일치하지 않습니다.",
+                confirmButtonText: '확인',
+                confirmButtonColor: "#e22323"
+            })
             setInputValidError(prev => ({
                 ...prev,
                 adminPassword: true,
@@ -119,85 +132,85 @@ function JoinPage(props) {
     return (
         <div css={s.container}>
             <div css={s.logoContainer}>
-                    <img src="https://pngimg.com/uploads/mcdonalds/mcdonalds_PNG17.png" alt="" />
-                </div>
-                <div css={s.test1}>
-                    <div css={s.formContainer}>
-                        <div>
-                            <h1 css={s.title}>McDonald Admin</h1>
+                <img src="https://pngimg.com/uploads/mcdonalds/mcdonalds_PNG17.png" alt="" />
+            </div>
+            <div css={s.test1}>
+                <div css={s.formContainer}>
+                    <div>
+                        <h1 css={s.title}>McDonald Admin</h1>
+                        <ValidInput
+                            type={"text"}
+                            name={"adminName"}
+                            placeholder={"사용자이름"}
+                            value={inputValue.adminName}
+                            onChange={handleInputOnChange}
+                            regexp={/^[a-zA-Z][a-zA-Z0-9_]{3,15}$/}
+                            errorMessage={"영문으로 시작하여 3글자 이상의 영문과 숫자를 조합해주세요"}
+                            inputValidError={inputValidError}
+                            setInputValidError={setInputValidError}
+                            />
+                        <ValidInput
+                            type={"password"}
+                            name={"adminPassword"}
+                            placeholder={"비밀번호"}
+                            value={inputValue.adminPassword}
+                            onChange={handleInputOnChange}
+                            onFocus={handlePasswordOnFocus}
+                            regexp={/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,20}$/}
+                            errorMessage={"비밀번호는 8자에서 16자 이하로 영문, 숫자 조합이어야합니다."}
+                            inputValidError={inputValidError}
+                            setInputValidError={setInputValidError}
+                            />
+                        <ValidInput
+                            type={"password"}
+                            name={"passwordCheck"}
+                            placeholder={"비밀번호 확인"}
+                            value={inputValue.passwordCheck}
+                            onChange={handleInputOnChange}
+                            regexp={new RegExp(`^${inputValue.passwordCheck}$`)}
+                            errorMessage={"비밀번호가 일치하지 않습니다."}
+                            inputValidError={inputValidError}
+                            setInputValidError={setInputValidError}
+                            />
                             <ValidInput
-                                type={"text"}
-                                name={"adminName"}
-                                placeholder={"사용자이름"}
-                                value={inputValue.adminName}
-                                onChange={handleInputOnChange}
-                                regexp={/^[a-zA-Z][a-zA-Z0-9_]{3,15}$/}
-                                errorMessage={"사용할 수 없는 사용자이름입니다."}
-                                inputValidError={inputValidError}
-                                setInputValidError={setInputValidError}
-                                />
-                            <ValidInput
-                                type={"password"}
-                                name={"adminPassword"}
-                                placeholder={"비밀번호"}
-                                value={inputValue.adminPassword}
-                                onChange={handleInputOnChange}
-                                onFocus={handlePasswordOnFocus}
-                                regexp={/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,20}$/}
-                                errorMessage={"비밀번호는 8자에서 16자 이하로 영문, 숫자 조합이어야합니다."}
-                                inputValidError={inputValidError}
-                                setInputValidError={setInputValidError}
-                                />
-                            <ValidInput
-                                type={"password"}
-                                name={"passwordCheck"}
-                                placeholder={"비밀번호 확인"}
-                                value={inputValue.passwordCheck}
-                                onChange={handleInputOnChange}
-                                regexp={new RegExp(`^${inputValue.passwordCheck}$`)}
-                                errorMessage={"비밀번호가 일치하지 않습니다."}
-                                inputValidError={inputValidError}
-                                setInputValidError={setInputValidError}
-                                />
-                                <ValidInput
-                                type={"text"}
-                                name={"email"}
-                                placeholder={"이메일"}
-                                value={inputValue.email}
-                                onChange={handleInputOnChange}
-                                regexp={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
-                                errorMessage={"올바른 이메일을 입력하세요."}
-                                inputValidError={inputValidError}
-                                setInputValidError={setInputValidError}
-                                />
-                            <ValidInput
-                                type={"text"}
-                                name={"tradeName"}
-                                placeholder={"상호명"}
-                                value={inputValue.tradeName}
-                                onChange={handleInputOnChange}
-                                inputValidError={inputValidError}
-                                setInputValidError={setInputValidError}
-                                onKeyDown={handleKeyDown}
-                                />
-                        </div>
+                            type={"text"}
+                            name={"email"}
+                            placeholder={"이메일"}
+                            value={inputValue.email}
+                            onChange={handleInputOnChange}
+                            regexp={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+                            errorMessage={"올바른 이메일을 입력하세요."}
+                            inputValidError={inputValidError}
+                            setInputValidError={setInputValidError}
+                            />
+                        <ValidInput
+                            type={"text"}
+                            name={"tradeName"}
+                            placeholder={"상호명"}
+                            value={inputValue.tradeName}
+                            onChange={handleInputOnChange}
+                            inputValidError={inputValidError}
+                            setInputValidError={setInputValidError}
+                            onKeyDown={handleKeyDown}
+                            />
                     </div>
+                    <div css={s.buttonContainer}>
+                        <Link css={s.button} to={"/admin/login"}> 로그인</Link>               
+                        <button css={s.button} onClick={handleJoinOnClick}>
+                            가입하기
+                        </button>
+                    </div>
+                </div>
 
-                    <div css={s.rightContainer}>
-                        <h3 css={s.socialLoginTitle}>간편 회원가입</h3>
-                        <div css={s.socialLoginBox}>
-                            <img onClick={() => handleOAuth2LoginOnClick("google")} src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5rH/image/aFrEyVpANu07FvoBZQbIB4aF_uc"  alt="Google" />
-                            <img onClick={() => handleOAuth2LoginOnClick("naver")}src="https://i.namu.wiki/i/p_1IEyQ8rYenO9YgAFp_LHIAW46kn6DXT0VKmZ_jKNijvYth9DieYZuJX_E_H_4GkCER_sVKhMqSyQYoW94JKA.svg" alt="Naver" />
-                            <div css={s.buttonContainer}>
-                                <Link css={s.button} to={"/admin/login"}> 로그인</Link>               
-                                <button css={s.button} onClick={handleJoinOnClick}>
-                                    가입하기
-                                </button>
-                            </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg" alt="Kakao" />
-                        </div>
+                <div css={s.rightContainer}>
+                    <h3 css={s.socialLoginTitle}>간편 회원가입</h3>
+                    <div css={s.socialLoginBox}>
+                        <img onClick={() => handleOAuth2LoginOnClick("google")} src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/5rH/image/aFrEyVpANu07FvoBZQbIB4aF_uc"  alt="Google" />
+                        <img onClick={() => handleOAuth2LoginOnClick("naver")}src="https://i.namu.wiki/i/p_1IEyQ8rYenO9YgAFp_LHIAW46kn6DXT0VKmZ_jKNijvYth9DieYZuJX_E_H_4GkCER_sVKhMqSyQYoW94JKA.svg" alt="Naver" />
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg" alt="Kakao" />
                     </div>
                 </div>
+            </div>
                 
         </div>
     );

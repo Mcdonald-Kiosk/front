@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const layout = css`
+export const container = css`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,10 +9,15 @@ export const layout = css`
     height: 100%;
 `;
 
+export const layout = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
 export const logoContainer = css`
-    position: absolute;
-    top: 20px;
-    left: 20px;
+    margin-left: -80%;
 
     & img {
         width: 20rem;
@@ -62,6 +67,10 @@ export const accountMessage = css`
         text-decoration: none;
         color: inherit; /* 링크 색상을 기본 텍스트 색상과 같게 */
     }
+
+    &:hover {
+        text-shadow: 0 0 3rem #333333;
+    }
 `;
 
 
@@ -74,6 +83,10 @@ export const accountButton = css`
     background-color: transparent; /* 버튼 배경 투명 */
     letter-spacing: 0.1rem;
     cursor: pointer;
+
+    &:hover {
+        text-shadow: 0 0 3rem #333333;
+    }
 `;
 
 

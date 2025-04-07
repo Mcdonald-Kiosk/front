@@ -92,34 +92,36 @@ function LoginPage(props) {
 
 
     return (
-        <div css={s.layout}>
-            <div css={s.logoContainer}>
-                <img src="https://pngimg.com/uploads/mcdonalds/mcdonalds_PNG17.png" alt="" />
-            </div>
-            <div>
-                <h1 css={s.title}>McDonald Admin</h1>
-                <div css={s.groupBox}>
-                    <input css={s.textInput} type="text" placeholder='이메일'
-                        name="adminName"
-                        value={inputValue.adminName}
-                        onChange={handleInputOnChange}
-                        onKeyDown={(e) => handleKeyDown(e, passwordInputRef)}
-                    />
+        <div css={s.container}>
+            <div css={s.layout}>
+                <div css={s.logoContainer}>
+                    <img src="https://pngimg.com/uploads/mcdonalds/mcdonalds_PNG17.png" alt="" />
                 </div>
-                <div css={s.groupBox}>
-                    <input css={s.textInput} type="password" placeholder='비밀번호'
-                        ref={passwordInputRef}
-                        name="adminPassword"
-                        value={inputValue.adminPassword}
-                        onChange={handleInputOnChange}
-                        onKeyDown={(e) => e.key === 'Enter' && handleLoginOnClick()}
-                    />
-                </div>
-                <div css={s.footerbox}>
-                    <p css={s.accountMessage}>
-                        <Link to={"/admin/join"}>회원가입</Link>
-                    </p>
-                    <button css={s.accountButton} onClick={handleLoginOnClick}>로그인</button>
+                <div>
+                    <h1 css={s.title}>McDonald Admin</h1>
+                    <div css={s.groupBox}>
+                        <input css={s.textInput} type="text" placeholder='이메일'
+                            name="adminName"
+                            value={inputValue.adminName}
+                            onChange={handleInputOnChange}
+                            onKeyDown={(e) => handleKeyDown(e, passwordInputRef)}
+                            />
+                    </div>
+                    <div css={s.groupBox}>
+                        <input css={s.textInput} type="password" placeholder='비밀번호'
+                            ref={passwordInputRef}
+                            name="adminPassword"
+                            value={inputValue.adminPassword}
+                            onChange={handleInputOnChange}
+                            onKeyDown={(e) => e.key === 'Enter' && handleLoginOnClick()}
+                            />
+                    </div>
+                    <div css={s.footerbox}>
+                        <p css={s.accountMessage}>
+                            <Link to={"/admin/join"}>회원가입</Link>
+                        </p>
+                        <button css={s.accountButton} onClick={handleLoginOnClick}>로그인</button>
+                    </div>
                 </div>
             </div>
         </div>
