@@ -4,7 +4,7 @@ import { instance, portOneInstance } from "../utils/instance";
 
 export const getSalesRequest = async () => {
     try {
-        const response = await api.get("/admin/sales");
+        const response = await api.get("/api/admin/sales");
         console.log("🔥 [getSalesRequest] 전체 메뉴 응답:", response.data);
         return response.data;
     } catch (error) {
@@ -15,7 +15,7 @@ export const getSalesRequest = async () => {
 
 export const searchSalesByMenuRequest = async () => {
     try {
-          const response = await api.get("/admin/menusales");
+          const response = await api.get("/api/admin/menusales");
           console.log("🔥 [searchSalesByMenuRequest] 전체 메뉴 응답:", response.data);
           return response.data;
       } catch (error) {
