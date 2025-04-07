@@ -11,18 +11,18 @@ export const getSalesRequest = async () => {
         console.error("❌ [getSalesRequest] API 요청 실패:", error);
         throw error;
     }
-  };
+};
 
 export const searchSalesByMenuRequest = async () => {
     try {
-          const response = await api.get("/api/admin/menusales");
-          console.log("🔥 [searchSalesByMenuRequest] 전체 메뉴 응답:", response.data);
-          return response.data;
-      } catch (error) {
-          console.error("❌ [searchSalesByMenuRequest] API 요청 실패:", error);
-          throw error;
-      }
-    };
+        const response = await api.get("/api/admin/menusales");
+        console.log("🔥 [searchSalesByMenuRequest] 전체 메뉴 응답:", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("❌ [searchSalesByMenuRequest] API 요청 실패:", error);
+        throw error;
+    }
+};
 
 
 
@@ -30,7 +30,7 @@ export const getPaymentsRequest = async () => {
     const jwtResponse = await axios.post("https://api.portone.io/login/api-secret",{
         "apiSecret": import.meta.env.VITE_PORTONE_API_KEY,
 
-      });
+    });
     const accessToken = jwtResponse.data.accessToken;
     return await axios.get("https://api.portone.io/payments", {
         headers: {
