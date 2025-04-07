@@ -84,8 +84,7 @@
 ## 👥 팀원 소개
 
 <div align="center">
-<img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/6339b2ff-101b-4316-98b1-fe5e53bda768" />
-<img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/344a9254-8f2f-439e-af78-addcb748c4e9" />
+<img src="https://github.com/user-attachments/assets/292c4e68-ab8f-47bb-bfc7-c50deaa321eb" />
 <table >
     <thead>
         <tr>
