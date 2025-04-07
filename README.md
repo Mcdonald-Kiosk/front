@@ -112,7 +112,7 @@
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/jayhyeon12">
+            <a href="https://github.com/doosan5464">
                 <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/ffb0f7a2-6df1-4935-8b3f-036cf89e344b" width="150" height="150" />
             </a>
         </td>
