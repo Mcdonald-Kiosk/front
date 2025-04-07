@@ -28,10 +28,10 @@ const languageTexts = {
 const SelectPayMethod = () => {
     const language = useRecoilValue(selectedLanguageState);
     const t = languageTexts[language];
-
+    
     const location = useLocation();
     const navi = useNavigate();
-
+    
     const { data: menuData, error, isLoading } = menuForUser();
     const { data: orderIdFromTb, errorFromTb, isLoading: isLoadingOrderId } = useOrderId(); // 수정된 훅 사용
     

@@ -18,10 +18,10 @@ function OrderPage(props) {
     const [addedCartState, setAddedCartState] = useRecoilState(addedCart);
     const [editingItem, setEditingItem] = useState(null);
     const [selectedMenu, setSelectedMenu] = useState(null);
-
+    
     const [categories] = useRecoilState(orderedCategoriesState); // 기존 useState 제거
     const [disabledCategories] = useRecoilState(disabledCategoriesState); // atom 사용
-
+    
     const [selectedLanguage] = useRecoilState(selectedLanguageState); // 선택된 언어의 전역 상태 
 
     const languageTexts = {
@@ -46,6 +46,18 @@ function OrderPage(props) {
             currency: "KRW" // 추가
         }
     };
+
+    // 카테고리는 DB에서 들고오는거라 영어를 따로 지정해서 사용하기 힘듦 그래서 조건으로 줘야함
+    const categoryTranslations = {
+        "버거": { 한국어: "버거", 영어: "Burger" },
+        "디저트": { 한국어: "디저트", 영어: "Dessert" },
+        "사이드": { 한국어: "사이드", 영어: "Side" },
+        "음료": { 한국어: "음료", 영어: "Drink" },
+        "커피": { 한국어: "커피", 영어: "Coffee" },
+        "맥모닝": { 한국어: "맥모닝", 영어: "McMorning" },
+        // 필요하면 계속 추가 가능
+    };
+
     
     useEffect(() => {
         if (categories.length > 0) {
@@ -64,6 +76,7 @@ function OrderPage(props) {
     };
 
     const handleBackMenuOnClick = () => {
+        setAddedCartState([]);
         navi("/menu");
     };
 
@@ -120,13 +133,13 @@ function OrderPage(props) {
 
             <main css={s.body}>
                 <div css={s.category}>
-                    {categories
-                        .filter(category => !disabledCategories.includes(category)) // 비활성화된 카테고리는 필터링
-                        .map(category => (
-                            <div key={category} onClick={() => handleMenuCategoryOnClick(category)}>
-                                {category}
-                            </div>
-                        ))}
+                {categories
+                    .filter(category => !disabledCategories.includes(category))
+                    .map(category => (
+                        <div key={category} onClick={() => handleMenuCategoryOnClick(category)}>
+                        {categoryTranslations[category]?.[selectedLanguage] || category}
+                        </div>
+                    ))}
                 </div>
                 <div css={s.menu}>
                     <MenuCategory selectedCategory={selectedCategory} onMenuItemClick={handleMenuItemClick} />
