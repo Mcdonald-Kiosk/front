@@ -189,7 +189,7 @@
 -   DB 설계
 
 <p align="right" dir="auto">
-<a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
+<a href="https://github.com/Mcdonald-Kiosk">TOP 🔼</a>
 </p>
 
 <br/>
