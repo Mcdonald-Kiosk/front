@@ -103,8 +103,8 @@ export const socialLoginBox = css`
     
     & > img {
         margin-bottom: 1rem;
-        width: 8rem;
-        height: 8rem;
+        width: 7rem;
+        height: 7rem;
         cursor: pointer;
         transition: transform 0.2s ease-in-out;
 
