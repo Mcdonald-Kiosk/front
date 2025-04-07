@@ -49,10 +49,13 @@ function AdminSalesChart({
                     fill={barColor}
                 />
                 <Line
-                    type="monotone"
+                    type="basis"  // 또는 "monotone" / "natural"
                     dataKey={dataKey}
                     stroke={lineColor}
-                    legendType="none"
+                    strokeWidth={2}
+                    isAnimationActive={true}
+                    animationDuration={1000}
+                    animationEasing="ease-in-out"
                 />
             </ComposedChart>
         </ResponsiveContainer>

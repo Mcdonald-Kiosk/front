@@ -7,14 +7,6 @@ export const searchSalesByMenu = () => useMutation({
     retry: 0,
 });
 
-export const getSales = () => useMutation({
-    mutationKey: ["getSales"],
-    mutationFn: getSalesRequest,
-    retry: 0,
-});
-
-
-
 export const portOneSales = () => useMutation({
     mutationKey: ["portOneSales"],
     mutationFn: getPaymentsRequest,
