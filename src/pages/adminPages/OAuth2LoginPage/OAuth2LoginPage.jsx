@@ -13,7 +13,7 @@ function OAuth2LoginPage(props) {
         console.log(accessToken);  // Token이 제대로 출력되는지 확인
         setTokenLocalStorage("AccessToken", accessToken);
         await queryClient.invalidateQueries({ queryKey: ["userMeQuery"] });
-        navigate("/");
+        navigate("/admin/main");
     }
 
     useEffect(() => {

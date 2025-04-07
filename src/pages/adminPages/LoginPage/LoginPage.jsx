@@ -43,8 +43,8 @@ function LoginPage(props) {
                     position:"center",
                     showConfirmButton: false,
                 });
-                navigate("/admin/main");
                 await queryClient.invalidateQueries({ queryKey: ["userMeQuery"] });
+                navigate("/admin/main");
             } else {
                 // token이 없으면 실패 처리
                 await Swal.fire({
