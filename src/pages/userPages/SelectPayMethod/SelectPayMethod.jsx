@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { addedCart } from '../../../atoms/addedCart/addedCart';
 import * as PortOne from "@portone/browser-sdk/v2"; // PortOne 결제 SDK
 import { v4 as uuid } from 'uuid'; // UUID 라이브러리
@@ -11,9 +11,24 @@ import { usePointApi } from '../../../apis/pointApi';
 import { usePointMutation } from '../../../mutations/useProcessPointMutation';
 import { useOrderId } from '../../../hooks/order/getOrderIdHook';
 import { postOrderDetailTb, postOrderTb } from '../../../mutations/order/orderMutation';
+import { selectedLanguageState } from '../../../atoms/selectedLanguage/selectedLanguage';
+
+const languageTexts = {
+    한국어: {
+        smartPay: "간편결제",
+        back: "이전 단계"
+    },
+    영어: {
+        smartPay: "Smart Pay",
+        back: "Back"
+    }
+};
 
 
-const SelectPayMethod = () => {    
+const SelectPayMethod = () => {
+    const language = useRecoilValue(selectedLanguageState);
+    const t = languageTexts[language];
+
     const location = useLocation();
     const navi = useNavigate();
 
@@ -228,7 +243,7 @@ const SelectPayMethod = () => {
         <>
             <header css={s.header}>
                 <img src="https://static.thenounproject.com/png/3573-200.png" alt="" />
-                <p>간 편 결 제</p>
+                <p>{t.smartPay}</p>
             </header>
             <main css={s.main}>
                 <div css={s.method}>
@@ -260,7 +275,7 @@ const SelectPayMethod = () => {
             </main>
             <div css={s.foot} onClick={() => navi("/payment")}>
                 <footer css={s.footer}>
-                    이전 단계
+                    {t.back}
                 </footer>
             </div>
         </>

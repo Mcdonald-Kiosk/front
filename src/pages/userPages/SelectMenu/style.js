@@ -1,17 +1,9 @@
 import { css } from "@emotion/react";
 
-export const container = css`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #dbdbdb;
-`;
-
 export const smImage = css`
     display: flex;
     width: 100%;
-    height: 45%;
+    height: 40%;
     overflow: hidden;
     justify-content: center;
     position: relative;
@@ -27,44 +19,19 @@ export const imageStyle = css`
     transition: opacity 1s ease-in-out;  /* 슬라이딩 효과를 부드럽게 적용 */
 `;
 
+export const whereText = css`
+    display: flex;
+    justify-content: center;
+    font-size: 2.5rem;
+`
+
 export const smChoice = css`
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     font-size: 1rem;
-    margin-top: 2rem;
-`;
-
-export const smLanguage = css`
-    display: flex;
-    font-size: 2rem;
-    width: 100%;
-    height: 7rem;
-    justify-content: space-evenly;
-    margin-top: 2rem;
-    margin-bottom: 6rem;
-    
-    & > span {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 0 0.6rem 0.1rem #ffa600e1;
-        width: 14rem;
-        height: 10rem;
-        font-size: 2rem;
-        font-weight: 800;
-        border-radius: 1rem;
-
-        &:hover {
-            box-shadow: 0 0 0.6rem 0.1rem #ffa600e1;
-        }
-    }
-
-`;
-
-export const selectedLanguage = css`
-    background-color:#ffd154;
+    /* background-color: #0d4e18; */
 `;
 
 export const smHow = css`
@@ -73,19 +40,19 @@ export const smHow = css`
     font-size: 2rem;
     width: 100%;
     height: 15rem;
-    justify-content: space-evenly;
+    justify-content: center;
     margin-top: 2rem;
-
+    gap: 4rem;
+    
     & > span {
         display: flex;
-
         border-radius: 1rem;
-        width: 17rem;
-        height: 17rem;
-        box-shadow: 0 0 0.6rem 0.1rem #ffa600e1;
+        width: 20rem;
+        height: 23rem;
+        box-shadow: 0 0 0.6rem 0.1rem #455a64;
         justify-content: center;
         align-items: center;
-        background-color: #ffffff;
+        background-color: #0d4e18;
 
         & > img {
             display: flex;
@@ -94,3 +61,48 @@ export const smHow = css`
         }
     }
 `;
+
+export const langText = css`
+    display: flex;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin-top: 14rem;
+    margin-bottom: 3rem;
+`
+
+export const smLanguage = css`
+    display: flex;
+    font-size: 2rem;
+    width: 100%;
+    height: 7rem;
+    justify-content: center;
+    margin-bottom: 6rem;
+    gap: 2rem;
+
+    & > span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 0.6rem 0.1rem #455a64;
+        width: 14rem;
+        height: 5rem;
+        font-size: 2rem;
+        font-weight: 800;
+        color: #dbdbdb;
+        border-radius: 1rem;
+        background-color: #0d4e18;
+    }
+
+`;
+
+export const selectedLanguage = css`
+    border: 2px solid #455a64; /* 차콜 테두리 */
+    box-shadow: inset 0 0 5px rgba(38, 50, 56, 0.4), 0 0 5px rgba(69, 90, 100, 0.7);
+    border-radius: 8px;
+    background-color: #eceff1; /* 연한 그레이 배경 */
+    color: #263238; /* 진한 차콜 텍스트 */
+    font-weight: bold;
+    padding: 8px 16px;
+    transition: all 0.2s ease-in-out;
+`;
+

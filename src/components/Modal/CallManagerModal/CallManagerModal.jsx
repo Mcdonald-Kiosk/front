@@ -20,12 +20,6 @@ function CallManagerModal() {
             staffCalled: "Staff has been called.",
             pleaseWait: "Please wait a moment.",
             confirm: "OK"
-        },
-        중국어: {
-            callStaff: "呼叫员工",
-            staffCalled: "已呼叫员工。",
-            pleaseWait: "请稍等。",
-            confirm: "确认"
         }
     };
 

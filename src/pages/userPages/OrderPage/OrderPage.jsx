@@ -44,16 +44,6 @@ function OrderPage(props) {
             delete: "Delete",
             set: "Set",
             currency: "KRW" // 추가
-        },
-        중국어: {
-            backToHome: "首页",
-            order: "立即下单",
-            voucher: "优惠券",
-            emptyCart: "购物车为空。",
-            modify: "修改",
-            delete: "删除",
-            set: "套餐",
-            currency: "韩元" // 추가
         }
     };
     
