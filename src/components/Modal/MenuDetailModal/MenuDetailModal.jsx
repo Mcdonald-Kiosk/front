@@ -253,7 +253,11 @@ const MenuDetailModal = ({ menu, onClose }) => { // menu, onClose -> OrderPage�
                     <div>
                         <div css={s.modalBasich3}>
                             <h3>{languageTexts[selectedLanguage].selectSet}</h3>
-                            <button onClick={() => handleMenuInfoModalButtonOnClick(menuData.find(item => item.menuName === menu.name)?.menuId)}>{languageTexts[selectedLanguage].menuDetail}</button>
+                            <button onClick={() => handleMenuInfoModalButtonOnClick(selectedLanguage === "영어" 
+                                                                                    ? menuData.find(item => item.menuNameEng === menu.name)?.menuId 
+                                                                                    : menuData.find(item => item.menuName === menu.name)?.menuId)}>
+                                {languageTexts[selectedLanguage].menuDetail}
+                            </button>
                         </div>
                         <div css={s.temp}>
                             <div css={s.modalBuguerSetImage(radioChecked.set === "1")}>
