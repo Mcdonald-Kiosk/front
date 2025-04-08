@@ -76,13 +76,13 @@ function MainSidebar(props) {
                     css={s.menuButton(activeButton === "sale")}  // 클릭된 버튼에 activeButton 스타일 적용
                     onClick={() => handleButtonClick('sale')}
                 >
-                    매출 관리
+                    매출 조회
                 </button>
                 <button 
                     css={s.menuButton(activeButton === "order")}  // 클릭된 버튼에 activeButton 스타일 적용
                     onClick={() => handleButtonClick('order')}
                 >
-                    주문 관리
+                    결제 내역
                 </button>
                 <button 
                     css={s.menuButton(activeButton === "mypage")}  // 클릭된 버튼에 activeButton 스타일 적용

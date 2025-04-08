@@ -32,6 +32,13 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
     //노출여부 변경 및 목록 다시 불러오기
     const handleChangeIsExposureOnClick = async (menuId, isExposure) => {
         await updateIsExposureMutation.mutateAsync({ "menuId": menuId, "isExposure": isExposure });
+        // await Swal.fire({
+        //     icon: "success",
+        //     text: "로그인 성공",
+        //     timer: 1000,
+        //     position:"center",
+        //     showConfirmButton: false,
+        // });
         getInfoMenuById.refetch();
     }
     
