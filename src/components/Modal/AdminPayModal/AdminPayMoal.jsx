@@ -64,6 +64,7 @@ function AdminPayMoal({ setOpen, payData }) { //uuid 넘겨받기
         //console.log(reasons);
         //3초 이상일 때 환불 진행
         setPressMessage("결제가 취소되었습니다");
+
         try { //인증
             const jwtResponse = await axios.post("https://api.portone.io/login/api-secret", {
                 "apiSecret": import.meta.env.VITE_PORTONE_API_KEY,
@@ -125,7 +126,11 @@ function AdminPayMoal({ setOpen, payData }) { //uuid 넘겨받기
             </div>
             <div css={s.footer}>
                 <div>{pressMessage}</div>
-                <button onClick={handleButtonOnClick} onMouseDown={handleButtonDown} disabled={reasons === "" ? 1 : isCancel === "CANCELLED" ? 1 : 0}>결제취소</button>
+                <button onClick={handleButtonOnClick} 
+                    onMouseDown={handleButtonDown} 
+                    disabled={reasons === "" ? 1 : isCancel === "CANCELLED" ? 1 : 0}>
+                        결제취소
+                </button>
             </div>
 
         </div>
