@@ -5,7 +5,7 @@ export const container = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    padding: 4rem 1rem 3rem 2rem;
     width: 100%;
 
     & > h1 {

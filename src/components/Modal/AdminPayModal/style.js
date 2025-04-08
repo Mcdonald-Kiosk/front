@@ -64,16 +64,11 @@ export const head = css`
 export const body = css`
     display: flex;
     justify-content: space-around;
-    margin-top: 5rem;
-
-
-    & > div {
-        margin-right: 5rem;
-    }
+    margin: 5rem 3rem 0 3rem;
 
     & div div:nth-of-type(1) {
-        border-bottom: .2rem dashed #00000044;
         box-sizing: border-box;
+        border-bottom: .2rem dashed #00000044;
         padding: 0 20rem .5rem 1.5rem;
         font-size: 2.2rem;
         font-weight: 500;
@@ -82,8 +77,8 @@ export const body = css`
 
     & div div:nth-of-type(2) {
         box-sizing: border-box;
-        padding: 1.2rem 0.5rem 0 0.5rem;
-        width: 100%;
+        padding-top: 1.5rem;
+        max-width: 35rem;
         font-size: 1.4rem;
         overflow: hidden;
         overflow-y: auto;
