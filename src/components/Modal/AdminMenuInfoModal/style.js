@@ -150,9 +150,9 @@ export const headright = css`
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
             border-right: .3rem solid #00000055;
             flex-grow: 1;
-
             
             & div {
                 margin: 1rem 0;

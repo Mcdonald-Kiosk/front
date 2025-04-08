@@ -98,6 +98,7 @@ export const text1 = css`
     font-size: 2.5rem;
     font-weight: 600;
     text-align: center;
+    white-space: nowrap;
     width: 10em;
 `;
 
@@ -105,6 +106,7 @@ export const text1 = css`
 export const modalbody = css`
     display: flex;
     flex-direction: column;
+    margin-top: 2rem;
 `;
 
 export const bodyup = css`
@@ -117,26 +119,28 @@ export const bodyup = css`
     padding: 1.5rem 1rem;
     white-space: nowrap;
     text-overflow: ellipsis;
-    
-    .line {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border-right: 0.1rem dashed #00000055;
-        min-width: 5rem;
-        font-size: 1.8rem;
-        text-align: center;
+`;
 
-        & div {
-            padding: .3rem .8rem;
-        }
+export const line = (selectedLanguage) => css`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-right: 0.1rem dashed #00000055;
+    min-width: 5rem;
+    font-size: 
+        ${selectedLanguage === "한국어" ? "1.8rem" : "1.5rem"};
+    text-align: center;
 
-
+    & div {
+        padding: .3rem .8rem;
     }
 
-    .line:nth-of-type(1) {
+
+    &:nth-of-type(1) {
         padding-right: 2rem;
-        font-size: 2rem;
+        font-size: 
+            ${selectedLanguage === "한국어" ? "2rem" : "1.6rem"};
         font-weight: 600;
         border-right: 0.3rem solid #00000055;
 
@@ -144,7 +148,8 @@ export const bodyup = css`
             background-color: #00000000;
         }
     }
-    .line:nth-last-of-type(1) {
+    
+    &:nth-last-of-type(1) {
         border: none;
     }
 

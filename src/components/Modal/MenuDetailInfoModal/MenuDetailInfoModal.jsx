@@ -2,7 +2,7 @@
 import * as s from './style';
 import { useInfoMenuById } from '../../../queries/AdminQuery/AdminMenuBoardQuery';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { selectedLanguageState } from '../../../atoms/selectedLanguage/selectedLanguage';
 
 function MenuDetailInfoModal({ setOpen, menuId }) {
@@ -18,6 +18,8 @@ function MenuDetailInfoModal({ setOpen, menuId }) {
     
     const getInfoMenuById = useInfoMenuById(menuId);  //아이디에 맞는 메뉴정보 불러오기
     const selectedSizeMenu = getInfoMenuById.data?.data[0].menuInfo.find(item => item.size === isSize); //사이즈에 맞는 영양정보
+
+    const [selectedLanguage] = useRecoilState(selectedLanguageState); //언어 전역상태
     
     console.log(getInfoMenuById);
     console.log(selectedSizeMenu);
@@ -57,61 +59,61 @@ function MenuDetailInfoModal({ setOpen, menuId }) {
                             : null
                         }    
                     </div>
-                    <div>{getInfoMenuById.data?.data[0]?.menuName}</div>
+                    <div>{selectedLanguage === "한국어" ? getInfoMenuById.data?.data[0]?.menuName : getInfoMenuById.data?.data[0]?.menuNameEng}</div>
                 </div>
             </div>
             <div css={s.modalbody}>
-                <div css={s.text1}>영양정보</div>
+                <div css={s.text1}>{selectedLanguage === "한국어" ? "영양정보" : "nutritional information"}</div>
                 <div css={s.bodyup}>
-                    <div className="line">
-                        <div>영양소</div>
-                        <div>함량</div>
-                        <div>영양소 기준치</div>
+                    <div css={s.line(selectedLanguage)}>
+                        <div>{selectedLanguage === "한국어" ? "영양소" : "nutrient"}</div>
+                        <div>{selectedLanguage === "한국어" ? "함량" : "content"}</div>
+                        <div>{selectedLanguage === "한국어" ? "영양소 기준치" : "nutrient threshold"}</div>
                     </div>
-                    <div className="line">
-                        <div>중량(g)</div>
+                    <div css={s.line}>
+                        <div>{selectedLanguage === "한국어" ? "중량" : "weight"}(g)</div>
                         <div>{selectedSizeMenu?.weight === 0 ? '-' : `${selectedSizeMenu?.weight}g`}</div>
                         <div>-</div>
                     </div>
-                    <div className="line">
-                        <div>중량(ml)</div>
+                    <div css={s.line}>
+                        <div>{selectedLanguage === "한국어" ? "중량" : "weight"}(ml)</div>
                         <div>{selectedSizeMenu?.volume === 0 ? '-' : `${selectedSizeMenu?.volume}ml`}</div>
                         <div>-</div>
                     </div>
-                    <div className="line">
-                        <div>열량</div>
+                    <div css={s.line}>
+                        <div>{selectedLanguage === "한국어" ? "열량" : "calory"}</div>
                         <div>{selectedSizeMenu?.calories === 0 ? '-' : `${selectedSizeMenu?.calories}kcal`}</div>
                         <div>-</div>
                     </div>
-                    <div className="line">
-                        <div>당</div>
+                    <div css={s.line}>
+                        <div>{selectedLanguage === "한국어" ? "당" : "sugar"}</div>
                         <div>{selectedSizeMenu?.sugars === 0 ? '-' : `${selectedSizeMenu?.sugars}g`}</div>
                         <div>{selectedSizeMenu?.sugars === 0 ? '-' : `${Math.round((selectedSizeMenu?.sugars / 100) * 100)}%`}</div>
                     </div>
-                    <div className="line">
-                        <div>단백질</div>
+                    <div css={s.line}>
+                        <div>{selectedLanguage === "한국어" ? "단백질" : "protein"}</div>
                         <div>{selectedSizeMenu?.protein === 0 ? '-' : `${selectedSizeMenu?.protein}g`}</div>
                         <div>{selectedSizeMenu?.protein === 0 ? '-' : `${Math.round((selectedSizeMenu?.protein / 55) * 100)}%`}</div>
                     </div>
-                    <div className="line">
-                        <div>포화지방</div>
+                    <div css={s.line}>
+                        <div>{selectedLanguage === "한국어" ? "포화지방" : "saturated fat"}</div>
                         <div>{selectedSizeMenu?.saturatedFat === 0 ? '-' : `${selectedSizeMenu?.saturatedFat}g`}</div>
                         <div>{selectedSizeMenu?.saturatedFat === 0 ? '-' : `${Math.round((selectedSizeMenu?.saturatedFat / 54) * 100)}%`}</div>
                     </div>
-                    <div className="line">
-                        <div>나트륨</div>
+                    <div css={s.line}>
+                        <div>{selectedLanguage === "한국어" ? "나트륨" : "sodium"}</div>
                         <div>{selectedSizeMenu?.sodium === 0 ? '-' : `${selectedSizeMenu?.sodium}mg`}</div>
                         <div>{selectedSizeMenu?.sodium === 0 ? '-' : `${Math.round((selectedSizeMenu?.sodium / 2000) * 100)}%`}</div>
                     </div>
-                    <div className="line">
-                        <div>카페인</div>
+                    <div css={s.line}>
+                        <div>{selectedLanguage === "한국어" ? "카페인" : "caffeine"}</div>
                         <div>{selectedSizeMenu?.caffeine === 0 ? '-' : `${selectedSizeMenu?.caffeine}mg`}</div>
                         <div>{selectedSizeMenu?.caffeine === 0 ? '-' : `${Math.round((selectedSizeMenu?.caffeine / 400) * 100)}%`}</div>
                     </div>
                 </div>
             </div>
             <div css={s.bodydown}>
-                <div css={s.text2}>원산지</div>
+                <div css={s.text2}>{selectedLanguage === "한국어" ? "원산지" : "country of origin"} </div>
                 <div css={s.origin}>
                     {
                         selectedSizeMenu?.menuOrigin === null ? (<div>---</div>) :

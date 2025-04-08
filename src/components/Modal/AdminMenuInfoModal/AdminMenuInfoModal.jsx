@@ -18,7 +18,7 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
     //console.log(getInfoMenuById);
     // console.log(selectedSizeMenu);
     // console.log(selectedSizePrice);
-    //console.log(getInfoMenuById.data?.data[0].menuPrice.length)
+    console.log(getInfoMenuById.data?.data[0])
 
     useEffect( () => { //사이즈 바뀔때마다 재로딩
     }, [isSize]);
@@ -112,7 +112,7 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
                             </div>
                             <div className="line">
                                 <div>메뉴이름</div>
-                                <div>{getInfoMenuById.data?.data[0]?.menuName}</div>
+                                <div>{getInfoMenuById.data?.data[0]?.menuName} <br /> {getInfoMenuById.data?.data[0]?.menuNameEng}</div>
                             </div>
                             <div className="line">
                                 <div>메뉴가격</div>
