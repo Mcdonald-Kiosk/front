@@ -59,6 +59,7 @@ export const addMenuApi = async (formData) => {
 
     const payload = {
         menuName: formData.menuName,
+        menuNameEng: formData.menuNameEng,
         menuCategory: formData.menuCategory,
         menuSequence: formData.menuSequence,
         singleImg: formData.singleImg,
@@ -96,6 +97,7 @@ export const updateMenuApi = async (menuId, formData) => {
 
     const payload = {
         menuName: formData.menuName,
+        menuNameEng: formData.menuNameEng,
         menuCategory: formData.menuCategory,
         menuSequence: formData.menuSequence,
         singleImg: formData.singleImg,

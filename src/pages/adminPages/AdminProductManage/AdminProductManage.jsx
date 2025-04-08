@@ -14,6 +14,7 @@ import { useSearchParams } from "react-router-dom";
 
 const INITIAL_FORM_DATA = {
     menuName: "",
+    menuNameEng: "",
     menuCategory: "",
     menuSequence: "",
     isExposure: 1,
@@ -76,6 +77,7 @@ function AdminProductManage() {
         setFormData({
             menuCategory: menuDetail.menuCategory || "",
             menuName: menuDetail.menuName || "",
+            menuNameEng: menuDetail.menuNameEng || "",
             menuSequence: menuDetail.menuSequence || 0,
             isExposure: menuDetail.isExposure ?? 1,
             singleImg: menuDetail.singleImg || null,
@@ -150,6 +152,7 @@ function AdminProductManage() {
     
         if (!formData.singleImg) missingFields.push("메뉴 이미지");
         if (!formData.menuName.trim()) missingFields.push("상품명");
+        if (!formData.menuNameEng.trim()) missingFields.push("상품명(영문)");
         if (!formData.menuCategory.trim()) missingFields.push("카테고리");
         if (!formData.menuSequence) missingFields.push("상품 우선 순위");
         if (!formData.prices.find((p) => p.size === "M")?.price) missingFields.push("M 사이즈 가격");
@@ -236,7 +239,7 @@ function AdminProductManage() {
                             value={selectedMenu || ""}
                             disabled={isAdding}
                         >
-                            <option value="">선택된 메뉴가 없습니다.</option>
+                            <option value="">메뉴를 선택해주세요!</option>
                             {!isLoading && menus.length > 0 ? (
                                 menus.map((menu) => (
                                     <option key={menu.menuId} value={menu.menuId}>
@@ -255,6 +258,17 @@ function AdminProductManage() {
                             css={s.input}
                             name="menuName"
                             value={formData.menuName}
+                            onChange={handleInputValueOnChange}
+                            disabled={!isEditing}
+                        />
+                    </div>
+                    <div>
+                        <label css={s.label}>상품명(영문)</label>
+                        <input
+                            type="text"
+                            css={s.input}
+                            name="menuNameEng"
+                            value={formData.menuNameEng}
                             onChange={handleInputValueOnChange}
                             disabled={!isEditing}
                         />
