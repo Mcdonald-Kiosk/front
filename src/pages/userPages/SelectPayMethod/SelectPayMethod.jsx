@@ -60,16 +60,33 @@ const SelectPayMethod = () => {
 
     const [orderNumber, setOrderNumber] = useState(() => {
         const savedOrderId = localStorage.getItem('orderId');
-        return savedOrderId ? parseInt(savedOrderId, 10) : 1000;
+        const savedTimestamp = localStorage.getItem('orderIdTimestamp');
+    
+        const now = Date.now();
+        const ONE_DAY = 24 * 60 * 60 * 1000;
+    
+        // 하루 지났는지 판단
+        if (savedOrderId && savedTimestamp && now - parseInt(savedTimestamp, 10) < ONE_DAY) {
+            return parseInt(savedOrderId, 10);
+        } else {
+            // 하루 지났으면 초기화
+            localStorage.setItem('orderId', '1000');
+            localStorage.setItem('orderIdTimestamp', now.toString());
+            return 1000;
+        }
     });
-
+  
 
     
     // 주문 번호를 증가시키고 localStorage에 저장
     const incrementOrderId = () => {
         const newOrderId = orderNumber + 1;
-        localStorage.setItem('orderId', newOrderId);  // 증가된 번호 저장
-        setOrderNumber(newOrderId);  // 상태 업데이트
+        const now = Date.now();
+    
+        localStorage.setItem('orderId', newOrderId.toString());
+        localStorage.setItem('orderIdTimestamp', now.toString());
+    
+        setOrderNumber(newOrderId);
     };
 
     // 지금은 임시로 주문번호를 쓰는데, 관리자 메뉴쪽에서 주문번호를 관리하는 페이지를 만들어서, 1000 9001 9001 9002 9003 / 9001 9066
@@ -85,96 +102,89 @@ const SelectPayMethod = () => {
     // ✅ 장바구니 데이터를 order_detail_tb용으로 가공
     const buildOrderDetailList = async () => {
         if (!menuData || menuData.length === 0) return [];
-
+    
         const orderDetailList = [];
-
-        await addedCartState.forEach((item) => {
+    
+        const realOrderId = orderIdFromTb + 1; // ✅ 여기서 바로 쓰자
+        console.log("orderIdFromTb + 1:", realOrderId);
+    
+        addedCartState.forEach((item) => {
             const { isSet, detailMenu, detailSide, detailDrink, sideSize, drinkSize, quantity } = item;
-
-            setAddOrderId(orderIdFromTb + 1);
-            console.log("아악");
-
+    
             const mainMenu = menuData.find((menu) =>
-                menu.menuName === detailMenu
+                language === "영어" ? menu.menuNameEng === detailMenu : menu.menuName === detailMenu
             );
-
+    
             if (mainMenu) {
                 let priceInfo = null;
-                if (mainMenu.menuCategory === "버거") {
+                if (["버거", "디저트", "맥모닝"].includes(mainMenu.menuCategory)) {
                     priceInfo = mainMenu.menuPrice[0];
                 }
-                if (mainMenu.menuCategory === "디저트") {
-                    priceInfo = mainMenu.menuPrice[0];
+                if (["사이드", "음료", "커피"].includes(mainMenu.menuCategory)) {
+                    const targetSize = mainMenu.menuCategory === "사이드" ? sideSize : drinkSize;
+                    priceInfo = mainMenu.menuPrice.find(price => price.size === targetSize);
                 }
-                if (mainMenu.menuCategory === "맥모닝") {
-                    priceInfo = mainMenu.menuPrice[0];
-                }
-                if (mainMenu.menuCategory === "사이드") {
-                    priceInfo = mainMenu.menuPrice.find(price => price.size === sideSize);
-                }
-                if (mainMenu.menuCategory === "음료") {
-                    priceInfo = mainMenu.menuPrice.find(price => price.size === drinkSize);
-                }
-                if (mainMenu.menuCategory === "커피") {
-                    priceInfo = mainMenu.menuPrice.find(price => price.size === drinkSize);
-                }
-
+    
                 if (priceInfo) {
                     orderDetailList.push({
-                        orderId: addOrderId, 
-                        menuPriceId: priceInfo.menuPriceId, // 가격 ID
-                        menuCount: quantity, // 수량
-                        isSet: isSet? 1 : 0, // 세트 여부
+                        orderId: realOrderId,
+                        menuPriceId: priceInfo.menuPriceId,
+                        menuCount: quantity,
+                        isSet: isSet ? 1 : 0,
                     });
                 }
             }
-
-            // 사이드 메뉴 추가
+    
+            // 사이드
             if (detailSide) {
                 const sideMenu = menuData.find((menu) =>
-                    menu.menuName === detailSide &&
-                    menu.menuPrice.some(price => price.size === sideSize)
+                    language === "영어"
+                        ? menu.menuNameEng === detailSide
+                        : menu.menuName === detailSide
                 );
-
+    
                 if (sideMenu) {
                     const priceInfo = sideMenu.menuPrice.find(price => price.size === sideSize);
                     if (priceInfo) {
                         orderDetailList.push({
-                            orderId: addOrderId, 
-                            menuPriceId: priceInfo.menuPriceId, // 가격 ID
-                            menuCount: quantity, // 수량
-                            isSet: isSet? 1 : 0, // 사이드는 세트 메뉴가 아니므로 false
+                            orderId: realOrderId,
+                            menuPriceId: priceInfo.menuPriceId,
+                            menuCount: quantity,
+                            isSet: isSet ? 1 : 0,
                         });
                     }
                 }
             }
-
-            // 음료 메뉴 추가
+    
+            // 음료
             if (detailDrink) {
                 const drinkMenu = menuData.find((menu) =>
-                    menu.menuName === detailDrink &&
-                    menu.menuPrice.some(price => price.size === drinkSize)
+                    language === "영어"
+                        ? menu.menuNameEng === detailDrink
+                        : menu.menuName === detailDrink
                 );
-
+    
                 if (drinkMenu) {
                     const priceInfo = drinkMenu.menuPrice.find(price => price.size === drinkSize);
                     if (priceInfo) {
                         orderDetailList.push({
-                            orderId: addOrderId, 
-                            menuPriceId: priceInfo.menuPriceId, // 가격 ID
-                            menuCount: quantity, // 수량
-                            isSet: isSet? 1 : 0, // 음료는 세트 메뉴가 아니므로 false
+                            orderId: realOrderId,
+                            menuPriceId: priceInfo.menuPriceId,
+                            menuCount: quantity,
+                            isSet: isSet ? 1 : 0,
                         });
                     }
                 }
             }
         });
-
+    
         return orderDetailList;
     };
+    
 
     const handlePaymentOnClick = async () => {
         try {
+            console.log("여기 실행되야 하는데?")
             const orderDetailList = await buildOrderDetailList();
             const orderIdFromList = products[0].orderNumber;
             incrementOrderId();  
