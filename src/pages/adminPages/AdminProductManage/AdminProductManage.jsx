@@ -263,7 +263,7 @@ function AdminProductManage() {
                         />
                     </div>
                     <div>
-                        <label css={s.label}>상품명(영문)</label>
+                        <label css={s.label}>상품 영문명</label>
                         <input
                             type="text"
                             css={s.input}
