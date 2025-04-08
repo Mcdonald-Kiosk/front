@@ -17,3 +17,7 @@ export const setTokenLocalStorage = (name, token) => {
         localStorage.removeItem(name);
     }
 }
+
+export const getTokenFromLocalStorage = (key) => {
+    return localStorage.getItem(key);
+}

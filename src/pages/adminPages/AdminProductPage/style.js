@@ -4,68 +4,41 @@ export const mainContainer = css`
     display: flex;
     justify-content: center; 
     align-items: center; 
-    height: 100%; 
-    width: 100%; 
-    margin: 0;
-    padding: 0;
-`;
-
-export const mainLayout = css`
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    `;
-
-export const conBox = css`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     box-sizing: border-box;
-    position: relative;
-    
-
-    
+    margin: 0;
+    padding: 5rem;
 `;
 
 export const mainCon = css`
     display: flex;
-    justify-content: space-end;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
 
     & > div {
-        margin-top: 5rem;
-        width: 33rem;
-        height: 33rem;
-        background-color: #47a8af;
+        width: 35rem;
+        height: 60rem;
         border-radius: 3rem;
         cursor: pointer;
-        font-size: 5rem;
-        text-align: center;
-        
-        &:hover {
-            text-decoration: underline;
-        }
+    }  
+`;
 
-        & > svg {
-            margin-top: 10rem;
-            
-            & > path {
-                font-size: 3rem;
-            }
-        }
-
-        & > h5 {
-            margin-top: 0;
-        }
+export const content = css`
+    width: 100%;
+    height: 100%;
+    margin: 0 3.5rem;
+    border-radius: 2rem;
+    overflow: hidden;
+    
+    & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
     
-    & > div:nth-of-type(2) {
-        margin-right: 15rem;
-        margin-left: 15rem;
-        background-color: #a837aa;
-    }
-
-    & > div:nth-of-type(3) {
-        background-color: #42df34;
+    &:hover {
+        transition: transform 0.4s ease-in-out;
+        transform: scale(1.1);
     }
 `;

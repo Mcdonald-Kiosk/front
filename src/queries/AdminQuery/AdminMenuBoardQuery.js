@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllMenuListApi, getCategoriesApi } from "../../apis/AdminApi/AdminMenuBoardApi";
+import { getAllInfoMenuByIdApi, getAllMenuListApi, getCategoriesApi } from "../../apis/AdminApi/AdminMenuBoardApi";
 
 //카테고리 불러오기
 export const useGetCategories = () => useQuery({
@@ -19,16 +19,19 @@ export const useAllMenuList = () => useQuery({
     gcTime: 1000 * 60 * 5
 });
 
+//아이디에 해당하는 메뉴 상세정보 불러오기
+export const useInfoMenuById = (menuId) => useQuery({
+    queryKey: ["useInfoMenuById", menuId],
+    queryFn: () => getAllInfoMenuByIdApi({menuId}),
+    //풀어쓴 형태 - 학습용 삭제 ㄴㄴ
+    // queryFn: async () => {
+    //     const params = {
+    //         "menuId": menuId,
+    //     }
+    //     return await getAllInfoMenuByIdApi(params);
+    // },
 
-// //페이지 수 정보
-// export const useMenuListByCategory = (params) => useQuery({
-//     queryKey: ["useMenuListByCategory"], //["useCountMenuListByCategory", params]
-//     queryFn: async () => {
-//         console.log("요청!")
-//         return await getMenuListByCategoryApi(params);
-//     },
-//     retry: 0,
-//     staleTime: 1000 * 60 * 10,
-//     gcTime: 1000 * 60 * 5
-// });
-
+    retry: 0,
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 5
+}) 

@@ -3,36 +3,38 @@ import { MdInfoOutline, MdOutlineCategory, MdProductionQuantityLimits } from 're
 import * as s from './style';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import AdminHeader from '../../../components/common/AdminHeader/AdminHeader';
 
 function AdminProductPage(props) {
     const navigate = useNavigate();
 
-    const handleProduckServiceOnClick = () => {
+    const handleProductManageOnClick = () => {
         navigate("/admin/main/product/manage")
     }
 
+    const handleCategoryOnClick = () => {
+        navigate("/admin/main/product/category")
+    }
+
+    const handleProductInfoOnClick = () => {
+        navigate("/admin/main/product/information")
+    }
 
     return (
-        <div css={s.mainContainer}>
-            <div css={s.mainLayout}>
-                <div css={s.conBox}>
-                    <div css={s.mainCon}>
-                        <div onClick={handleProduckServiceOnClick}>
-                            <MdProductionQuantityLimits/>
-                            <h5>상품 관리</h5>
-                        </div>
-                        <div>
-                            <MdOutlineCategory />
-                            <h5>카테고리 관리</h5>
-                        </div>
-                        <div>
-                            <MdInfoOutline />
-                            <h5>영양정보/원산지 관리</h5>
-                        </div>
-                    </div>
+        <>
+            <AdminHeader title={"제품 관리"} />
+            <div css={s.mainCon}>
+                <div css={s.content} onClick={handleProductManageOnClick}>
+                    <img src="https://github.com/hz-uiw/project_img/blob/main/mcdonald_kiosk_project/admin_menu_productManage.png?raw=true" alt="" />
+                </div>
+                <div css={s.content} onClick={handleCategoryOnClick}>
+                    <img src="https://github.com/hz-uiw/project_img/blob/main/mcdonald_kiosk_project/admin_menu_category.png?raw=true" alt="" />
+                </div>
+                <div css={s.content} onClick={handleProductInfoOnClick}>
+                    <img src="https://github.com/hz-uiw/project_img/blob/main/mcdonald_kiosk_project/admin_menu_nutrition&origin.png?raw=true" alt="" />
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

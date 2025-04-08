@@ -1,62 +1,99 @@
+import React, { useEffect, useState } from 'react';
 /**@jsxImportSource @emotion/react */
-import { useNavigate } from 'react-router-dom';
-import BurgerMenu from './menu/BurgerMenu';
-import DrinkMenu from './menu/DrinkMenu';
-// import HappySnackMenu from './menu/HappySnackMenu';
-// import RecommendMenu from './menu/RecommendMenu';
-import SideMenu from './menu/SideMenu';
 import * as s from './style';
-import React, { useState, useEffect } from 'react';
-import CoffeeMenu from './menu/CoffeeMenu';
 import CallManagerModal from '../../../components/Modal/CallManagerModal/CallManagerModal';
 import MenuDetailModal from '../../../components/Modal/MenuDetailModal/MenuDetailModal';
-import MenuModifySideAndDrinkModal from '../../../components/Modal/MenuModifySideAndDrinkModal/MenuModifySideAndDrinkModal';
-import DessertMenu from './menu/DessertMenu';
+import MenuModifyModal from '../../../components/Modal/MenuModifyModal/MenuModifyModal';
 import { addedCart } from '../../../atoms/addedCart/addedCart';
 import { useRecoilState } from 'recoil';
-
-// 보류@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+import MenuCategory from './menu/MenuCategory';
+import { disabledCategoriesState } from '../../../atoms/disabledCategories/disabledCategories';
+import { orderedCategoriesState } from '../../../atoms/orderedCategoriesState/orderedCategoriesState';
+import { useNavigate } from 'react-router-dom';
+import { selectedLanguageState } from '../../../atoms/selectedLanguage/selectedLanguage';
 
 function OrderPage(props) {
     const navi = useNavigate();
-
-    // 선택된 카테고리 상태 추가
-    const [selectedCategory, setSelectedCategory] = useState("버거");
-
-    // 장바구니
+    const [selectedCategory, setSelectedCategory] = useState(null);
     const [addedCartState, setAddedCartState] = useRecoilState(addedCart);
-
-    // 세트메뉴의 사이드와 음료 수정 모달
     const [editingItem, setEditingItem] = useState(null);
+    const [selectedMenu, setSelectedMenu] = useState(null);
+    
+    const [categories] = useRecoilState(orderedCategoriesState); // 기존 useState 제거
+    const [disabledCategories] = useRecoilState(disabledCategoriesState); // atom 사용
+    
+    const [selectedLanguage] = useRecoilState(selectedLanguageState); // 선택된 언어의 전역 상태 
+
+    const languageTexts = {
+        한국어: {
+            backToHome: "처음으로",
+            order: "주문하기",
+            voucher: "상품권",
+            emptyCart: "장바구니에 아무것도 없습니다.",
+            modify: "수정",
+            delete: "삭제",
+            set: "세트",
+            currency: "원" // 추가
+        },
+        영어: {
+            backToHome: "Home",
+            order: "Order Now",
+            voucher: "Voucher",
+            emptyCart: "Your cart is empty.",
+            modify: "Modify",
+            delete: "Delete",
+            set: "Set",
+            currency: "KRW" // 추가
+        }
+    };
+
+    // 카테고리는 DB에서 들고오는거라 영어를 따로 지정해서 사용하기 힘듦 그래서 조건으로 줘야함
+    const categoryTranslations = {
+        "버거": { 한국어: "버거", 영어: "Burger" },
+        "디저트": { 한국어: "디저트", 영어: "Dessert" },
+        "사이드": { 한국어: "사이드", 영어: "Side" },
+        "음료": { 한국어: "음료", 영어: "Drink" },
+        "커피": { 한국어: "커피", 영어: "Coffee" },
+        "맥모닝": { 한국어: "맥모닝", 영어: "McMorning" },
+        // 필요하면 계속 추가 가능
+    };
+
+    
+    useEffect(() => {
+        if (categories.length > 0) {
+            // 카테고리 로드 후 첫 번째 활성화된 카테고리로 초기값 설정
+            const firstAvailableCategory = categories.find(category => !disabledCategories.includes(category));
+            setSelectedCategory(firstAvailableCategory || categories[0]);
+        }
+    }, [categories, disabledCategories]);
+
+    console.log("장바구니 :", addedCartState);
 
     const handleMenuCategoryOnClick = (category) => {
         if (selectedCategory !== category) {
             setSelectedCategory(category);
         }
-    }
-    
-    const handleBackMenuOnClick = () => {
-        navi("/menu");
-    }
+    };
 
-    // 선택된 메뉴 정보를 저장할 상태
-    const [selectedMenu, setSelectedMenu] = useState(null);
+    const handleBackMenuOnClick = () => {
+        setAddedCartState([]);
+        navi("/menu");
+    };
+
+    const handlePaymentOnClick = () => {
+        navi("/prePayment");
+    };
 
     const handleMenuItemClick = (menu) => {
-        setSelectedMenu(menu); // 메뉴 클릭 시 모달에 정보를 전달
-    }
+        setSelectedMenu(menu);
+    };
 
     const handleCloseMenuDetailModal = () => {
-        setSelectedMenu(null); // 모달 닫기
-    }
+        setSelectedMenu(null);
+    };
 
-    // 삭제할 아이템의 index로 .filter()를 사용하여 해당 index가 아닌 요소만 남김
     const handleRemoveFromCart = (index) => {
-        setAddedCartState(prevCart => {
-            const updatedCart = prevCart.filter((_, i) => i !== index);
-            console.log("Updated Cart after Removal:", updatedCart);
-            return updatedCart;
-        });
+        setAddedCartState(prevCart => prevCart.filter((_, i) => i !== index));
     };
 
     const handleModifyFromCart = (index) => {
@@ -64,73 +101,48 @@ function OrderPage(props) {
     };
 
     const handleSaveModifiedItem = (updatedItem) => {
-        setAddedCartState(prevCart => 
-            prevCart.map((item, i) => (i === updatedItem.index ? updatedItem : item))
-        );
+        setAddedCartState(prevCart => prevCart.map((item, i) => (i === updatedItem.index ? updatedItem : item)));
         setEditingItem(null);
     };
 
-    // quantity 를 1씩 증가
     const handleUpFromCart = (index) => {
-        setAddedCartState(prevCart => {
-            const updatedCart = prevCart.map((item, i) =>
-                i === index ? { ...item, quantity: item.quantity + 1 } : item
-            );
-            console.log("Updated Cart after Increment:", updatedCart[0]);
-            return updatedCart;
-        });
+        setAddedCartState(prevCart => prevCart.map((item, i) =>
+            i === index ? { ...item, quantity: item.quantity + 1 } : item
+        ));
     };
 
-    // quantity 를 1씩 감소 (최소값 1 유지)
     const handleDownFromCart = (index) => {
-        setAddedCartState(prevCart => {
-            const updatedCart = prevCart.map((item, i) =>
-                i === index && item.quantity > 1
-                    ? { ...item, quantity: item.quantity - 1 }
-                    : item
-            );
-            console.log("Updated Cart after Decrement:", updatedCart[0]);
-            return updatedCart;
-        });
+        setAddedCartState(prevCart => prevCart.map((item, i) =>
+            i === index && item.quantity > 1
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+        ));
     };
-
-    // menu_id -> 갯수만 있으면 백엔드에서 계산해서 db에 넣는다
-    // 장바구니 결제전에 이 2가지로 계싼
-    
 
     return (
-        <div css={s.container}>
+        <>
             <header css={s.logoAnd2button}>
                 <div css={s.mcdonaldLogo}>
                     <img src="https://pngimg.com/uploads/mcdonalds/mcdonalds_PNG17.png" alt="" />
                 </div>
                 <div css={s.buttons}>
-                    <div onClick={handleBackMenuOnClick}>처음으로</div>
+                    <div onClick={handleBackMenuOnClick}>{languageTexts[selectedLanguage].backToHome}</div>
                     <CallManagerModal />
                 </div>
             </header>
 
             <main css={s.body}>
                 <div css={s.category}>
-                    {/* <div onClick={() => handleMenuCategoryOnClick("추천메뉴")}>🔥 추천메뉴</div> */}
-                    <div onClick={() => handleMenuCategoryOnClick("버거")}>🍔 버거</div>
-                    {/* <div onClick={() => handleMenuCategoryOnClick("해피스낵")}>🍟 해피스낵</div> */}
-                    <div onClick={() => handleMenuCategoryOnClick("사이드")}>🍗 사이드</div>
-                    <div onClick={() => handleMenuCategoryOnClick("음료")}>🥤 음료</div>
-                    <div onClick={() => handleMenuCategoryOnClick("커피")}>☕ 커피</div>
-                    <div onClick={() => handleMenuCategoryOnClick("디저트")}>🍦 디저트</div>
-                    <div>테스트 2</div>
-                    <div>테스트 3</div>
+                {categories
+                    .filter(category => !disabledCategories.includes(category))
+                    .map(category => (
+                        <div key={category} onClick={() => handleMenuCategoryOnClick(category)}>
+                        {categoryTranslations[category]?.[selectedLanguage] || category}
+                        </div>
+                    ))}
                 </div>
                 <div css={s.menu}>
-                    {/* 선택된 카테고리에 따라 메뉴를 렌더링하고, 각 메뉴 항목 클릭 시 handleMenuItemClick 호출 */}
-                    {/* {selectedCategory === "추천메뉴" && <RecommendMenu onMenuItemClick={handleMenuItemClick} />} */}
-                    {selectedCategory === "버거" && <BurgerMenu onMenuItemClick={handleMenuItemClick} />}
-                    {/* {selectedCategory === "해피스낵" && <HappySnackMenu onMenuItemClick={handleMenuItemClick} />} */}
-                    {selectedCategory === "사이드" && <SideMenu onMenuItemClick={handleMenuItemClick} />}
-                    {selectedCategory === "음료" && <DrinkMenu onMenuItemClick={handleMenuItemClick} />}
-                    {selectedCategory === "커피" && <CoffeeMenu onMenuItemClick={handleMenuItemClick} />}
-                    {selectedCategory === "디저트" && <DessertMenu onMenuItemClick={handleMenuItemClick} />}
+                    <MenuCategory selectedCategory={selectedCategory} onMenuItemClick={handleMenuItemClick} />
                 </div>
             </main>
 
@@ -139,46 +151,42 @@ function OrderPage(props) {
                     {addedCartState.length > 0 ? (
                         <ul>
                             {addedCartState.map((item, index) => (
-                                <div css={s.xUpDown} key={index}>
-                                    <div>
-                                        <li>
-                                            {item.detailMenu} 
-                                            <span style={{ marginLeft: "auto" }}>
-                                                {item.isSet && " 세트"}
-                                            </span>
-                                            - {item.detailPrice}원
-                                        </li>   
-                                    </div>
-                                    <div>
-                                        <span>
-                                        {/* 수정 버튼은 isSet이 true이거나 실제 메뉴 이름이 일치하는 경우에만 보임 */}
-                                        {(item.isSet) && (
-                                            <button onClick={() => handleModifyFromCart(index)}>수정</button>
-                                        )}
-                                            <button onClick={() => handleRemoveFromCart(index)}>삭제</button>
+                                <li key={index}>
+                                    <div css={s.cartList}>
+                                        {index + 1}. {item.detailMenu} 
+                                        <span style={{ marginLeft: "auto" }}>
+                                            {item.isSet && `${languageTexts[selectedLanguage].set}`}
                                         </span>
+                                        - {item.detailPrice}{languageTexts[selectedLanguage].currency} x {item.quantity}
+                                    </div>
+                                    <div css={s.cartListButtons}>
                                         <div>
                                             <button onClick={() => handleUpFromCart(index)}>▲</button>
                                             <button onClick={() => handleDownFromCart(index)}>▼</button>
                                         </div>
+                                        <span>
+                                            {(item.isSet) && (
+                                                <button css={s.edit} onClick={() => handleModifyFromCart(index)}>{languageTexts[selectedLanguage].modify}</button>
+                                            )}
+                                            <button onClick={() => handleRemoveFromCart(index)}>{languageTexts[selectedLanguage].delete}</button>
+                                        </span>
                                     </div>
-                                </div>
-                            ))}
+                                </li>
+                            ))} 
                         </ul>
                     ) : (
-                        <p>장바구니에 아무것도 없습니다.</p>
+                        <p>{languageTexts[selectedLanguage].emptyCart}</p>
                     )}
                 </div>
                 <span>
-                    <p>주문하기</p>
-                    <p>마일리지 조회</p>
+                    <p onClick={handlePaymentOnClick}>{languageTexts[selectedLanguage].order}</p>
+                    <p>{languageTexts[selectedLanguage].voucher}</p>
                 </span>
             </footer>
 
-            {/* 선택된 메뉴가 있을 경우 모달을 띄운다 */}
             {selectedMenu && <MenuDetailModal menu={selectedMenu} onClose={handleCloseMenuDetailModal} />}
-            {editingItem && <MenuModifySideAndDrinkModal menu={editingItem} onClose={() => setEditingItem(null)} onSave={handleSaveModifiedItem} />}
-        </div>
+            {editingItem && <MenuModifyModal menu={editingItem} onClose={() => setEditingItem(null)} onSave={handleSaveModifiedItem} />}
+        </>
     );
 }
 
