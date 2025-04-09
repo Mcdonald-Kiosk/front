@@ -4,6 +4,7 @@ import { useUpdateIsPosureMutation } from '../../../mutations/adminMutaion';
 import { useInfoMenuById } from '../../../queries/AdminQuery/AdminMenuBoardQuery';
 import * as s from './style';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 function AdminMenuInfoModal({ setOpen, menuId }) {
 
@@ -32,13 +33,24 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
     //노출여부 변경 및 목록 다시 불러오기
     const handleChangeIsExposureOnClick = async (menuId, isExposure) => {
         await updateIsExposureMutation.mutateAsync({ "menuId": menuId, "isExposure": isExposure });
-        // await Swal.fire({
-        //     icon: "success",
-        //     text: "로그인 성공",
-        //     timer: 1000,
-        //     position:"center",
-        //     showConfirmButton: false,
-        // });
+        if(isExposure === 1) {
+            await Swal.fire({
+                icon: "info",
+                text: "메뉴가 보이게 됩니다",
+                timer: 1000,
+                position:"center",
+                showConfirmButton: false,
+            });
+        } else {
+            await Swal.fire({
+                icon: "warning",
+                text: "메뉴가 보이지 않게 됩니다",
+                timer: 1000,
+                position:"center",
+                showConfirmButton: false,
+            });
+        }
+
         getInfoMenuById.refetch();
     }
     
