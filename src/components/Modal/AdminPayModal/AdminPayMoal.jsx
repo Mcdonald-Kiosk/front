@@ -2,6 +2,7 @@
 import axios from 'axios';
 import * as s from './style';
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 0
 function AdminPayMoal({ setOpen, payData }) { //uuid 넘겨받기
 
@@ -83,7 +84,14 @@ function AdminPayMoal({ setOpen, payData }) { //uuid 넘겨받기
                     }
                 }
             );
-            alert("결제 취소가 완료되었습니다");
+            //alert("결제 취소가 완료되었습니다");
+            await Swal.fire({
+                icon: "error",
+                title: "결제가 취소되었습니다.",
+                position:"center",
+                confirmButtonText: "새로고침을 해주세요",
+                showConfirmButton: true,
+            });
             setIsCancel(payData.status); //결제 취소 상태 저장
             //console.log(payData.status);
         }  catch(error) {
