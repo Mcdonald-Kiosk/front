@@ -87,10 +87,10 @@ function AdminPayMoal({ setOpen, payData }) { //uuid 넘겨받기
             //alert("결제 취소가 완료되었습니다");
             await Swal.fire({
                 icon: "error",
-                text: "결제가 취소되었습니다",
-                timer: 1500,
+                title: "결제가 취소되었습니다.",
                 position:"center",
-                showConfirmButton: false,
+                confirmButtonText: "새로고침을 해주세요",
+                showConfirmButton: true,
             });
             setIsCancel(payData.status); //결제 취소 상태 저장
             //console.log(payData.status);

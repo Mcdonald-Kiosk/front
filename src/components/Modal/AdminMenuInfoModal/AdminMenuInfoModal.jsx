@@ -19,10 +19,14 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
     //console.log(getInfoMenuById);
     // console.log(selectedSizeMenu);
     // console.log(selectedSizePrice);
-    console.log(getInfoMenuById.data?.data[0])
+    //console.log(getInfoMenuById.data?.data[0])
 
     useEffect( () => { //사이즈 바뀔때마다 재로딩
     }, [isSize]);
+
+    useEffect(() => { //다른 페이지에서 메뉴 수정했을 경우 반영
+        getInfoMenuById.refetch();
+    }, [setOpen])
 
     //사이즈 변경 함수
     const sizeChangeSwitchOnClick = () => {
