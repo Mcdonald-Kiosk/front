@@ -101,8 +101,8 @@
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/ez0603">
-                <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/50f5a224-bbbc-4486-9ce0-b873d962898d" width="150" height="150" />
+            <a href="https://github.com/initialX00">
+                <img src="https://github.com/user-attachments/assets/abeb65dd-8e54-4ac8-a35e-58560d13211c" width="150" height="150" />
             </a>
         </td>
         <td align="center">
