@@ -35,19 +35,61 @@ export const header = css`
 `;
 
 export const pay = css`
+    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
+    padding: 2rem;
     width: 100%;
-    height: 80%;
-    
+    height: 100%;
+    background-color:#fafafa;
+
     & > div {
         display: flex;
         width: 100%;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         overflow-y: auto;
 
+        & > ul {
+            flex-grow: 1;
+            margin: 0;
+            padding: 0;
+            list-style-type: circle;
+
+            & > li {
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                padding: 0.6rem;
+                width: 100%;
+            }
+        }
+
+    
         &::-webkit-scrollbar {
             display: none;
+        }
+    }
+    
+    & > span {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        & > p {
+            box-sizing: border-box;
+            display: flex;
+            margin: 0;
+            width: 10rem;
+            height: 10rem;
+            justify-content: center;
+            align-items: center;
+            background-color: #1c7a2c;
+            border-radius: 1rem;
+            font-size: 1.4rem;
+            color: white;
+            cursor: pointer;
+            &:nth-of-type(1) {
+                margin-bottom: 1rem;
+            }
         }
     }
 `;
@@ -124,6 +166,47 @@ export const footer = css`
             color: white;
             
             
+        }
+    }
+`;
+
+export const cartList = css`
+    display: flex;
+    width: fit-content;
+    font-size: 1.4rem;
+    cursor: default;
+`;
+
+export const cartListButtons = css`
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: 1rem;
+
+    & > div {
+        display: flex;
+        flex-direction: column;
+        
+        & > button {
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+            font-size: 1.2rem;
+            line-height: 0.8rem;
+        }
+    }
+
+    & > span  {
+        & > button {
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+            background-color: #db4455;
+            border-radius: 0.4rem;
+            padding: 0.3rem 1rem;
+            color: #fafafa;
         }
     }
 `;
