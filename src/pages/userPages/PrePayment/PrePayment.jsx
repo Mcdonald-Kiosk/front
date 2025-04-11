@@ -30,7 +30,7 @@ const languageTexts = {
     }
 };
 
-function PrePayment() {
+function  PrePayment() {
     const navi = useNavigate();
     const language = useRecoilValue(selectedLanguageState);
     const t = languageTexts[language];
