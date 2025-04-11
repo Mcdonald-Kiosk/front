@@ -488,11 +488,10 @@
 
 ### 🧑‍🤝‍🧑 사용자 메뉴 구조도
 
-![사용자 메뉴 구조도](https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/cf4b1b29-41a2-49b3-bd88-e5b296974160)
+![사용자 메뉴 구조도](https://github.com/user-attachments/assets/3675d406-a940-4a13-ac96-88d569f66bf3)
 
 ### 👷‍♂️ 관리자 메뉴 구조도
-
-![관리자 메뉴 구조도](https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/8077db0a-0d1b-4ee8-87bb-4f4117c9f527)
+![관리자 메뉴 구조도](https://github.com/user-attachments/assets/c5209c05-6643-4bc2-9bd3-0ed6cea97122)
 
 <p align="right" dir="auto">
 <a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
