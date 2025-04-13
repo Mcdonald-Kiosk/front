@@ -517,7 +517,7 @@
 ### 🔐 관리자 계정 화면
 
 <div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/78b652d9-54cc-47e4-86ce-9d6d2d747096" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/d4ee4323-8ff7-46cf-aae0-2e35884f7291" align="center" width="100%"/>
     <b>로그인 화면</b>
 </div>
 <br/>
@@ -531,7 +531,41 @@
     <b>회원가입 화면</b>
 </div>
 <br/>
+<div align="center" dir="auto">
 
+    <b>로그인 화면</b>
+</div>
+<br/>
+<div align="center" dir="auto">
+
+    <b>로그인 화면</b>
+</div>
+<br/>
+<div align="center" dir="auto">
+
+    <b>로그인 화면</b>
+</div>
+<br/>
+<div align="center" dir="auto">
+
+    <b>로그인 화면</b>
+</div>
+<br/>
+<div align="center" dir="auto">
+
+    <b>로그인 화면</b>
+</div>
+<br/>
+<div align="center" dir="auto">
+
+    <b>로그인 화면</b>
+</div>
+<br/>
+<div align="center" dir="auto">
+
+    <b>로그인 화면</b>
+</div>
+<br/>
 ### 🍔 주문 화면
 
 <div align="center" dir="auto">
