@@ -518,17 +518,17 @@
 
 <div align="center" dir="auto">
     <img src="https://github.com/user-attachments/assets/d4ee4323-8ff7-46cf-aae0-2e35884f7291" align="center" width="100%"/>
-    <b>로그인 화면</b>
-</div>
-<br/>
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/0b3f8595-a078-4318-8733-09999dd1c76d" align="center" width="100%"/>
-    <b>로그아웃 화면</b>
-</div>
-<br/>
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/bb8c4ddd-907d-4176-9d29-3258eae0a5ae" align="center" width="100%"/>
     <b>회원가입 화면</b>
+</div>
+<br/>
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/7a93ed03-0180-4395-afa1-f2a99d633ae0" align="center" width="100%"/>
+    <b>로그인 및 로그아웃 화면</b>
+</div>
+<br/>
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/f8ab0644-dd1f-40f0-8eda-5c72f426b250" align="center" width="100%"/>
+    <b>OAuth회원가입 화면</b>
 </div>
 <br/>
 <div align="center" dir="auto">
