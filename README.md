@@ -517,69 +517,79 @@
 ### 🔐 관리자 계정 화면
 
 <div align="center" dir="auto">
+    <b>회원가입 및 로그인 화면</b>
     <img src="https://github.com/user-attachments/assets/d4ee4323-8ff7-46cf-aae0-2e35884f7291" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/b78b7858-19b4-4909-bdb8-6ca15435fe8" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/f8ab0644-dd1f-40f0-8eda-5c72f426b250" align="center" width="100%"/>
-    <b>회원가입 및 로그인 화면</b>
 </div>
-<br/>
+</br>
+</br>
 <div align="center" dir="auto">
+    <b>메뉴 관리 화면</b>
     <img src="https://github.com/user-attachments/assets/571b67ec-2693-4a74-be21-0bb65e3bb5d4" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/b751a3fc-30dc-4b6e-9436-0e1786956f97" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/46e73636-d758-4bbf-94c0-e229b61ec15c" align="center" width="100%"/>
-    <b>메뉴 관리 화면</b>
+    
 </div>
-<br/>
+</br>
+</br>
 <div align="center" dir="auto">
+    <b>제품 관리 화면</b>
     <img src="https://github.com/user-attachments/assets/84b0c11c-20d5-44ae-b77e-c7e82c704a80" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/18f0f32f-f136-4366-9063-5dcffe914cf6" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/1a9b2517-7bb5-4e38-b1c1-055968e79120" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/297e2915-de1e-40e1-af31-7b8f5e8606db" align="center" width="100%"/>
     <img src="" align="center" width="100%"/>
     <img src="" align="center" width="100%"/>
-    <b>제품 관리 화면</b>
 </div>
-<br/>
+</br>
+</br>
 <div align="center" dir="auto">
+    <b>매출 집계 조회 화면</b>
     <img src="https://github.com/user-attachments/assets/6aaa707d-21f2-4a6c-b941-cbfd44830bac" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/69c63e81-f482-430a-91ee-f1f34e739481" align="center" width="100%"/>
-    <b>매출 집계 조회 화면</b>
 </div>
-<br/>
+</br>
+</br>
 <div align="center" dir="auto">
+    <b>결제 내역 조회 및 취소 화면</b>
     <img src="https://github.com/user-attachments/assets/3f78e538-b01f-45fb-8137-bef73cca0adb" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/86afcce4-38ee-4109-84f3-393c18aa9e1f" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/07dec122-b63a-48f2-a7bb-042428117307" align="center" width="100%"/>
-    <b>결제 내역 조회 및 취소 화면</b>
 </div>
-<br/>
+</br>
+</br>
 <div align="center" dir="auto">
+    <b>관리자 정보 변경 화면</b>
     <img src="https://github.com/user-attachments/assets/d5a30499-8932-4988-81f4-43d0e8af63bc" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/5c800bd9-fb91-4ca6-b7b4-d89d9b74b31f" align="center" width="100%"/>
-    <b>관리자 정보 변경 화면</b>
 </div>
-<br/>
-<br/>
+</br>
+</br>
+</br>
 
 ### 🍔 주문 화면
 
 <div align="center" dir="auto">
-    <img src="https://github.com/user-attachments/assets/c9ccc4b3-637e-472b-8406-f47a8a0b985c" width="100%"/>
     <b>홈 화면</b>
+    <img src="https://github.com/user-attachments/assets/c9ccc4b3-637e-472b-8406-f47a8a0b985c" width="100%"/>
 </div>
-<br/>
+</br>
+</br>
 <div align="center" dir="auto">
+    <b>주문 화면</b>
     <img src="https://github.com/user-attachments/assets/9ad22a6e-82c7-4f01-97c3-17d7b2feca17" width="100%"/>
     <img src="https://github.com/user-attachments/assets/7f79cb9c-78c3-4670-89a5-b38b9dc3384d" width="100%"/>
     <img src="https://github.com/user-attachments/assets/248537ed-4833-447f-ad24-59382e124071" width="100%"/>
-    <b>주문 화면</b>
 </div>
-<br/>
+</br>
+</br>
 <div align="center" dir="auto">
-    <img src="https://github.com/user-attachments/assets/2917aa6b-e7bf-4c13-87a1-fa8d5a76e282" width="100%"/>
     <b>포인트 및 결제</b>
+    <img src="https://github.com/user-attachments/assets/2917aa6b-e7bf-4c13-87a1-fa8d5a76e282" width="100%"/>
 </div>
-<br/>
+</br>
+</br>
 </br>
 </br>
 
