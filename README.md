@@ -500,10 +500,10 @@
 
 ### 🧑‍🤝‍🧑 사용자 메뉴 구조도
 
-![사용자 메뉴 구조도](https://github.com/user-attachments/assets/3675d406-a940-4a13-ac96-88d569f66bf3)
+![사용자 메뉴 구조도](https://github.com/user-attachments/assets/fa0cec62-2c8a-4b35-87b2-377dc99100f7)
 
 ### 👷‍♂️ 관리자 메뉴 구조도
-![관리자 메뉴 구조도](https://github.com/user-attachments/assets/c5209c05-6643-4bc2-9bd3-0ed6cea97122)
+![관리자 메뉴 구조도](https://github.com/user-attachments/assets/c29ba4b1-2ac6-418a-8060-0c45af858e71)
 
 <p align="right" dir="auto">
 <a href="https://github.com/Novel-Ideas/gumeonggage-front">TOP 🔼</a>
