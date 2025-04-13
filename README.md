@@ -518,103 +518,68 @@
 
 <div align="center" dir="auto">
     <img src="https://github.com/user-attachments/assets/d4ee4323-8ff7-46cf-aae0-2e35884f7291" align="center" width="100%"/>
-    <b>회원가입 화면</b>
-</div>
-<br/>
-<div align="center" dir="auto">
-    <img src="https://github.com/user-attachments/assets/7a93ed03-0180-4395-afa1-f2a99d633ae0" align="center" width="100%"/>
-    <b>로그인 및 로그아웃 화면</b>
-</div>
-<br/>
-<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/b78b7858-19b4-4909-bdb8-6ca15435fe8" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/f8ab0644-dd1f-40f0-8eda-5c72f426b250" align="center" width="100%"/>
-    <b>OAuth회원가입 화면</b>
+    <b>회원가입 및 로그인 화면</b>
 </div>
 <br/>
 <div align="center" dir="auto">
-
-    <b>로그인 화면</b>
+    <img src="https://github.com/user-attachments/assets/571b67ec-2693-4a74-be21-0bb65e3bb5d4" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/b751a3fc-30dc-4b6e-9436-0e1786956f97" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/46e73636-d758-4bbf-94c0-e229b61ec15c" align="center" width="100%"/>
+    <b>메뉴 관리 화면</b>
 </div>
 <br/>
 <div align="center" dir="auto">
-
-    <b>로그인 화면</b>
+    <img src="https://github.com/user-attachments/assets/84b0c11c-20d5-44ae-b77e-c7e82c704a80" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/18f0f32f-f136-4366-9063-5dcffe914cf6" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/1a9b2517-7bb5-4e38-b1c1-055968e79120" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/297e2915-de1e-40e1-af31-7b8f5e8606db" align="center" width="100%"/>
+    <img src="" align="center" width="100%"/>
+    <img src="" align="center" width="100%"/>
+    <b>제품 관리 화면</b>
 </div>
 <br/>
 <div align="center" dir="auto">
-
-    <b>로그인 화면</b>
+    <img src="https://github.com/user-attachments/assets/6aaa707d-21f2-4a6c-b941-cbfd44830bac" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/69c63e81-f482-430a-91ee-f1f34e739481" align="center" width="100%"/>
+    <b>매출 집계 조회 화면</b>
 </div>
 <br/>
 <div align="center" dir="auto">
-
-    <b>로그인 화면</b>
+    <img src="https://github.com/user-attachments/assets/3f78e538-b01f-45fb-8137-bef73cca0adb" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/86afcce4-38ee-4109-84f3-393c18aa9e1f" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/07dec122-b63a-48f2-a7bb-042428117307" align="center" width="100%"/>
+    <b>결제 내역 조회 및 취소 화면</b>
 </div>
 <br/>
 <div align="center" dir="auto">
-
-    <b>로그인 화면</b>
+    <img src="https://github.com/user-attachments/assets/d5a30499-8932-4988-81f4-43d0e8af63bc" align="center" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/5c800bd9-fb91-4ca6-b7b4-d89d9b74b31f" align="center" width="100%"/>
+    <b>관리자 정보 변경 화면</b>
 </div>
 <br/>
-<div align="center" dir="auto">
-
-    <b>로그인 화면</b>
-</div>
 <br/>
-<div align="center" dir="auto">
 
-    <b>로그인 화면</b>
-</div>
-<br/>
 ### 🍔 주문 화면
 
 <div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/ae645259-b387-4786-8e59-310bc95e28f2" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/c9ccc4b3-637e-472b-8406-f47a8a0b985c" width="100%"/>
+    <b>홈 화면</b>
+</div>
+<br/>
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/9ad22a6e-82c7-4f01-97c3-17d7b2feca17" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/7f79cb9c-78c3-4670-89a5-b38b9dc3384d" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/248537ed-4833-447f-ad24-59382e124071" width="100%"/>
     <b>주문 화면</b>
 </div>
 <br/>
-<br/>
 <div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/c53f6ce1-f9df-4ec2-888f-43db0b6c8e89" width="100%"/>
-    <b>포인트 적립 결제화면</b>
+    <img src="https://github.com/user-attachments/assets/2917aa6b-e7bf-4c13-87a1-fa8d5a76e282" width="100%"/>
+    <b>포인트 및 결제</b>
 </div>
 <br/>
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/b57232fd-74b6-4416-a988-4139407fe249" width="100%"/>
-    <b>포인트 사용 결제화면</b>
-</div>
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/f2cb1cc8-3f14-4cce-9c2d-34003626bcfb" width="50%" />
-    <br/>
-    <b>카카오페이 결제 화면</b>
-</div>
-
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/2bcb3cb7-00da-4bdf-a927-63b7d5eda19c" width="100%"/>
-    <b>관리자 모드 진입 및 메인 화면</b>
-</div>
-</br>
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/77e261b0-0287-4186-861b-96498588793f" width="100%"/>
-    <b>점포 매출 조회 화면</b>
-</div>
-</br>
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/d4658ac1-4972-4e03-bc73-a731471fbf78" width="100%"/>
-    <b>결제내역 조회 및 결제 취소화면</b>
-</div>
-</br>
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/c057c13a-aa9c-4e0e-92de-d01d6dd600cb" width="100%"/>
-    <b>메뉴 추가 화면</b>
-</div>
-</br>
-<div align="center" dir="auto">
-    <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/106566223/b1c25fb8-1047-4144-ba69-7290033cbfab" width="100%"/>
-    <b>메뉴 수정 화면</b>
-</div>
-</br>
-</br>
 </br>
 </br>
 
