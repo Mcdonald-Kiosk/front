@@ -572,21 +572,21 @@
 </br>
 <div align="center" dir="auto">
     <b>홈 화면</b>
-    <img src="https://github.com/user-attachments/assets/c9ccc4b3-637e-472b-8406-f47a8a0b985c" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/c9ccc4b3-637e-472b-8406-f47a8a0b985c" width="50%"/>
 </div>
 </br>
 </br>
 <div align="center" dir="auto">
     <b>주문 화면</b>
-    <img src="https://github.com/user-attachments/assets/9ad22a6e-82c7-4f01-97c3-17d7b2feca17" width="100%"/>
-    <img src="https://github.com/user-attachments/assets/7f79cb9c-78c3-4670-89a5-b38b9dc3384d" width="100%"/>
-    <img src="https://github.com/user-attachments/assets/248537ed-4833-447f-ad24-59382e124071" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/9ad22a6e-82c7-4f01-97c3-17d7b2feca17" width="50%"/>
+    <img src="https://github.com/user-attachments/assets/7f79cb9c-78c3-4670-89a5-b38b9dc3384d" width="50%"/>
+    <img src="https://github.com/user-attachments/assets/248537ed-4833-447f-ad24-59382e124071" width="50%"/>
 </div>
 </br>
 </br>
 <div align="center" dir="auto">
     <b>포인트 및 결제</b>
-    <img src="https://github.com/user-attachments/assets/2917aa6b-e7bf-4c13-87a1-fa8d5a76e282" width="100%"/>
+    <img src="https://github.com/user-attachments/assets/2917aa6b-e7bf-4c13-87a1-fa8d5a76e282" width="50%"/>
 </div>
 </br>
 </br>
