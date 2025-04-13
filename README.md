@@ -539,8 +539,6 @@
     <img src="https://github.com/user-attachments/assets/18f0f32f-f136-4366-9063-5dcffe914cf6" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/1a9b2517-7bb5-4e38-b1c1-055968e79120" align="center" width="100%"/>
     <img src="https://github.com/user-attachments/assets/297e2915-de1e-40e1-af31-7b8f5e8606db" align="center" width="100%"/>
-    <img src="" align="center" width="100%"/>
-    <img src="" align="center" width="100%"/>
 </div>
 </br>
 </br>
@@ -567,9 +565,11 @@
 </br>
 </br>
 </br>
+</br>
 
 ### 🍔 주문 화면
-
+</br>
+</br>
 <div align="center" dir="auto">
     <b>홈 화면</b>
     <img src="https://github.com/user-attachments/assets/c9ccc4b3-637e-472b-8406-f47a8a0b985c" width="100%"/>
