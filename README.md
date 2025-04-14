@@ -607,8 +607,7 @@
 <div align="center">
     <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/50f5a224-bbbc-4486-9ce0-b873d962898d" width="200" height="200" />
 </div>
-<span>
-</span>
+<span>처음해보는 프로젝트에 조장이 돼서 부담이 많이 됐지만 팀원들이 저를 많이 도와줘서 정말 감사히 생각하고 있습니다. 강사님이 만드시는 것을 따라 만드는 것이 아닌 스스로 웹페이지를 만들어 보는 기회가 되어서 제 부족한 부분과 보충해야 할 점을 알게 되었습니다. 아쉬운 부분도 있지만, 이번 프로젝트 덕에 여태 학습했던 내용을 되짚어보는 좋은 시간이었다고 생각합니다.</span>
 
 ---
 
@@ -626,7 +625,8 @@
 <div align="center">
     <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/b015e01d-1078-428e-a713-a92b23e4ff6a" width="200" height="200" />
 </div>
-
+<span>처음에는 팀원들과 잘 어울릴 수 있을까, 협업은 어떻게 진행될까 하는 걱정이 있었지만, 막상 프로젝트가 시작되고 각자의 역할이 정해지자 다들 자신이 맡은 부분에 집중하며 자연스럽게 협업이 이루어졌습니다.
+처음에는 내가 팀에 얼마나 도움이 될 수 있을까 하는 부담도 있었지만, 맡은 부분을 책임지고 해내면서 작은 성취감도 느낄 수 있었습니다</span>
 
 
 ---
@@ -636,4 +636,4 @@
 <div align="center">
     <img src="https://github.com/Novel-Ideas/gumeonggage-front/assets/83110386/ffb0f7a2-6df1-4935-8b3f-036cf89e344b" width="200" height="200" />
 </div>
-<span> </span>
+<span>코드를 쓸 때 무작정 쓰는 것 보다 조금이라도 계획을 짜고 써야 나중에 더  편하고 유용하다는 걸 알게 됐고 다른 사람들과 협업하는 것 자체로도 재미있었습니다.</span>
