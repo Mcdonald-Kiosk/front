@@ -21,7 +21,7 @@ function UserRoute(props) {
     const [categories, setCategories] = useRecoilState(orderedCategoriesState);
   
     useEffect(() => {
-      if (menuData) {
+      if (menuData && categories.length === 0) {
         const uniqueCategories = [...new Set(menuData.map(menu => menu.menuCategory))];
         setCategories(uniqueCategories);
       }
