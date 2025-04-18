@@ -4,6 +4,7 @@ import { useUpdateIsPosureMutation } from '../../../mutations/adminMutaion';
 import { useInfoMenuById } from '../../../queries/AdminQuery/AdminMenuBoardQuery';
 import * as s from './style';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 function AdminMenuInfoModal({ setOpen, menuId }) {
 
@@ -18,10 +19,14 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
     //console.log(getInfoMenuById);
     // console.log(selectedSizeMenu);
     // console.log(selectedSizePrice);
-    console.log(getInfoMenuById.data?.data[0])
+    //console.log(getInfoMenuById.data?.data[0])
 
     useEffect( () => { //사이즈 바뀔때마다 재로딩
     }, [isSize]);
+
+    useEffect(() => { //다른 페이지에서 메뉴 수정했을 경우 반영
+        getInfoMenuById.refetch();
+    }, [setOpen])
 
     //사이즈 변경 함수
     const sizeChangeSwitchOnClick = () => {
@@ -32,6 +37,24 @@ function AdminMenuInfoModal({ setOpen, menuId }) {
     //노출여부 변경 및 목록 다시 불러오기
     const handleChangeIsExposureOnClick = async (menuId, isExposure) => {
         await updateIsExposureMutation.mutateAsync({ "menuId": menuId, "isExposure": isExposure });
+        if(isExposure === 1) {
+            await Swal.fire({
+                icon: "info",
+                text: "메뉴가 보이게 됩니다",
+                timer: 1000,
+                position:"center",
+                showConfirmButton: false,
+            });
+        } else {
+            await Swal.fire({
+                icon: "warning",
+                text: "메뉴가 보이지 않게 됩니다",
+                timer: 1000,
+                position:"center",
+                showConfirmButton: false,
+            });
+        }
+
         getInfoMenuById.refetch();
     }
     

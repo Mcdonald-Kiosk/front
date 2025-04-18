@@ -78,32 +78,38 @@ function PrePayment() {
     return (
         <>
             <header css={s.header}>
-                <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ec545603-cf4e-48e0-936d-5376ea12fdc0/dh1vv57-b11b6232-616f-4266-8bb2-388aa1f1c548.png" alt="" />
+                <img src="https://t3.ftcdn.net/jpg/05/60/17/66/240_F_560176615_cUua21qgzxDiLiiyiVGYjUnLSGnVLIi6.jpg" alt="" />
                 <p>{t.title}</p>
             </header>
             <main css={s.pay}>
-                {addedCartState.map((item, index) => (
-                    <div css={s.xUpDown} key={index}>
-                        <div>
-                            <li>
-                                {item.detailMenu}
-                                <span style={{ marginLeft: "auto" }}>
-                                    {item.isSet && ` ${t.set}`}
-                                </span>
-                                - {item.detailPrice}{t.currency} × {item.quantity}
-                            </li>
-                        </div>
-                        <div>
-                            <span>
-                                <button onClick={() => handleRemoveFromCart(index)}>{t.delete}</button>
-                            </span>
-                            <div>
-                                <button onClick={() => handleUpFromCart(index)}>▲</button>
-                                <button onClick={() => handleDownFromCart(index)}>▼</button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                <div>
+                    {addedCartState.length > 0 ? (
+                        <ul>
+                            {addedCartState.map((item, index) => (
+                                <li key={index}>
+                                    <div css={s.cartList}>
+                                        {index + 1}. {item.detailMenu} 
+                                        <span style={{ marginLeft: "auto" }}>
+                                            {item.isSet && `${languageTexts[language].set}`}
+                                        </span>
+                                        - {item.detailPrice}{languageTexts[language].currency} x {item.quantity}
+                                    </div>
+                                    <div css={s.cartListButtons}>
+                                        <div>
+                                            <button onClick={() => handleUpFromCart(index)}>▲</button>
+                                            <button onClick={() => handleDownFromCart(index)}>▼</button>
+                                        </div>
+                                        <span>
+                                            <button onClick={() => handleRemoveFromCart(index)}>{languageTexts[language].delete}</button>
+                                        </span>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <></>
+                    )}
+                </div>
             </main>
             <footer css={s.footer}>
                 <div>

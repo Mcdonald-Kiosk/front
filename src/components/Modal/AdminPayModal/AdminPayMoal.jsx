@@ -2,6 +2,7 @@
 import axios from 'axios';
 import * as s from './style';
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 0
 function AdminPayMoal({ setOpen, payData }) { //uuid 넘겨받기
 
@@ -64,6 +65,7 @@ function AdminPayMoal({ setOpen, payData }) { //uuid 넘겨받기
         //console.log(reasons);
         //3초 이상일 때 환불 진행
         setPressMessage("결제가 취소되었습니다");
+
         try { //인증
             const jwtResponse = await axios.post("https://api.portone.io/login/api-secret", {
                 "apiSecret": import.meta.env.VITE_PORTONE_API_KEY,
@@ -82,7 +84,14 @@ function AdminPayMoal({ setOpen, payData }) { //uuid 넘겨받기
                     }
                 }
             );
-            alert("결제 취소가 완료되었습니다");
+            //alert("결제 취소가 완료되었습니다");
+            await Swal.fire({
+                icon: "error",
+                title: "결제가 취소되었습니다.",
+                position:"center",
+                confirmButtonText: "새로고침을 해주세요",
+                showConfirmButton: true,
+            });
             setIsCancel(payData.status); //결제 취소 상태 저장
             //console.log(payData.status);
         }  catch(error) {
@@ -125,7 +134,11 @@ function AdminPayMoal({ setOpen, payData }) { //uuid 넘겨받기
             </div>
             <div css={s.footer}>
                 <div>{pressMessage}</div>
-                <button onClick={handleButtonOnClick} onMouseDown={handleButtonDown} disabled={reasons === "" ? 1 : isCancel === "CANCELLED" ? 1 : 0}>결제취소</button>
+                <button onClick={handleButtonOnClick} 
+                    onMouseDown={handleButtonDown} 
+                    disabled={reasons === "" ? 1 : isCancel === "CANCELLED" ? 1 : 0}>
+                        결제취소
+                </button>
             </div>
 
         </div>

@@ -1,7 +1,7 @@
 /**@jsxImportSource @emotion/react */
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import * as s from './style';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MenuItem, Select } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import { useAllMenuList, useGetCategories } from '../../../queries/AdminQuery/AdminMenuBoardQuery';
@@ -126,7 +126,6 @@ function AdminMenuPage(props) {
 
 
     //console.log(searchMenuList);
-    
     return (
         <>
             <AdminHeader title={"메뉴관리"} rightElement={

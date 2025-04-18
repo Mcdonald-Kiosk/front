@@ -7,6 +7,7 @@ import * as s from "./style";
 import PasswordModal from "../../../components/Modal/AuthModal/PasswordModal/PasswordModal";
 import ChangeEmailModal from "../../../components/Modal/AuthModal/ChangeEmailModal/ChangeEmailModal";
 import AdminHeader from "../../../components/common/AdminHeader/AdminHeader";
+import Swal from "sweetalert2";
 
 function AdminMyPage() {
     const loginUser = useUserMeQuery();
@@ -26,8 +27,17 @@ function AdminMyPage() {
 
     const handleSaveNicknameButtonOnClick = async () => {
         await updateNicknameMutation.mutateAsync(tradeNameValue);
+        await Swal.fire({
+            icon: "success",
+            text: "매장 이름 변경 성공",
+            timer: 1000,
+            position:"center",
+            showConfirmButton: false,
+        });
         loginUser.refetch();
     };
+
+    
 
     //실험용
     
